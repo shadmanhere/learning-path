@@ -7,7 +7,7 @@ const Home = () => {
       <nav className='relative w-full flex flex-wrap items-center justify-between py-3 bg-gray-100 text-gray-500 hover:text-gray-700 focus:text-gray-700 shadow-lg'>
         <div className='container-fluid w-full flex flex-wrap items-center justify-between px-6'>
           <div className='container-fluid'>
-            <Brand className='text-xl font-semibold' href='/'>
+            <Brand className='text-xl text-rose-800 font-semibold' href='/'>
               Learning Path
             </Brand>
           </div>
@@ -19,7 +19,7 @@ const Home = () => {
 
 // Create a styled component
 const Brand = styled.a`
-  color: red;
+  font-family: 'Oleo Script Swash Caps', cursive;
 `
 
 export default Home
