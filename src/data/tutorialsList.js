@@ -32,17 +32,17 @@ export const tutorials = [
   },
   {
     title: 'Learn HTML – Full Tutorial for Beginners (2022)',
-    video: 'https://www.youtube.com/watch?v=kUMe1FH4CHE',
+    url: 'https://www.youtube.com/watch?v=kUMe1FH4CHE',
     thumbnail: 'https://img.youtube.com/vi/kUMe1FH4CHE/0.jpg',
   },
   {
     title: 'CSS Tutorial - Zero to Hero (Complete Course)',
-    video: 'https://www.youtube.com/watch?v=1Rs2ND1ryYc',
+    url: 'https://www.youtube.com/watch?v=1Rs2ND1ryYc',
     thumbnail: 'https://img.youtube.com/vi/1Rs2ND1ryYc/0.jpg',
   },
   {
     title: 'Learn JavaScript - Full Course for Beginners',
-    video: 'https://www.youtube.com/watch?v=PkZNo7MFNFg',
+    url: 'https://www.youtube.com/watch?v=PkZNo7MFNFg',
     thumbnail: 'https://img.youtube.com/vi/PkZNo7MFNFg/0.jpg',
   },
 ]
