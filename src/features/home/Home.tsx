@@ -17,7 +17,7 @@ const Home = () => {
                 <Link
                   className='bg-rose-800 block object-cover object-center w-full h-full rounded-lg flex justify-center'
                   rel='noreferrer'
-                  to='path/react'
+                  to='path/react-js-developer'
                 >
                   <h5 className='text-white text-xl font-medium text-center py-2'>
                     React Js Developer

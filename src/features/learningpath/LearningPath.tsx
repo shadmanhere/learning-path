@@ -1,12 +1,16 @@
 import React from 'react'
-import { styled } from '@linaria/react'
+import { useLocation } from 'react-router-dom'
 import { reactpath } from '../../data/reactpath'
 
 const LearningPath = () => {
+  const location = useLocation()
   return (
     <div className='container mx-auto'>
       <section className='overflow-hidden text-gray-700 '>
         <div className='container px-5 py-2 mx-auto lg:pt-12 lg:px-32'>
+          <h1 className='capitalize text-center text-3xl md:text-4xl mb-5 font-extrabold text-cyan-800'>
+            {location.pathname.split('/')[2].split('-').join(' ')}
+          </h1>
           <div className='flex flex-wrap -m-1 md:-m-2'>
             {reactpath.map((tutorial, i) => {
               return (
