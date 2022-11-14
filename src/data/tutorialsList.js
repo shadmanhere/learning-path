@@ -45,4 +45,9 @@ export const tutorials = [
     url: 'https://www.youtube.com/watch?v=PkZNo7MFNFg',
     thumbnail: 'https://img.youtube.com/vi/PkZNo7MFNFg/0.jpg',
   },
+  {
+    title: 'Angular for Beginners Course [Full Front End Tutorial with TypeScript]',
+    url: 'https://www.youtube.com/watch?v=3qBXWUpoPHo',
+    thumbnail: 'https://img.youtube.com/vi/3qBXWUpoPHo/0.jpg',
+  },
 ]
