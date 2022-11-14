@@ -1,6 +1,8 @@
 import React from 'react'
 import { styled } from '@linaria/react'
 import { tutorials } from '../../data/tutorialsList'
+import { Link } from 'react-router-dom'
+
 import './Home.css'
 
 const Home = () => {
@@ -11,10 +13,10 @@ const Home = () => {
           <div className='flex flex-wrap -m-1 md:-m-2'>
             <div className='flex flex-wrap w-1/3'>
               <div className='w-full p-1 md:p-2'>
-                <a
+                <Link
                   className=' bg-slate-300 block object-cover object-center w-full h-full rounded-lg'
                   rel='noreferrer'
-                  href='path/react'
+                  to='path/react'
                 >
                   <h5 className='text-gray-900 text-xl leading-tight font-medium mb-2 align-middle	'>
                     React Js
@@ -23,7 +25,7 @@ const Home = () => {
                     Some quick example text to build on the card title and make up the bulk of the
                     card&apos;s content.
                   </p>
-                </a>
+                </Link>
               </div>
             </div>
             {tutorials.map((tutorial, i) => {
