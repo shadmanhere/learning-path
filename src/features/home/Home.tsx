@@ -2,10 +2,13 @@ import React from 'react'
 import { styled } from '@linaria/react'
 import { tutorials } from '../../data/tutorialsList'
 import { Link } from 'react-router-dom'
-
+import { useAppSelector, useAppDispatch } from '../../app/hooks'
+import { requestTutorialsList, TutorialsList } from './homeSlice'
 import './Home.css'
 
 const Home = () => {
+  const dispatch = useAppDispatch()
+  dispatch(TutorialsList())
   return (
     <div className='container mx-auto'>
       <section className='overflow-hidden text-gray-700 '>
