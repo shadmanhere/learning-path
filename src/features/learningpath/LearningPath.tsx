@@ -1,9 +1,16 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useLocation } from 'react-router-dom'
-import { reactpath } from '../../data/reactpath'
+import { useAppSelector, useAppDispatch } from '../../app/hooks'
+import { Path, selectPath } from './learningpathSlice'
 
 const LearningPath = () => {
+  const path: { title: string; url: string; thumbnail: string }[] | null =
+    useAppSelector(selectPath)
+  const dispatch = useAppDispatch()
   const location = useLocation()
+  useEffect(() => {
+    dispatch(Path())
+  }, [])
   return (
     <div className='container mx-auto'>
       <section className='overflow-hidden text-gray-700 '>
@@ -12,7 +19,7 @@ const LearningPath = () => {
             {location.pathname.split('/')[2].split('-').join(' ')}
           </h1>
           <div className='flex flex-wrap -m-1 md:-m-2'>
-            {reactpath.map((tutorial, i) => {
+            {path.map((tutorial, i) => {
               return (
                 <div key={i} className='flex flex-wrap w-1/3'>
                   <div className='w-full p-1 md:p-2'>
