@@ -1,14 +1,17 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { styled } from '@linaria/react'
-import { tutorials } from '../../data/tutorialsList'
 import { Link } from 'react-router-dom'
 import { useAppSelector, useAppDispatch } from '../../app/hooks'
-import { requestTutorialsList, TutorialsList } from './homeSlice'
+import { TutorialsList, selectTutorials } from './homeSlice'
 import './Home.css'
 
 const Home = () => {
+  const tutorials: { title: string; url: string; thumbnail: string }[] | null =
+    useAppSelector(selectTutorials)
   const dispatch = useAppDispatch()
-  dispatch(TutorialsList())
+  useEffect(() => {
+    dispatch(TutorialsList())
+  }, [])
   return (
     <div className='container mx-auto'>
       <section className='overflow-hidden text-gray-700 '>
@@ -32,7 +35,7 @@ const Home = () => {
           <hr className='border-2 my-4 bg-zinc-300 border-zinc-300' />
           <h2 className='font-bold text-2xl mt-4 mb-2'>Tutorials</h2>
           <div className='flex flex-wrap -m-1 md:-m-2'>
-            {tutorials.map((tutorial, i) => {
+            {tutorials?.map((tutorial, i) => {
               return (
                 <div key={i} className='flex flex-wrap w-1/3'>
                   <div className='w-full p-1 md:p-2'>
