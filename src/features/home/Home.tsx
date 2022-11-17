@@ -31,6 +31,32 @@ const Home = () => {
                 </Link>
               </div>
             </div>
+            <div className='flex flex-wrap w-1/3'>
+              <div className='w-full p-1 md:p-2'>
+                <Link
+                  className='bg-rose-800 block object-cover object-center w-full h-full rounded-lg flex justify-center'
+                  rel='noreferrer'
+                  to='path/angular-developer'
+                >
+                  <h5 className='text-white text-xl font-medium text-center py-2'>
+                    Angular Developer
+                  </h5>
+                </Link>
+              </div>
+            </div>
+            <div className='flex flex-wrap w-1/3'>
+              <div className='w-full p-1 md:p-2'>
+                <Link
+                  className='bg-rose-800 block object-cover object-center w-full h-full rounded-lg flex justify-center'
+                  rel='noreferrer'
+                  to='path/java-developer'
+                >
+                  <h5 className='text-white text-xl font-medium text-center py-2'>
+                    Java Developer
+                  </h5>
+                </Link>
+              </div>
+            </div>
           </div>
           <hr className='border-2 my-4 bg-zinc-300 border-zinc-300' />
           <h2 className='font-bold text-2xl mt-4 mb-2'>Tutorials</h2>
