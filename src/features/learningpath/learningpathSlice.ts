@@ -12,8 +12,8 @@ const initialState: pathState = {
   status: 'idle',
 }
 
-export const Path = createAsyncThunk('path/getPath', async () => {
-  const response = await getPath()
+export const Path = createAsyncThunk('path/getPath', async (learningpath: string) => {
+  const response = await getPath(learningpath)
   return response.data
 })
 
