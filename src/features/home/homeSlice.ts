@@ -42,5 +42,6 @@ export const tutorialsSlice = createSlice({
 
 // export const { requestTutorialsList } = tutorialsSlice.actions
 export const selectTutorials = (state: RootState) => state.tutorials.value
+export const selectStatus = (state: RootState) => state.tutorials.status
 
 export default tutorialsSlice.reducer
