@@ -37,5 +37,6 @@ export const pathSlice = createSlice({
 })
 
 export const selectPath = (state: RootState) => state.path.value
+export const selectStatus = (state: RootState) => state.path.status
 
 export default pathSlice.reducer
