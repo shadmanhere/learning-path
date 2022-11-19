@@ -13,6 +13,11 @@ const Navbar = () => {
               Learning Path
             </Brand>
           </Link>
+          <span id='forkongithub'>
+            <a target='_blank' href='https://github.com/shadmanhere/learning-path' rel='noreferrer'>
+              GitHub
+            </a>
+          </span>
         </div>
       </div>
     </nav>
