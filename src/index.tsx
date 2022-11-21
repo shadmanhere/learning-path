@@ -2,6 +2,7 @@ import React from 'react'
 import { createRoot } from 'react-dom/client'
 import { Provider } from 'react-redux'
 import { store } from './app/store'
+import ReactGA from 'react-ga'
 import App from './App'
 import reportWebVitals from './reportWebVitals'
 import './index.css'
@@ -11,6 +12,13 @@ import 'tw-elements'
 const container = document.getElementById('root')!
 const root = createRoot(container)
 
+declare const process: {
+  env: {
+    REACT_APP_GOOGLE_ANALYTICS_ID: string
+  }
+}
+
+ReactGA.initialize(process.env.REACT_APP_GOOGLE_ANALYTICS_ID)
 root.render(
   <React.StrictMode>
     <Provider store={store}>
