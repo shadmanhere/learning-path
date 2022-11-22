@@ -1,6 +1,6 @@
 import React from 'react'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
-import ReactGA from 'react-ga'
+import ReactGA from 'react-ga4'
 import Navbar from './features/navbar/Navbar'
 import Home from './features/home/Home'
 import LearningPath from './features/learningpath/LearningPath'
