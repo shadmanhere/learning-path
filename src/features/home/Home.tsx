@@ -3,6 +3,7 @@ import { styled } from '@linaria/react'
 import { Link } from 'react-router-dom'
 import { useAppSelector, useAppDispatch } from '../../app/hooks'
 import { TutorialsList, selectTutorials, selectStatus } from './homeSlice'
+import PathList from '../pathlist/PathList'
 import './Home.css'
 
 const Home = () => {
@@ -13,8 +14,8 @@ const Home = () => {
   useEffect(() => {
     dispatch(TutorialsList())
   }, [])
-  const listOfPaths = ['React Js Developer', 'Angular Developer', 'Java Developer']
 
+  const listOfPaths = ['React Js Developer', 'Angular Developer', 'Java Developer']
   return (
     <div className='container mx-auto'>
       <section className='overflow-hidden text-gray-700 '>
@@ -23,17 +24,13 @@ const Home = () => {
           <div className='flex flex-wrap -m-1 md:-m-2'>
             {listOfPaths.map((path, i) => {
               return (
-                <div key={i} className='flex flex-wrap w-1/3'>
-                  <div className='w-full p-1 md:p-2'>
-                    <Link
-                      className='bg-rose-800 block object-cover object-center w-full h-full rounded-lg flex justify-center'
-                      rel='noreferrer'
-                      to={'path/' + path.replaceAll(' ', '-').toLowerCase()}
-                    >
-                      <h5 className='text-white text-xl font-medium text-center py-2'>{path}</h5>
-                    </Link>
-                  </div>
-                </div>
+                <>
+                  <PathList
+                    key={i}
+                    pathName={path}
+                    pathUrl={'path/' + path.replaceAll(' ', '-').toLowerCase()}
+                  ></PathList>
+                </>
               )
             })}
           </div>
