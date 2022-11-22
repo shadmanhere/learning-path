@@ -1,12 +1,11 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import { useAppSelector, useAppDispatch } from '../../app/hooks'
 
 interface PathList {
   pathName: string
   pathUrl: string
 }
-const PathList = ({ pathName, pathUrl }: PathList) => {
+const Path = ({ pathName, pathUrl }: PathList) => {
   return (
     <div className='flex flex-wrap w-1/3'>
       <div className='w-full p-1 md:p-2'>
@@ -22,4 +21,4 @@ const PathList = ({ pathName, pathUrl }: PathList) => {
   )
 }
 
-export default PathList
+export default Path

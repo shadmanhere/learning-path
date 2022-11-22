@@ -3,7 +3,7 @@ import { styled } from '@linaria/react'
 import { Link } from 'react-router-dom'
 import { useAppSelector, useAppDispatch } from '../../app/hooks'
 import { TutorialsList, selectTutorials, selectStatus } from './homeSlice'
-import PathList from '../pathlist/PathList'
+import PathsList from '../pathslist/PathsList'
 import './Home.css'
 
 const Home = () => {
@@ -15,24 +15,13 @@ const Home = () => {
     dispatch(TutorialsList())
   }, [])
 
-  const listOfPaths = ['React Js Developer', 'Angular Developer', 'Java Developer']
   return (
     <div className='container mx-auto'>
       <section className='overflow-hidden text-gray-700 '>
         <div className='container px-5 py-2 mx-auto lg:pt-12 lg:px-32'>
           <h2 className='font-bold text-2xl mb-2'>Paths</h2>
           <div className='flex flex-wrap -m-1 md:-m-2'>
-            {listOfPaths.map((path, i) => {
-              return (
-                <>
-                  <PathList
-                    key={i}
-                    pathName={path}
-                    pathUrl={'path/' + path.replaceAll(' ', '-').toLowerCase()}
-                  ></PathList>
-                </>
-              )
-            })}
+            <PathsList />
           </div>
           <hr className='border-2 my-4 bg-zinc-300 border-zinc-300' />
           <h2 className='font-bold text-2xl mt-4 mb-2'>Tutorials</h2>
