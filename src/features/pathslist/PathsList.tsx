@@ -14,7 +14,7 @@ const PathsList = () => {
   const listOfPaths: string[] = useAppSelector(selectPathsList)
   return (
     <>
-      {status !== 'idle'
+      {status === 'idle'
         ? listOfPaths.map((path, i) => {
             return (
               <Paths
