@@ -3,7 +3,9 @@ import { RootState, AppThunk } from '../../app/store'
 import { getPath } from './learningpathAPI'
 
 export interface pathState {
-  value: { title: string; url: string; thumbnail: string }[]
+  value: {
+    section: { name: string; tutorials: { title: string; url: string; thumbnail: string }[] }
+  }[]
   status: 'idle' | 'request' | 'loading' | 'failed'
 }
 

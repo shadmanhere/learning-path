@@ -4,8 +4,16 @@ import { useAppSelector, useAppDispatch } from '../../app/hooks'
 import { Path, selectPath, selectStatus } from './learningpathSlice'
 
 const LearningPath = () => {
-  const path: { title: string; url: string; thumbnail: string }[] | null =
-    useAppSelector(selectPath)
+  interface tutorialsInterface {
+    title: string
+    url: string
+    thumbnail: string
+  }
+  const path:
+    | {
+        section: { name: string; tutorials: tutorialsInterface[] }
+      }[]
+    | null = useAppSelector(selectPath)
   const status = useAppSelector(selectStatus)
   const dispatch = useAppDispatch()
   const location = useLocation()
@@ -20,35 +28,46 @@ const LearningPath = () => {
           <h1 className='capitalize text-center text-3xl md:text-4xl mb-5 font-extrabold text-cyan-800'>
             {learningpath.split('-').join(' ')}
           </h1>
-          <div className='flex flex-wrap -m-1 md:-m-2'>
-            {status === 'idle'
-              ? path.map((tutorial, i) => {
-                  return (
-                    <div key={i} className='flex flex-wrap w-1/3'>
-                      <div className='w-full p-1 md:p-2'>
-                        <a target='_blank' rel='noreferrer' href={tutorial.url}>
-                          <img
-                            alt='gallery'
-                            className='block object-cover object-center w-full h-full rounded-lg'
-                            src={tutorial.thumbnail}
-                          />
-                        </a>
-                      </div>
+
+          {status === 'idle'
+            ? path.map((segement, i, row) => {
+                return (
+                  <div key={i} className='my-8'>
+                    <h2 className='font-medium leading-tight text-4xl mt-0 mb-2 text-amber-800'>
+                      {segement.section.name}
+                    </h2>
+                    <div className='flex flex-wrap -m-1 md:-m-2'>
+                      {segement.section.tutorials?.map((tutorial, index) => {
+                        return (
+                          <div key={index} className='flex flex-wrap w-1/3'>
+                            <div className='w-full p-1 md:p-2'>
+                              <a target='_blank' rel='noreferrer' href={tutorial.url}>
+                                <img
+                                  alt='gallery'
+                                  className='block object-cover object-center w-full h-full rounded-lg'
+                                  src={tutorial.thumbnail}
+                                />
+                              </a>
+                            </div>
+                          </div>
+                        )
+                      })}
                     </div>
-                  )
-                })
-              : [0, 1, 2, 3, 4, 5].map((index) => {
-                  return (
-                    <div key={index} className='flex flex-wrap w-1/3 animate-pulse'>
-                      <div className='w-full p-1 md:p-2'>
-                        <a target='_blank' rel='noreferrer' href='#'>
-                          <div className='block object-cover object-center w-full h-20 md:h-40 rounded-lg bg-slate-300	'></div>
-                        </a>
-                      </div>
+                    {i < row.length - 1 ? <hr className='mt-4 bg-slate-800 h-0.5' /> : ''}
+                  </div>
+                )
+              })
+            : [0, 1, 2, 3, 4, 5].map((index) => {
+                return (
+                  <div key={index} className='flex flex-wrap w-1/3 animate-pulse'>
+                    <div className='w-full p-1 md:p-2'>
+                      <a target='_blank' rel='noreferrer' href='#'>
+                        <div className='block object-cover object-center w-full h-20 md:h-40 rounded-lg bg-slate-300	'></div>
+                      </a>
                     </div>
-                  )
-                })}
-          </div>
+                  </div>
+                )
+              })}
         </div>
       </section>
     </div>
