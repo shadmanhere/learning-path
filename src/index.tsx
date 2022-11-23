@@ -18,7 +18,8 @@ declare const process: {
   }
 }
 
-ReactGA.initialize(process.env.REACT_APP_GOOGLE_ANALYTICS_ID)
+if (process.env.REACT_APP_GOOGLE_ANALYTICS_ID)
+  ReactGA.initialize(process.env.REACT_APP_GOOGLE_ANALYTICS_ID)
 root.render(
   <React.StrictMode>
     <Provider store={store}>
