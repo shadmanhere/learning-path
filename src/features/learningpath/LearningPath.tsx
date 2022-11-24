@@ -39,7 +39,7 @@ const LearningPath = () => {
                   <div className='flex flex-wrap -m-1 md:-m-2'>
                     {segement.section.tutorials?.map((tutorial, index) => {
                       return (
-                        <div key={index} className='flex flex-wrap w-1/3'>
+                        <div key={index} className='flex flex-wrap w-1/3 md:w-1/5'>
                           <div className='w-full p-1 md:p-2'>
                             <a target='_blank' rel='noreferrer' href={tutorial.url}>
                               <img
@@ -61,9 +61,9 @@ const LearningPath = () => {
             <>
               <div className='animate-pulse block object-cover object-center w-60 h-10 mb-2 rounded-lg bg-slate-300'></div>
               <div className='flex flex-wrap -m-1 md:-m-2'>
-                {[0, 1, 2, 3, 4, 5].map((index) => {
+                {[0, 1, 2, 3, 4, 5, 6, 7, 8, 9].map((index) => {
                   return (
-                    <div key={index} className='flex flex-wrap w-1/3 animate-pulse'>
+                    <div key={index} className='flex flex-wrap w-1/3 md:w-1/5 animate-pulse'>
                       <div className='w-full p-1 md:p-2'>
                         <a target='_blank' rel='noreferrer' href='#'>
                           <div className='block object-cover object-center w-full h-20 md:h-40 rounded-lg bg-slate-300'></div>

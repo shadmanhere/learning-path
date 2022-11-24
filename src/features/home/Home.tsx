@@ -29,7 +29,7 @@ const Home = () => {
             {status === 'idle'
               ? tutorials?.map((tutorial, i) => {
                   return (
-                    <div key={i} className='flex flex-wrap w-1/3'>
+                    <div key={i} className='flex flex-wrap w-1/3 md:w-1/5'>
                       <div className='w-full p-1 md:p-2'>
                         <a target='_blank' rel='noreferrer' href={tutorial.url}>
                           <img
@@ -42,9 +42,9 @@ const Home = () => {
                     </div>
                   )
                 })
-              : [0, 1, 2, 3, 4, 5].map((index) => {
+              : [0, 1, 2, 3, 4, 5, 7, 8, 9].map((index) => {
                   return (
-                    <div key={index} className='flex flex-wrap w-1/3 animate-pulse'>
+                    <div key={index} className='flex flex-wrap w-1/3 md:w-1/5 animate-pulse'>
                       <div className='w-full p-1 md:p-2'>
                         <a target='_blank' rel='noreferrer' href='#'>
                           <div className='block object-cover object-center w-full h-20 md:h-40 rounded-lg bg-slate-300	'></div>
