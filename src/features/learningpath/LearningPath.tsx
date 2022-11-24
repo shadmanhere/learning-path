@@ -29,45 +29,52 @@ const LearningPath = () => {
             {learningpath.split('-').join(' ')}
           </h1>
 
-          {status === 'idle'
-            ? path.map((segement, i, row) => {
-                return (
-                  <div key={i} className='my-8'>
-                    <h2 className='font-medium leading-tight text-4xl mt-0 mb-2 text-amber-800'>
-                      {segement.section.name}
-                    </h2>
-                    <div className='flex flex-wrap -m-1 md:-m-2'>
-                      {segement.section.tutorials?.map((tutorial, index) => {
-                        return (
-                          <div key={index} className='flex flex-wrap w-1/3'>
-                            <div className='w-full p-1 md:p-2'>
-                              <a target='_blank' rel='noreferrer' href={tutorial.url}>
-                                <img
-                                  alt='gallery'
-                                  className='block object-cover object-center w-full h-full rounded-lg'
-                                  src={tutorial.thumbnail}
-                                />
-                              </a>
-                            </div>
+          {status === 'idle' ? (
+            path.map((segement, i, row) => {
+              return (
+                <div key={i} className='my-8'>
+                  <h2 className='font-medium leading-tight text-4xl mt-0 mb-2 text-amber-800'>
+                    {segement.section.name}
+                  </h2>
+                  <div className='flex flex-wrap -m-1 md:-m-2'>
+                    {segement.section.tutorials?.map((tutorial, index) => {
+                      return (
+                        <div key={index} className='flex flex-wrap w-1/3'>
+                          <div className='w-full p-1 md:p-2'>
+                            <a target='_blank' rel='noreferrer' href={tutorial.url}>
+                              <img
+                                alt='gallery'
+                                className='block object-cover object-center w-full h-full rounded-lg'
+                                src={tutorial.thumbnail}
+                              />
+                            </a>
                           </div>
-                        )
-                      })}
-                    </div>
-                    {i < row.length - 1 ? <hr className='mt-4 bg-slate-800 h-0.5' /> : ''}
+                        </div>
+                      )
+                    })}
                   </div>
-                )
-              })
-            : [0, 1, 2, 3, 4, 5].map((index) => {
-                return (
-                  <div key={index} className='flex flex-wrap w-1/3 animate-pulse'>
-                    <div className='w-full p-1 md:p-2'>
-                      <a target='_blank' rel='noreferrer' href='#'>
-                        <div className='block object-cover object-center w-full h-20 md:h-40 rounded-lg bg-slate-300	'></div>
-                      </a>
+                  {i < row.length - 1 ? <hr className='mt-4 bg-slate-800 h-0.5' /> : ''}
+                </div>
+              )
+            })
+          ) : (
+            <>
+              <div className='animate-pulse block object-cover object-center w-60 h-10 mb-2 rounded-lg bg-slate-300'></div>
+              <div className='flex flex-wrap -m-1 md:-m-2'>
+                {[0, 1, 2, 3, 4, 5].map((index) => {
+                  return (
+                    <div key={index} className='flex flex-wrap w-1/3 animate-pulse'>
+                      <div className='w-full p-1 md:p-2'>
+                        <a target='_blank' rel='noreferrer' href='#'>
+                          <div className='block object-cover object-center w-full h-20 md:h-40 rounded-lg bg-slate-300'></div>
+                        </a>
+                      </div>
                     </div>
-                  </div>
-                )
-              })}
+                  )
+                })}
+              </div>
+            </>
+          )}
         </div>
       </section>
     </div>
