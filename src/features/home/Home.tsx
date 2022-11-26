@@ -19,12 +19,12 @@ const Home = () => {
     <div className='container mx-auto'>
       <section className='overflow-hidden text-gray-700 '>
         <div className='container px-5 py-2 mx-auto lg:pt-12 lg:px-32'>
-          <h2 className='font-bold text-2xl mb-2'>Paths</h2>
+          <h2 className='font-bold text-2xl mb-2 text-amber-800'>Paths</h2>
           <div className='flex flex-wrap -m-1 md:-m-2'>
             <PathsList />
           </div>
           <hr className='my-4 h-0.5 w-full bg-gradient-to-r from-amber-700 via-stone-300 to-amber-700' />
-          <h2 className='font-bold text-2xl mt-4 mb-2'>Tutorials</h2>
+          <h2 className='font-bold text-2xl mt-4 mb-2 text-amber-800'>Tutorials</h2>
           <div className='flex flex-wrap -m-1 md:-m-2'>
             {status === 'idle'
               ? tutorials?.map((tutorial, i) => {
