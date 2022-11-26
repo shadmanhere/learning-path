@@ -25,17 +25,21 @@ const LearningPath = () => {
     <div className='container mx-auto'>
       <section className='overflow-hidden text-gray-700 '>
         <div className='container px-5 py-2 mx-auto lg:pt-12 lg:px-32'>
-          <h1 className='capitalize text-center text-3xl md:text-4xl mb-5 font-extrabold text-cyan-800'>
+          <h1 className='capitalize text-center text-3xl md:text-4xl mb-5 font-extrabold text-rose-700'>
             {learningpath.split('-').join(' ')}
           </h1>
 
           {status === 'idle' ? (
-            path.map((segement, i, row) => {
+            path.map((segement, i) => {
               return (
                 <div key={i} className='my-8'>
-                  <h2 className='font-medium leading-tight text-4xl mt-0 mb-2 text-amber-800'>
-                    {segement.section.name}
-                  </h2>
+                  <div className='flex'>
+                    <h2 className='font-medium leading-tight text-4xl mt-0 mb-2 text-amber-800'>
+                      {segement.section.name}
+                    </h2>
+                    <hr className='my-6 mx-4 bg-gradient-to-r from-amber-700 h-0.5 w-full' />
+                  </div>
+
                   <div className='flex flex-wrap -m-1 md:-m-2'>
                     {segement.section.tutorials?.map((tutorial, index) => {
                       return (
@@ -53,7 +57,6 @@ const LearningPath = () => {
                       )
                     })}
                   </div>
-                  {i < row.length - 1 ? <hr className='mt-4 bg-slate-800 h-0.5' /> : ''}
                 </div>
               )
             })
