@@ -23,7 +23,7 @@ const Home = () => {
           <div className='flex flex-wrap -m-1 md:-m-2'>
             <PathsList />
           </div>
-          <hr className='border-2 my-4 bg-zinc-300 border-zinc-300' />
+          <hr className='my-4 h-0.5 w-full bg-gradient-to-r from-amber-700 via-stone-300 to-amber-700' />
           <h2 className='font-bold text-2xl mt-4 mb-2'>Tutorials</h2>
           <div className='flex flex-wrap -m-1 md:-m-2'>
             {status === 'idle'
