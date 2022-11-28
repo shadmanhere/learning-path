@@ -34,13 +34,13 @@ const LearningPath = () => {
               return (
                 <div key={i} className='my-8'>
                   <div className='flex'>
-                    <h2 className='font-medium leading-tight text-4xl mt-0 mb-2 text-amber-800'>
+                    <h2 className='font-medium shrink-0 text-4xl mt-0 mb-2 text-amber-800'>
                       {segement.section.name}
                     </h2>
                     <hr className='my-6 mx-4 bg-gradient-to-r from-amber-700 h-0.5 w-full' />
                   </div>
 
-                  <div className='flex flex-wrap -m-1 md:-m-2'>
+                  <div className='flex flex-wrap -m-1 md:-m-2 max-h-80 overflow-y-scroll'>
                     {segement.section.tutorials?.map((tutorial, index) => {
                       return (
                         <div key={index} className='flex flex-wrap w-1/3 md:w-1/5'>
