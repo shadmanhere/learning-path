@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react'
 import { useLocation } from 'react-router-dom'
+import { Helmet } from 'react-helmet'
 import { useAppSelector, useAppDispatch } from '../../app/hooks'
 import { Path, selectPath, selectStatus } from './learningpathSlice'
 
@@ -21,12 +22,31 @@ const LearningPath = () => {
   useEffect(() => {
     dispatch(Path(learningpath))
   }, [])
+
+  function capitalize(word: string) {
+    const wordArr = word.toLowerCase().split('')
+    wordArr[0] = wordArr[0].toUpperCase()
+    return wordArr.join('')
+  }
+  const pathName = learningpath.split('-').join(' ')
+  const pathNameCapitalized = pathName
+    .split(' ')
+    .map((word) => {
+      return capitalize(word)
+    })
+    .join(' ')
+
   return (
     <div className='container mx-auto'>
+      <Helmet>
+        <meta charSet='utf-8' />
+        <title>{pathNameCapitalized} | Learning Path</title>
+        {/* <link rel='canonical' href='http://mysite.com/example' /> */}
+      </Helmet>
       <section className='overflow-hidden text-gray-700 '>
         <div className='container px-5 py-2 mx-auto lg:pt-12 lg:px-32'>
           <h1 className='capitalize text-center text-3xl md:text-4xl mb-5 font-extrabold text-rose-700'>
-            {learningpath.split('-').join(' ')}
+            {pathNameCapitalized}
           </h1>
 
           {status === 'idle' ? (

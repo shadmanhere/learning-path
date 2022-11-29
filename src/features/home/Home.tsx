@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react'
-import { styled } from '@linaria/react'
-import { Link } from 'react-router-dom'
+import { Helmet } from 'react-helmet'
 import { useAppSelector, useAppDispatch } from '../../app/hooks'
 import { TutorialsList, selectTutorials, selectStatus } from './homeSlice'
 import PathsList from '../pathslist/PathsList'
@@ -17,6 +16,11 @@ const Home = () => {
 
   return (
     <div className='container mx-auto'>
+      <Helmet>
+        <meta charSet='utf-8' />
+        <title>Home | Learning Path</title>
+        {/* <link rel='canonical' href='http://mysite.com/example' /> */}
+      </Helmet>
       <section className='overflow-hidden text-gray-700 '>
         <div className='container px-5 py-2 mx-auto lg:pt-12 lg:px-32'>
           <h2 className='font-bold text-2xl mb-2 text-amber-800'>Paths</h2>
