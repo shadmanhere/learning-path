@@ -36,11 +36,7 @@ const Home = () => {
                   return (
                     <div key={i} className='flex flex-wrap w-1/3 md:w-1/5'>
                       <div className='w-full p-1 md:p-2'>
-                        <Link
-                          target='_blank'
-                          rel='noreferrer'
-                          to={'/tutorial/' + tutorial.url.split('=')[1]}
-                        >
+                        <Link to={'/tutorial/' + tutorial.url.split('=')[1]}>
                           <img
                             alt='gallery'
                             className='block object-cover object-center w-full h-full rounded-lg'
