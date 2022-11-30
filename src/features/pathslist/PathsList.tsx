@@ -1,5 +1,4 @@
 import React, { useEffect } from 'react'
-import { Link } from 'react-router-dom'
 import { useAppSelector, useAppDispatch } from '../../app/hooks'
 import { GetPathsList, selectPathsList, selectStatus } from './pathsListSlice'
 import Paths from './Path'

@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { useLocation } from 'react-router-dom'
+import { useLocation, Link } from 'react-router-dom'
 import { Helmet } from 'react-helmet'
 import { useAppSelector, useAppDispatch } from '../../app/hooks'
 import { Path, selectPath, selectStatus } from './learningpathSlice'
@@ -65,13 +65,13 @@ const LearningPath = () => {
                       return (
                         <div key={index} className='flex flex-wrap w-1/3 md:w-1/5'>
                           <div className='w-full p-1 md:p-2'>
-                            <a target='_blank' rel='noreferrer' href={tutorial.url}>
+                            <Link to={'tutorial/' + tutorial.url.split('=')[1]}>
                               <img
                                 alt='gallery'
                                 className='block object-cover object-center w-full h-full rounded-lg'
                                 src={tutorial.thumbnail}
                               />
-                            </a>
+                            </Link>
                           </div>
                         </div>
                       )

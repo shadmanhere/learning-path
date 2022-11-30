@@ -4,6 +4,7 @@ import ReactGA from 'react-ga4'
 import Navbar from './features/navbar/Navbar'
 import Home from './features/home/Home'
 import LearningPath from './features/learningpath/LearningPath'
+import Tutorial from './features/tutorial/Tutorial'
 import './App.css'
 
 function App() {
@@ -14,7 +15,9 @@ function App() {
       <Navbar />
       <Routes>
         <Route path='/' element={<Home />} />
-        <Route path='/path/*' element={<LearningPath />} />
+        <Route path='/path/:path/tutorial/:tutorial' element={<Tutorial />} />
+        <Route path='/tutorial/:tutorial' element={<Tutorial />} />
+        <Route path='/path/:path' element={<LearningPath />} />
       </Routes>
     </BrowserRouter>
   )
