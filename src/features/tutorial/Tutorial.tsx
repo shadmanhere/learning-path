@@ -5,14 +5,11 @@ const Tutorial = () => {
   const location = useLocation()
   const pathnameArray = location.pathname.split('/')
   const tutorialId = pathnameArray[pathnameArray.length - 1]
-  console.log(tutorialId)
   return (
     <div className='container mx-auto my-auto'>
       <iframe
-        className='mx-auto my-10'
+        className='mx-auto my-10 w-full max-w-2xl h-96'
         src={'https://www.youtube.com/embed/' + tutorialId}
-        width='600'
-        height='400'
         frameBorder='0'
         allowFullScreen
       ></iframe>
