@@ -2,17 +2,18 @@ import React from 'react'
 import { Helmet, HelmetProvider } from 'react-helmet-async'
 import { useLocation } from 'react-router-dom'
 import { selectPath } from '../learningpath/learningpathSlice'
+import { selectTutorials } from '../home/homeSlice'
 import { useAppSelector } from '../../app/hooks'
 
 const Tutorial = () => {
   const location = useLocation()
   const pathnameArray = location.pathname.split('/')
   const tutorialId = pathnameArray[pathnameArray.length - 1]
-  const path = useAppSelector(selectPath)
-
-  const getTitle = () => {
-    for (let i = 0; i < path.length; i++) {
-      const tutorials = path[i].section.tutorials
+  const path1 = useAppSelector(selectPath)
+  const path2 = useAppSelector(selectTutorials)
+  const getTitleFromPath1 = () => {
+    for (let i = 0; i < path1.length; i++) {
+      const tutorials = path1[i].section.tutorials
       for (let j = 0; j < tutorials.length; j++) {
         if (tutorialId === tutorials[j].url.split('=')[1]) {
           return tutorials[j].title
@@ -21,8 +22,15 @@ const Tutorial = () => {
     }
   }
 
-  const title = getTitle() || ''
+  const getTitleFromPath2 = () => {
+    for (let i = 0; i < path2.length; i++) {
+      if (tutorialId === path2[i].url.split('=')[1]) {
+        return path2[i].title
+      }
+    }
+  }
 
+  const title = pathnameArray.length === 5 ? getTitleFromPath1() || '' : getTitleFromPath2() || ''
   return (
     <HelmetProvider>
       <div className='container mx-auto'>
