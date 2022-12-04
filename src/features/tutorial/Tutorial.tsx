@@ -1,6 +1,7 @@
 import React from 'react'
 import { Helmet, HelmetProvider } from 'react-helmet-async'
 import { useLocation } from 'react-router-dom'
+import { styled } from '@linaria/react'
 import { selectPath } from '../learningpath/learningpathSlice'
 import { selectTutorials } from '../home/homeSlice'
 import { useAppSelector } from '../../app/hooks'
@@ -41,16 +42,30 @@ const Tutorial = () => {
         <h1 className='capitalize px-5 py-2 mx-auto lg:pt-12 lg:px-32 text-center text-3xl md:text-4xl mb-5 font-extrabold text-rose-700'>
           {title}
         </h1>
-        <iframe
+        <VideoIfarme
           className='mx-auto my-10 w-full max-w-2xl h-96'
           src={'https://www.youtube.com/embed/' + tutorialId}
           frameBorder='0'
           allowFullScreen
-        ></iframe>
+        ></VideoIfarme>
       </div>
     </HelmetProvider>
   )
 }
+
+const VideoIfarme = styled.iframe`
+  background-color: rgb(203 213 225);
+  animation-name: color;
+  animation-duration: 2s;
+  animation-iteration-count: infinite;
+  animation-direction: alternate-reverse;
+  animation-timing-function: ease;
+  @keyframes color {
+    to {
+      background-color: rgb(241 245 249);
+    }
+  }
+`
 
 export default Tutorial
 
