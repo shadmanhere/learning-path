@@ -42,18 +42,18 @@ const Tutorial = () => {
         <h1 className='capitalize px-5 py-2 mx-auto lg:pt-12 lg:px-32 text-center text-3xl md:text-4xl mb-5 font-extrabold text-rose-700'>
           {title}
         </h1>
-        <VideoIfarme
+        <VideoIframe
           className='mx-auto my-10 w-full max-w-2xl h-96'
           src={'https://www.youtube.com/embed/' + tutorialId}
           frameBorder='0'
           allowFullScreen
-        ></VideoIfarme>
+        ></VideoIframe>
       </div>
     </HelmetProvider>
   )
 }
 
-const VideoIfarme = styled.iframe`
+const VideoIframe = styled.iframe`
   background-color: rgb(203 213 225);
   animation-name: color;
   animation-duration: 2s;
