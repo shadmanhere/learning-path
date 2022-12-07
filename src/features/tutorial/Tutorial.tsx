@@ -43,7 +43,7 @@ const Tutorial = () => {
           {title}
         </h1>
         <VideoIframe
-          className='mx-auto my-10 w-full max-w-2xl h-96'
+          className='mx-auto my-10 sm:w-full max-w-2xl sm:h-96'
           src={'https://www.youtube.com/embed/' + tutorialId}
           frameBorder='0'
           allowFullScreen
