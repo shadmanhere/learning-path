@@ -8,11 +8,12 @@ const LearningPath = () => {
   interface tutorialsInterface {
     title: string
     url: string
-    thumbnail: string
+    image_url: string
   }
   const path:
     | {
-        section: { name: string; tutorials: tutorialsInterface[] }
+        name: string
+        Section: { name: string; tutorials: tutorialsInterface[] }[]
       }[]
     | null = useAppSelector(selectPath)
   const status = useAppSelector(selectStatus)
@@ -51,35 +52,37 @@ const LearningPath = () => {
             </h1>
 
             {status === 'idle' ? (
-              path.map((segement, i) => {
-                return (
-                  <div key={i} className='my-8'>
-                    <div className='flex'>
-                      <h2 className='font-medium shrink-0 text-4xl mt-0 mb-2 text-amber-800'>
-                        {segement.section.name}
-                      </h2>
-                      <hr className='my-6 mx-4 bg-gradient-to-r from-amber-700 h-0.5 w-full' />
-                    </div>
+              path.map((segment, i) => {
+                return segment.Section.map((step) => {
+                  return (
+                    <div key={i} className='my-8'>
+                      <div className='flex'>
+                        <h2 className='font-medium shrink-0 text-4xl mt-0 mb-2 text-amber-800'>
+                          {step.name}
+                        </h2>
+                        <hr className='my-6 mx-4 bg-gradient-to-r from-amber-700 h-0.5 w-full' />
+                      </div>
 
-                    <div className='flex flex-wrap -m-1 md:-m-2 max-h-80 overflow-y-scroll'>
-                      {segement.section.tutorials?.map((tutorial, index) => {
-                        return (
-                          <div key={index} className='flex flex-wrap w-1/3 md:w-1/5'>
-                            <div className='w-full p-1 md:p-2'>
-                              <Link to={'tutorial/' + tutorial.url.split('=')[1]}>
-                                <img
-                                  alt='gallery'
-                                  className='block object-cover object-center w-full h-full rounded-lg'
-                                  src={tutorial.thumbnail}
-                                />
-                              </Link>
+                      <div className='flex flex-wrap -m-1 md:-m-2 max-h-80 overflow-y-scroll'>
+                        {step.tutorials?.map((tutorial, index) => {
+                          return (
+                            <div key={index} className='flex flex-wrap w-1/3 md:w-1/5'>
+                              <div className='w-full p-1 md:p-2'>
+                                <Link to={'tutorial/' + tutorial.url.split('=')[1]}>
+                                  <img
+                                    alt='gallery'
+                                    className='block object-cover object-center w-full h-full rounded-lg'
+                                    src={tutorial.image_url}
+                                  />
+                                </Link>
+                              </div>
                             </div>
-                          </div>
-                        )
-                      })}
+                          )
+                        })}
+                      </div>
                     </div>
-                  </div>
-                )
+                  )
+                })
               })
             ) : (
               <>

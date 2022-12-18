@@ -14,7 +14,7 @@ const Tutorial = () => {
   const path2 = useAppSelector(selectTutorials)
   const getTitleFromPath1 = () => {
     for (let i = 0; i < path1.length; i++) {
-      const tutorials = path1[i].section.tutorials
+      const tutorials = path1[i].Section[i].tutorials
       for (let j = 0; j < tutorials.length; j++) {
         if (tutorialId === tutorials[j].url.split('=')[1]) {
           return tutorials[j].title
