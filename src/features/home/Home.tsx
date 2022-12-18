@@ -7,7 +7,7 @@ import PathsList from '../pathslist/PathsList'
 import './Home.css'
 
 const Home = () => {
-  const tutorials: { title: string; url: string; thumbnail: string }[] | null =
+  const tutorials: { title: string; url: string; image_url: string }[] | null =
     useAppSelector(selectTutorials)
   const status = useAppSelector(selectStatus)
   const dispatch = useAppDispatch()
@@ -41,7 +41,7 @@ const Home = () => {
                             <img
                               alt='gallery'
                               className='block object-cover object-center w-full h-full rounded-lg'
-                              src={tutorial.thumbnail}
+                              src={tutorial.image_url}
                             />
                           </Link>
                         </div>

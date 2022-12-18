@@ -10,18 +10,12 @@ const PathsList = () => {
     dispatch(GetPathsList())
   }, [])
 
-  const listOfPaths: string[] = useAppSelector(selectPathsList)
+  const listOfPaths: { name: string }[] = useAppSelector(selectPathsList)
   return (
     <>
       {status === 'idle'
         ? listOfPaths.map((path, i) => {
-            return (
-              <Paths
-                key={i}
-                pathName={path}
-                pathUrl={'path/' + path.replaceAll(' ', '-').toLowerCase()}
-              ></Paths>
-            )
+            return <Paths key={i} pathName={path.name} pathUrl={'path/' + path.name}></Paths>
           })
         : [0, 1, 2].map((i) => {
             return (
