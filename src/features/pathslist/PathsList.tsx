@@ -15,7 +15,13 @@ const PathsList = () => {
     <>
       {status === 'idle'
         ? listOfPaths.map((path, i) => {
-            return <Paths key={i} pathName={path.name} pathUrl={'path/' + path.name}></Paths>
+            return (
+              <Paths
+                key={i}
+                pathName={path.name}
+                pathUrl={'path/' + path.name.toLowerCase().split(' ').join('-')}
+              ></Paths>
+            )
           })
         : [0, 1, 2].map((i) => {
             return (
