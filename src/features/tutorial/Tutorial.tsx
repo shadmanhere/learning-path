@@ -4,7 +4,8 @@ import { useLocation } from 'react-router-dom'
 import { styled } from '@linaria/react'
 import { selectPath } from '../learningpath/learningpathSlice'
 import { selectTutorials } from '../home/homeSlice'
-import { useAppSelector } from '../../app/hooks'
+import { GetTutorial, selectTutorial } from '../tutorial/tutorialSlice'
+import { useAppSelector, useAppDispatch } from '../../app/hooks'
 
 const Tutorial = () => {
   const location = useLocation()
@@ -31,7 +32,17 @@ const Tutorial = () => {
     }
   }
 
-  const title = pathnameArray.length === 5 ? getTitleFromPath1() || '' : getTitleFromPath2() || ''
+  const dispatch = useAppDispatch()
+  const getTutorialFromApi = () => {
+    dispatch(GetTutorial(tutorialId))
+    const tutorialFromApi = useAppSelector(selectTutorial)
+    return tutorialFromApi.title
+  }
+
+  const title =
+    pathnameArray.length === 5
+      ? getTitleFromPath1() || ''
+      : getTitleFromPath2() || getTutorialFromApi() || ''
   return (
     <HelmetProvider>
       <div className='container mx-auto'>

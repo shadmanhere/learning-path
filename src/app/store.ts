@@ -1,6 +1,7 @@
 import { configureStore, ThunkAction, Action } from '@reduxjs/toolkit'
 import counterReducer from '../features/counter/counterSlice'
 import tutorialsReducer from '../features/home/homeSlice'
+import tutorialReducer from '../features/tutorial/tutorialSlice'
 import pathReducer from '../features/learningpath/learningpathSlice'
 import pathsListReducer from '../features/pathslist/pathsListSlice'
 
@@ -10,6 +11,7 @@ export const store = configureStore({
     tutorials: tutorialsReducer,
     path: pathReducer,
     pathsList: pathsListReducer,
+    tutorial: tutorialReducer,
   },
 })
 
