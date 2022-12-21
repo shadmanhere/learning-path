@@ -1,10 +1,11 @@
-import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit'
-import { RootState, AppThunk } from '../../app/store'
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
+import { RootState } from '../../app/store'
 import { getPath } from './learningpathAPI'
 
 export interface pathState {
   value: {
-    section: { name: string; tutorials: { title: string; url: string; thumbnail: string }[] }
+    name: string
+    Section: { name: string; tutorials: { title: string; url: string; image_url: string }[] }[]
   }[]
   status: 'idle' | 'request' | 'loading' | 'failed'
 }
@@ -15,8 +16,12 @@ const initialState: pathState = {
 }
 
 export const Path = createAsyncThunk('path/getPath', async (learningpath: string) => {
-  const response = await getPath(learningpath)
-  return response.data
+  try {
+    const response = await getPath(learningpath)
+    return response.data
+  } catch (err) {
+    console.log(err)
+  }
 })
 
 export const pathSlice = createSlice({

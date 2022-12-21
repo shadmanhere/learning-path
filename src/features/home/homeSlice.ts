@@ -3,7 +3,7 @@ import { RootState, AppThunk } from '../../app/store'
 import { getTutorialsList } from './homeAPI'
 
 export interface tutorialsState {
-  value: { title: string; url: string; thumbnail: string }[]
+  value: { title: string; url: string; image_url: string }[]
   status: 'idle' | 'request' | 'loading' | 'failed'
 }
 
@@ -13,8 +13,12 @@ const initialState: tutorialsState = {
 }
 
 export const TutorialsList = createAsyncThunk('tutorials/getTutorialsList', async () => {
-  const response = await getTutorialsList()
-  return response.data
+  try {
+    const response = await getTutorialsList()
+    return response.data
+  } catch (err) {
+    console.error(err)
+  }
 })
 
 export const tutorialsSlice = createSlice({

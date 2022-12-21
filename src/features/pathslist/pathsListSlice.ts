@@ -1,9 +1,9 @@
-import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit'
-import { RootState, AppThunk } from '../../app/store'
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
+import { RootState } from '../../app/store'
 import { getPathsList } from './pathsListApi'
 
 export interface pathsListState {
-  value: []
+  value: { name: string }[]
   status: 'idle' | 'request' | 'loading' | 'failed'
 }
 
