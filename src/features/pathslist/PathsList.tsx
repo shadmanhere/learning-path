@@ -1,14 +1,25 @@
 import React, { useEffect } from 'react'
 import { useAppSelector, useAppDispatch } from '../../app/hooks'
-import { GetPathsList, selectPathsList, selectStatus } from './pathsListSlice'
+import { GetPathsList, selectPathsList, selectStatus, selectError } from './pathsListSlice'
+import { useNavigate } from 'react-router-dom'
+
 import Paths from './Path'
 
 const PathsList = () => {
   const dispatch = useAppDispatch()
   const status = useAppSelector(selectStatus)
+  const error = useAppSelector(selectError)
+  const navigate = useNavigate()
   useEffect(() => {
     dispatch(GetPathsList())
   }, [])
+
+  const isAuthenticated = () => {
+    if (error === 'Login first to access this resource.') navigate('/signin')
+  }
+  useEffect(() => {
+    isAuthenticated()
+  }, [error])
 
   const listOfPaths: { name: string }[] = useAppSelector(selectPathsList)
   return (

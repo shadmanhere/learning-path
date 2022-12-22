@@ -13,12 +13,8 @@ const initialState: tutorialsState = {
 }
 
 export const TutorialsList = createAsyncThunk('tutorials/getTutorialsList', async () => {
-  try {
-    const response = await getTutorialsList()
-    return response.data
-  } catch (err) {
-    console.error(err)
-  }
+  const response = await getTutorialsList()
+  return response.data
 })
 
 export const tutorialsSlice = createSlice({

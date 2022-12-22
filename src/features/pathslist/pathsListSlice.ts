@@ -4,17 +4,23 @@ import { getPathsList } from './pathsListApi'
 
 export interface pathsListState {
   value: { name: string }[]
+  error: string
   status: 'idle' | 'request' | 'loading' | 'failed'
 }
 
 const initialState: pathsListState = {
   value: [],
+  error: '',
   status: 'idle',
 }
 
 export const GetPathsList = createAsyncThunk('pathslist/getPathsList', async () => {
-  const response = await getPathsList()
-  return response.data
+  try {
+    const response = await getPathsList()
+    return response.data
+  } catch (err: any) {
+    return err.response.data
+  }
 })
 
 export const pathsListSlice = createSlice({
@@ -28,7 +34,8 @@ export const pathsListSlice = createSlice({
       })
       .addCase(GetPathsList.fulfilled, (state, action) => {
         state.status = 'idle'
-        state.value = action.payload
+        if (action.payload.success) state.value = action.payload
+        else state.error = action.payload.message
       })
       .addCase(GetPathsList.rejected, (state) => {
         state.status = 'failed'
@@ -39,5 +46,6 @@ export const pathsListSlice = createSlice({
 // export const { requestTutorialsList } = tutorialsSlice.actions
 export const selectPathsList = (state: RootState) => state.pathsList.value
 export const selectStatus = (state: RootState) => state.pathsList.status
+export const selectError = (state: RootState) => state.pathsList.error
 
 export default pathsListSlice.reducer

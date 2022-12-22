@@ -16,12 +16,8 @@ const initialState: pathState = {
 }
 
 export const Path = createAsyncThunk('path/getPath', async (learningpath: string) => {
-  try {
-    const response = await getPath(learningpath)
-    return response.data
-  } catch (err) {
-    console.log(err)
-  }
+  const response = await getPath(learningpath)
+  return response.data
 })
 
 export const pathSlice = createSlice({
