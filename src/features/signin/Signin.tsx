@@ -11,7 +11,7 @@ const Signin = () => {
           <meta charSet='utf-8' />
           <title>Signin | Learning Path</title>
         </Helmet>
-        <div className='block p-6 rounded-lg shadow-lg bg-white max-w-sm'>
+        <div className='block p-6 rounded-lg shadow-lg bg-white w-80 max-w-sm'>
           <form>
             <div className='form-group mb-6'>
               <label
