@@ -1,9 +1,18 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Helmet, HelmetProvider } from 'react-helmet-async'
 import { Link } from 'react-router-dom'
 import { useAppSelector, useAppDispatch } from '../../app/hooks'
+import { signinRequest } from './signinApi'
 
 const Signin = () => {
+  const [username, setUsername] = useState('')
+  const [password, setPassword] = useState('')
+
+  function handleSubmit(e: React.MouseEvent<HTMLButtonElement, MouseEvent>): void {
+    e.preventDefault()
+    signinRequest(username, password)
+  }
+
   return (
     <HelmetProvider>
       <div className='container grid h-screen place-items-center mx-auto'>
@@ -14,18 +23,17 @@ const Signin = () => {
         <div className='block p-6 rounded-lg shadow-lg bg-white w-80 max-w-sm'>
           <form>
             <div className='form-group mb-6'>
-              <label
-                htmlFor='exampleInputEmail2'
-                className='form-label inline-block mb-2 text-gray-700'
-              >
+              <label htmlFor='username' className='form-label inline-block mb-2 text-gray-700'>
                 Username
               </label>
               <input
                 type='text'
                 className='form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none'
                 id='username'
+                name='username'
                 aria-describedby='emailHelp'
                 placeholder='Enter username'
+                onChange={(e) => setUsername(e.target.value)}
               />
             </div>
             <div className='form-group mb-6'>
@@ -39,7 +47,9 @@ const Signin = () => {
                 type='password'
                 className='form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none'
                 id='exampleInputPassword2'
+                name='password'
                 placeholder='Password'
+                onChange={(e) => setPassword(e.target.value)}
               />
             </div>
             <div className='flex justify-between items-center mb-6'>
@@ -66,6 +76,7 @@ const Signin = () => {
             <button
               type='submit'
               className=' w-full px-6 py-2.5 bg-blue-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out'
+              onClick={(e) => handleSubmit(e)}
             >
               Sign in
             </button>
