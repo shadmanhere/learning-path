@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react'
 import { Helmet, HelmetProvider } from 'react-helmet-async'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { useAppSelector, useAppDispatch } from '../../app/hooks'
-import { TutorialsList, selectTutorials, selectStatus } from './homeSlice'
+import { TutorialsList, selectTutorials, selectStatus, selectError } from './homeSlice'
 import PathsList from '../pathslist/PathsList'
 import './Home.css'
 
@@ -11,9 +11,18 @@ const Home = () => {
     useAppSelector(selectTutorials)
   const status = useAppSelector(selectStatus)
   const dispatch = useAppDispatch()
+  const error = useAppSelector(selectError)
+  const navigate = useNavigate()
   useEffect(() => {
     dispatch(TutorialsList())
   }, [])
+
+  const isAuthenticated = () => {
+    if (error.statusCode === 401) navigate('/signin')
+  }
+  useEffect(() => {
+    isAuthenticated()
+  }, [error])
 
   return (
     <HelmetProvider>
