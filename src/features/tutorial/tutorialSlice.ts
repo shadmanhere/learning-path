@@ -35,7 +35,7 @@ export const tutorialSlice = createSlice({
       })
       .addCase(GetTutorial.fulfilled, (state, action) => {
         state.status = 'idle'
-        if (action.payload.success) state.value = action.payload
+        if (action.payload.success) state.value = action.payload.tutorial
         else {
           state.error.messgae = action.payload.data.message
           state.error.statusCode = action.payload.status

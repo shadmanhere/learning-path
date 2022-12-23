@@ -18,7 +18,8 @@ const Home = () => {
   }, [])
 
   const isAuthenticated = () => {
-    if (error.statusCode === 401) navigate('/signin')
+    if (error.statusCode === 401 || error.messgae === 'JSON Web Token is expired. Try Again!!!')
+      navigate('/signin')
   }
   useEffect(() => {
     isAuthenticated()

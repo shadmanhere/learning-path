@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Helmet, HelmetProvider } from 'react-helmet-async'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { styled } from '@linaria/react'
@@ -17,7 +17,8 @@ const Tutorial = () => {
   const navigate = useNavigate()
 
   const isAuthenticated = () => {
-    if (error.statusCode === 401) navigate('/signin')
+    if (error.statusCode === 401 || error.messgae === 'JSON Web Token is expired. Try Again!!!')
+      navigate('/signin')
   }
   useEffect(() => {
     isAuthenticated()
@@ -48,10 +49,11 @@ const Tutorial = () => {
     const tutorialFromApi = useAppSelector(selectTutorial)
     return tutorialFromApi.title
   }
-  console.log(pathnameArray)
+
   const title = pathnameArray.includes('path')
     ? getTitleFromPath1() || getTutorialFromApi() || ''
     : getTitleFromPath2() || getTutorialFromApi() || ''
+
   return (
     <HelmetProvider>
       <div className='container mx-auto'>
