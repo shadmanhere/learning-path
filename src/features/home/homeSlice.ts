@@ -53,6 +53,6 @@ export const tutorialsSlice = createSlice({
 // export const { requestTutorialsList } = tutorialsSlice.actions
 export const selectTutorials = (state: RootState) => state.tutorials.value
 export const selectStatus = (state: RootState) => state.tutorials.status
-export const selectError = (state: RootState) => state.pathsList.error
+export const selectError = (state: RootState) => state.tutorials.error
 
 export default tutorialsSlice.reducer
