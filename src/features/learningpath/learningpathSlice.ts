@@ -37,7 +37,7 @@ export const pathSlice = createSlice({
       })
       .addCase(Path.fulfilled, (state, action) => {
         state.status = 'idle'
-        if (action.payload.success) state.value = action.payload
+        if (action.payload.success) state.value = action.payload.learningPath
         else {
           state.error.messgae = action.payload.data.message
           state.error.statusCode = action.payload.status
