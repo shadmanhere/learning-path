@@ -51,6 +51,6 @@ export const pathSlice = createSlice({
 
 export const selectPath = (state: RootState) => state.path.value
 export const selectStatus = (state: RootState) => state.path.status
-export const selectError = (state: RootState) => state.pathsList.error
+export const selectError = (state: RootState) => state.path.error
 
 export default pathSlice.reducer
