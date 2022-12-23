@@ -1,10 +1,10 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Helmet, HelmetProvider } from 'react-helmet-async'
-import { useLocation } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
 import { styled } from '@linaria/react'
 import { selectPath } from '../learningpath/learningpathSlice'
 import { selectTutorials } from '../home/homeSlice'
-import { GetTutorial, selectTutorial } from '../tutorial/tutorialSlice'
+import { GetTutorial, selectTutorial, selectError } from '../tutorial/tutorialSlice'
 import { useAppSelector, useAppDispatch } from '../../app/hooks'
 
 const Tutorial = () => {
@@ -13,6 +13,16 @@ const Tutorial = () => {
   const tutorialId = pathnameArray[pathnameArray.length - 1]
   const path1 = useAppSelector(selectPath)
   const path2 = useAppSelector(selectTutorials)
+  const error = useAppSelector(selectError)
+  const navigate = useNavigate()
+
+  const isAuthenticated = () => {
+    if (error.statusCode === 401) navigate('/signin')
+  }
+  useEffect(() => {
+    isAuthenticated()
+  }, [error])
+
   const getTitleFromPath1 = () => {
     for (let i = 0; i < path1.length; i++) {
       const tutorials = path1[i].Section[i].tutorials
@@ -38,11 +48,10 @@ const Tutorial = () => {
     const tutorialFromApi = useAppSelector(selectTutorial)
     return tutorialFromApi.title
   }
-
-  const title =
-    pathnameArray.length === 5
-      ? getTitleFromPath1() || ''
-      : getTitleFromPath2() || getTutorialFromApi() || ''
+  console.log(pathnameArray)
+  const title = pathnameArray.includes('path')
+    ? getTitleFromPath1() || getTutorialFromApi() || ''
+    : getTitleFromPath2() || getTutorialFromApi() || ''
   return (
     <HelmetProvider>
       <div className='container mx-auto'>
