@@ -4,13 +4,13 @@ import { getPathsList } from './pathsListApi'
 
 export interface pathsListState {
   value: { name: string }[]
-  error: string
+  error: { messgae: string; statusCode: number }
   status: 'idle' | 'request' | 'loading' | 'failed'
 }
 
 const initialState: pathsListState = {
   value: [],
-  error: '',
+  error: { messgae: '', statusCode: 0 },
   status: 'idle',
 }
 
@@ -19,7 +19,7 @@ export const GetPathsList = createAsyncThunk('pathslist/getPathsList', async () 
     const response = await getPathsList()
     return response.data
   } catch (err: any) {
-    return err.response.data
+    return err.response
   }
 })
 
@@ -35,7 +35,10 @@ export const pathsListSlice = createSlice({
       .addCase(GetPathsList.fulfilled, (state, action) => {
         state.status = 'idle'
         if (action.payload.success) state.value = action.payload
-        else state.error = action.payload.message
+        else {
+          state.error.messgae = action.payload.data.message
+          state.error.statusCode = action.payload.status
+        }
       })
       .addCase(GetPathsList.rejected, (state) => {
         state.status = 'failed'

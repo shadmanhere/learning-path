@@ -15,7 +15,7 @@ const PathsList = () => {
   }, [])
 
   const isAuthenticated = () => {
-    if (error === 'Login first to access this resource.') navigate('/signin')
+    if (error.statusCode === 401) navigate('/signin')
   }
   useEffect(() => {
     isAuthenticated()
