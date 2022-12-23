@@ -2,20 +2,17 @@ import React, { useEffect, useState } from 'react'
 import { Helmet, HelmetProvider } from 'react-helmet-async'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { styled } from '@linaria/react'
-import { selectPath } from '../learningpath/learningpathSlice'
-import { selectTutorials } from '../home/homeSlice'
 import { GetTutorial, selectTutorial, selectError } from '../tutorial/tutorialSlice'
 import { useAppSelector, useAppDispatch } from '../../app/hooks'
 
 const Tutorial = () => {
   const location = useLocation()
   const pathnameArray = location.pathname.split('/')
+  const tutorial = useAppSelector(selectTutorial)
   const tutorialId = pathnameArray[pathnameArray.length - 1]
-  const path1 = useAppSelector(selectPath)
-  const path2 = useAppSelector(selectTutorials)
   const error = useAppSelector(selectError)
   const navigate = useNavigate()
-
+  const dispatch = useAppDispatch()
   const isAuthenticated = () => {
     if (error.statusCode === 401 || error.messgae === 'JSON Web Token is expired. Try Again!!!')
       navigate('/signin')
@@ -23,46 +20,19 @@ const Tutorial = () => {
   useEffect(() => {
     isAuthenticated()
   }, [error])
-
-  const getTitleFromPath1 = () => {
-    for (let i = 0; i < path1.length; i++) {
-      const tutorials = path1[i].Section[i].tutorials
-      for (let j = 0; j < tutorials.length; j++) {
-        if (tutorialId === tutorials[j].url.split('=')[1]) {
-          return tutorials[j].title
-        }
-      }
-    }
-  }
-
-  const getTitleFromPath2 = () => {
-    for (let i = 0; i < path2.length; i++) {
-      if (tutorialId === path2[i].url.split('=')[1]) {
-        return path2[i].title
-      }
-    }
-  }
-
-  const dispatch = useAppDispatch()
-  const getTutorialFromApi = () => {
+  useEffect(() => {
     dispatch(GetTutorial(tutorialId))
-    const tutorialFromApi = useAppSelector(selectTutorial)
-    return tutorialFromApi.title
-  }
-
-  const title = pathnameArray.includes('path')
-    ? getTitleFromPath1() || getTutorialFromApi() || ''
-    : getTitleFromPath2() || getTutorialFromApi() || ''
+  }, [])
 
   return (
     <HelmetProvider>
       <div className='container mx-auto'>
         <Helmet>
           <meta charSet='utf-8' />
-          <title>{title + ' | Learning Path'}</title>
+          <title>{tutorial.title + ' | Learning Path'}</title>
         </Helmet>
         <h1 className='capitalize px-5 py-2 mx-auto lg:pt-12 lg:px-32 text-center text-3xl md:text-4xl mb-5 font-extrabold text-rose-700'>
-          {title}
+          {tutorial.title}
         </h1>
         <VideoIframe
           className='mx-auto my-10 sm:w-full max-w-2xl sm:h-96'
