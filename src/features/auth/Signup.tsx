@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { Helmet, HelmetProvider } from 'react-helmet-async'
 import { useNavigate } from 'react-router-dom'
 import { useAppDispatch, useAppSelector } from '../../app/hooks'
-import { selectUser, SignUp } from './signinSlice'
+import { selectUser, SignUp } from './authSlice'
 
 const Signup = () => {
   const [firstName, setFirstName] = useState('')

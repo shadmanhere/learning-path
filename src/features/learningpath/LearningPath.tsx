@@ -3,7 +3,7 @@ import { useLocation, Link, useNavigate } from 'react-router-dom'
 import { Helmet, HelmetProvider } from 'react-helmet-async'
 import { useAppSelector, useAppDispatch } from '../../app/hooks'
 import { Path, selectPath, selectStatus, selectError } from './learningpathSlice'
-import { setFromLocation } from '../auth/signinSlice'
+import { setFromLocation } from '../auth/authSlice'
 
 const LearningPath = () => {
   interface tutorialsInterface {

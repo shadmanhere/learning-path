@@ -4,7 +4,7 @@ import tutorialsReducer from '../features/home/homeSlice'
 import tutorialReducer from '../features/tutorial/tutorialSlice'
 import pathReducer from '../features/learningpath/learningpathSlice'
 import pathsListReducer from '../features/pathslist/pathsListSlice'
-import signinSlice from '../features/auth/signinSlice'
+import authSlice from '../features/auth/authSlice'
 
 export const store = configureStore({
   reducer: {
@@ -13,7 +13,7 @@ export const store = configureStore({
     path: pathReducer,
     pathsList: pathsListReducer,
     tutorial: tutorialReducer,
-    signin: signinSlice,
+    auth: authSlice,
   },
 })
 

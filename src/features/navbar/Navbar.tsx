@@ -1,13 +1,20 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { styled } from '@linaria/react'
 import { Link, useNavigate } from 'react-router-dom'
-import { useAppDispatch } from '../../app/hooks'
-import { Logout } from '../auth/signinSlice'
+import { useAppDispatch, useAppSelector } from '../../app/hooks'
+import { Logout, selectUser, UserProfile, selectError } from '../auth/authSlice'
 import './Navbar.css'
 
 const Navbar = () => {
   const dispatch = useAppDispatch()
   const navigate = useNavigate()
+  const user = useAppSelector(selectUser)
+  const authError = useAppSelector(selectError)
+
+  useEffect(() => {
+    if (!user.id && authError.messgae === '') dispatch(UserProfile())
+  }, [user])
+
   const logoutHandle = () => {
     dispatch(Logout())
     navigate('/signin')
@@ -22,29 +29,37 @@ const Navbar = () => {
             </Brand>
           </Link>
           <div className='ml-auto space-x-0.5'>
-            <Link to='/signin'>
-              <button
-                type='button'
-                className='px-6 py-2.5 bg-gray-200 text-gray-700 font-medium text-xs leading-tight uppercase rounded-full shadow-md hover:bg-gray-300 hover:shadow-lg focus:bg-gray-300 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-gray-400 active:shadow-lg transition duration-150 ease-in-out'
-              >
-                Signin
-              </button>
-            </Link>
-            <Link to='/signup'>
-              <button
-                type='button'
-                className='px-6 py-2.5 bg-gray-200 text-gray-700 font-medium text-xs leading-tight uppercase rounded-full shadow-md hover:bg-gray-300 hover:shadow-lg focus:bg-gray-300 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-gray-400 active:shadow-lg transition duration-150 ease-in-out'
-              >
-                Signup
-              </button>
-            </Link>
-            <button
-              type='button'
-              className='px-6 py-2.5 bg-gray-200 text-gray-700 font-medium text-xs leading-tight uppercase rounded-full shadow-md hover:bg-gray-300 hover:shadow-lg focus:bg-gray-300 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-gray-400 active:shadow-lg transition duration-150 ease-in-out'
-              onClick={() => logoutHandle()}
-            >
-              Logout
-            </button>
+            {user.id ? (
+              <>
+                <span className='mx-1 font-serif'>{user.firstName}</span>
+                <button
+                  type='button'
+                  className='px-6 py-2.5 bg-gray-200 text-gray-700 font-medium text-xs leading-tight uppercase rounded-full shadow-md hover:bg-gray-300 hover:shadow-lg focus:bg-gray-300 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-gray-400 active:shadow-lg transition duration-150 ease-in-out'
+                  onClick={() => logoutHandle()}
+                >
+                  Logout
+                </button>
+              </>
+            ) : (
+              <>
+                <Link to='/signin'>
+                  <button
+                    type='button'
+                    className='px-6 py-2.5 bg-gray-200 text-gray-700 font-medium text-xs leading-tight uppercase rounded-full shadow-md hover:bg-gray-300 hover:shadow-lg focus:bg-gray-300 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-gray-400 active:shadow-lg transition duration-150 ease-in-out'
+                  >
+                    Signin
+                  </button>
+                </Link>
+                <Link to='/signup'>
+                  <button
+                    type='button'
+                    className='px-6 py-2.5 bg-gray-200 text-gray-700 font-medium text-xs leading-tight uppercase rounded-full shadow-md hover:bg-gray-300 hover:shadow-lg focus:bg-gray-300 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-gray-400 active:shadow-lg transition duration-150 ease-in-out'
+                  >
+                    Signup
+                  </button>
+                </Link>
+              </>
+            )}
           </div>
         </div>
       </div>

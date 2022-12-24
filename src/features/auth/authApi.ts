@@ -29,6 +29,10 @@ export const signupRequest = async (
   return await API.post('user/signup', params)
 }
 
+export const getUserProfile = async () => {
+  return await API.get('user/me')
+}
+
 export const logoutRequest = async () => {
   return await API.get('user/logout')
 }

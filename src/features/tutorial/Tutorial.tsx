@@ -4,7 +4,7 @@ import { useLocation, useNavigate } from 'react-router-dom'
 import { styled } from '@linaria/react'
 import { GetTutorial, selectTutorial, selectError } from '../tutorial/tutorialSlice'
 import { useAppSelector, useAppDispatch } from '../../app/hooks'
-import { setFromLocation } from '../auth/signinSlice'
+import { setFromLocation } from '../auth/authSlice'
 
 const Tutorial = () => {
   const location = useLocation()

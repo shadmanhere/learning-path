@@ -3,7 +3,7 @@ import { Helmet, HelmetProvider } from 'react-helmet-async'
 import { Link, useNavigate, useLocation } from 'react-router-dom'
 import { useAppSelector, useAppDispatch } from '../../app/hooks'
 import { TutorialsList, selectTutorials, selectStatus, selectError } from './homeSlice'
-import { setFromLocation } from '../auth/signinSlice'
+import { setFromLocation } from '../auth/authSlice'
 import PathsList from '../pathslist/PathsList'
 import './Home.css'
 
