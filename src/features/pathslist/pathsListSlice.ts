@@ -26,7 +26,11 @@ export const GetPathsList = createAsyncThunk('pathslist/getPathsList', async () 
 export const pathsListSlice = createSlice({
   name: 'pathslist',
   initialState,
-  reducers: {},
+  reducers: {
+    resetError: (state) => {
+      state.error = { messgae: '', statusCode: 0 }
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(GetPathsList.pending, (state) => {
@@ -46,6 +50,7 @@ export const pathsListSlice = createSlice({
   },
 })
 
+export const { resetError } = pathsListSlice.actions
 // export const { requestTutorialsList } = tutorialsSlice.actions
 export const selectPathsList = (state: RootState) => state.pathsList.value
 export const selectStatus = (state: RootState) => state.pathsList.status

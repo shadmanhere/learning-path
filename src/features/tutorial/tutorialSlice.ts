@@ -27,7 +27,11 @@ export const GetTutorial = createAsyncThunk('tutorial/getTutorial', async (tutor
 export const tutorialSlice = createSlice({
   name: 'tutorial',
   initialState,
-  reducers: {},
+  reducers: {
+    resetError: (state) => {
+      state.error = { messgae: '', statusCode: 0 }
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(GetTutorial.pending, (state) => {
@@ -47,6 +51,7 @@ export const tutorialSlice = createSlice({
   },
 })
 
+export const { resetError } = tutorialSlice.actions
 // export const { requestTutorialsList } = tutorialsSlice.actions
 export const selectTutorial = (state: RootState) => state.tutorial.value
 export const selectStatus = (state: RootState) => state.tutorial.status
