@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { RootState, AppThunk } from '../../app/store'
-import { logoutRequest, signinRequest } from './signinApi'
+import { logoutRequest, signinRequest, signupRequest } from './signinApi'
 
 export interface signinState {
   fromLocation: string
@@ -21,6 +21,32 @@ export const SignIn = createAsyncThunk(
   async (data: { username: string; password: string }) => {
     try {
       const response = await signinRequest(data.username, data.password)
+      return response.data
+    } catch (err: any) {
+      return err.response
+    }
+  },
+)
+
+export const SignUp = createAsyncThunk(
+  'signin/signup',
+  async (data: {
+    firstName: string
+    lastName: string
+    username: string
+    email: string
+    password: string
+    confirmPassword: string
+  }) => {
+    try {
+      const response = await signupRequest(
+        data.firstName,
+        data.lastName,
+        data.username,
+        data.email,
+        data.password,
+        data.password,
+      )
       return response.data
     } catch (err: any) {
       return err.response
@@ -62,6 +88,20 @@ export const signinSlice = createSlice({
         }
       })
       .addCase(SignIn.rejected, (state) => {
+        state.status = 'failed'
+      })
+      .addCase(SignUp.pending, (state) => {
+        state.status = 'loading'
+      })
+      .addCase(SignUp.fulfilled, (state, action) => {
+        state.status = 'idle'
+        if (action.payload.success) state.value = action.payload.user
+        else {
+          state.error.messgae = action.payload.data.message
+          state.error.statusCode = action.payload.status
+        }
+      })
+      .addCase(SignUp.rejected, (state) => {
         state.status = 'failed'
       })
       .addCase(Logout.pending, (state) => {

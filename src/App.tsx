@@ -7,6 +7,7 @@ import LearningPath from './features/learningpath/LearningPath'
 import Tutorial from './features/tutorial/Tutorial'
 import './App.css'
 import Signin from './features/signin/Signin'
+import Signup from './features/signin/Signup'
 
 function App() {
   ReactGA.pageview(window.location.pathname + window.location.search)
@@ -17,6 +18,7 @@ function App() {
       <Routes>
         <Route path='/' element={<Home />} />
         <Route path='/signin' element={<Signin />} />
+        <Route path='/signup' element={<Signup />} />
         <Route path='/path/:path/tutorial/:tutorial' element={<Tutorial />} />
         <Route path='/tutorial/:tutorial' element={<Tutorial />} />
         <Route path='/path/:path' element={<LearningPath />} />
