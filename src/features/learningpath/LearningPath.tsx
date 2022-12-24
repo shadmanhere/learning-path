@@ -1,8 +1,9 @@
 import React, { useEffect } from 'react'
-import { useLocation, Link } from 'react-router-dom'
+import { useLocation, Link, useNavigate } from 'react-router-dom'
 import { Helmet, HelmetProvider } from 'react-helmet-async'
 import { useAppSelector, useAppDispatch } from '../../app/hooks'
-import { Path, selectPath, selectStatus } from './learningpathSlice'
+import { Path, selectPath, selectStatus, selectError } from './learningpathSlice'
+import { setFromLocation } from '../signin/signinSlice'
 
 const LearningPath = () => {
   interface tutorialsInterface {
@@ -17,12 +18,24 @@ const LearningPath = () => {
       }[]
     | null = useAppSelector(selectPath)
   const status = useAppSelector(selectStatus)
+  const error = useAppSelector(selectError)
   const dispatch = useAppDispatch()
   const location = useLocation()
+  const navigate = useNavigate()
   const learningpath = location.pathname.split('/')[2]
   useEffect(() => {
     dispatch(Path(learningpath))
   }, [])
+
+  const isAuthenticated = () => {
+    if (error.statusCode === 401 || error.messgae === 'JSON Web Token is expired. Try Again!!!') {
+      dispatch(setFromLocation(location.pathname))
+      navigate('/signin')
+    }
+  }
+  useEffect(() => {
+    isAuthenticated()
+  }, [error])
 
   function capitalize(word: string) {
     const wordArr = word.toLowerCase().split('')
