@@ -97,12 +97,12 @@ const Signin = () => {
             </button>
             <p className='text-gray-800 mt-6 text-center'>
               Not a member?{' '}
-              <a
-                href='#!'
+              <Link
+                to='/signup'
                 className='text-blue-600 hover:text-blue-700 focus:text-blue-700 transition duration-200 ease-in-out'
               >
                 Register
-              </a>
+              </Link>
             </p>
           </form>
         </div>

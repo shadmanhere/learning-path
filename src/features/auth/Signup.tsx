@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { Helmet, HelmetProvider } from 'react-helmet-async'
-import { useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { useAppDispatch, useAppSelector } from '../../app/hooks'
 import { selectUser, SignUp } from './authSlice'
 
@@ -156,12 +156,12 @@ const Signup = () => {
             </button>
             <p className='text-gray-800 mt-6 text-center'>
               Already a member ?{' '}
-              <a
-                href='#!'
+              <Link
+                to='/signin'
                 className='text-blue-600 hover:text-blue-700 focus:text-blue-700 transition duration-200 ease-in-out'
               >
                 Signin
-              </a>
+              </Link>
             </p>
           </form>
         </div>
