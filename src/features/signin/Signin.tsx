@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { Helmet, HelmetProvider } from 'react-helmet-async'
 import { Link, useNavigate } from 'react-router-dom'
 import { useAppSelector, useAppDispatch } from '../../app/hooks'
-import { signinRequest } from './signinApi'
+import { SignIn } from './signinSlice'
 import { resetError as homeError } from '../home/homeSlice'
 import { resetError as pathListError } from '../pathslist/pathsListSlice'
 import { resetError as learningpathError } from '../learningpath/learningpathSlice'
@@ -13,16 +13,14 @@ const Signin = () => {
   const [password, setPassword] = useState('')
   const dispatch = useAppDispatch()
   const navigate = useNavigate()
-
   function handleSubmit(e: React.MouseEvent<HTMLButtonElement, MouseEvent>): void {
     e.preventDefault()
-    signinRequest(username, password).then(() => {
-      dispatch(homeError())
-      dispatch(pathListError())
-      dispatch(learningpathError())
-      dispatch(tutorialError())
-      navigate(-1)
-    })
+    dispatch(SignIn({ username, password }))
+    dispatch(homeError())
+    dispatch(pathListError())
+    dispatch(learningpathError())
+    dispatch(tutorialError())
+    navigate(-1)
   }
 
   return (
