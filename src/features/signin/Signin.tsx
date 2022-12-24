@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { Helmet, HelmetProvider } from 'react-helmet-async'
 import { Link, useNavigate } from 'react-router-dom'
 import { useAppSelector, useAppDispatch } from '../../app/hooks'
-import { SignIn } from './signinSlice'
+import { SignIn, selectFromLocation, selectUser } from './signinSlice'
 import { resetError as homeError } from '../home/homeSlice'
 import { resetError as pathListError } from '../pathslist/pathsListSlice'
 import { resetError as learningpathError } from '../learningpath/learningpathSlice'
@@ -11,8 +11,14 @@ import { resetError as tutorialError } from '../tutorial/tutorialSlice'
 const Signin = () => {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
+  const fromLocation = useAppSelector(selectFromLocation)
+  const user = useAppSelector(selectUser)
   const dispatch = useAppDispatch()
   const navigate = useNavigate()
+  useEffect(() => {
+    if (user.email) navigate(fromLocation ? fromLocation : '/')
+  }, [user])
+
   function handleSubmit(e: React.MouseEvent<HTMLButtonElement, MouseEvent>): void {
     e.preventDefault()
     dispatch(SignIn({ username, password }))
@@ -20,7 +26,6 @@ const Signin = () => {
     dispatch(pathListError())
     dispatch(learningpathError())
     dispatch(tutorialError())
-    navigate(-1)
   }
 
   return (

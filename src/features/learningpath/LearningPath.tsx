@@ -3,6 +3,7 @@ import { useLocation, Link, useNavigate } from 'react-router-dom'
 import { Helmet, HelmetProvider } from 'react-helmet-async'
 import { useAppSelector, useAppDispatch } from '../../app/hooks'
 import { Path, selectPath, selectStatus, selectError } from './learningpathSlice'
+import { setFromLocation } from '../signin/signinSlice'
 
 const LearningPath = () => {
   interface tutorialsInterface {
@@ -27,8 +28,10 @@ const LearningPath = () => {
   }, [])
 
   const isAuthenticated = () => {
-    if (error.statusCode === 401 || error.messgae === 'JSON Web Token is expired. Try Again!!!')
+    if (error.statusCode === 401 || error.messgae === 'JSON Web Token is expired. Try Again!!!') {
+      dispatch(setFromLocation(location.pathname))
       navigate('/signin')
+    }
   }
   useEffect(() => {
     isAuthenticated()

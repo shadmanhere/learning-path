@@ -4,6 +4,7 @@ import { useLocation, useNavigate } from 'react-router-dom'
 import { styled } from '@linaria/react'
 import { GetTutorial, selectTutorial, selectError } from '../tutorial/tutorialSlice'
 import { useAppSelector, useAppDispatch } from '../../app/hooks'
+import { setFromLocation } from '../signin/signinSlice'
 
 const Tutorial = () => {
   const location = useLocation()
@@ -14,8 +15,10 @@ const Tutorial = () => {
   const navigate = useNavigate()
   const dispatch = useAppDispatch()
   const isAuthenticated = () => {
-    if (error.statusCode === 401 || error.messgae === 'JSON Web Token is expired. Try Again!!!')
+    if (error.statusCode === 401 || error.messgae === 'JSON Web Token is expired. Try Again!!!') {
+      dispatch(setFromLocation(location.pathname))
       navigate('/signin')
+    }
   }
   useEffect(() => {
     isAuthenticated()
