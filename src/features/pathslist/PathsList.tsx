@@ -4,7 +4,7 @@ import { GetPathsList, selectPathsList, selectStatus, selectError } from './path
 import { useNavigate, useLocation } from 'react-router-dom'
 
 import Paths from './Path'
-import { setFromLocation } from '../signin/signinSlice'
+import { setFromLocation } from '../auth/signinSlice'
 
 const PathsList = () => {
   const dispatch = useAppDispatch()

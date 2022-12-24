@@ -2,7 +2,7 @@ import React from 'react'
 import { styled } from '@linaria/react'
 import { Link, useNavigate } from 'react-router-dom'
 import { useAppDispatch } from '../../app/hooks'
-import { Logout } from '../signin/signinSlice'
+import { Logout } from '../auth/signinSlice'
 import './Navbar.css'
 
 const Navbar = () => {
