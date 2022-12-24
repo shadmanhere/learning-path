@@ -10,3 +10,7 @@ export const signinRequest = async (username: string, password: string) => {
   params.append('password', password)
   return await API.post('user/signin', params)
 }
+
+export const logoutRequest = async () => {
+  return await API.get('user/logout')
+}

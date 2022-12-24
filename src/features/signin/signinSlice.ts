@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { RootState, AppThunk } from '../../app/store'
-import { signinRequest } from './signinApi'
+import { logoutRequest, signinRequest } from './signinApi'
 
 export interface signinState {
   fromLocation: string
@@ -28,6 +28,15 @@ export const SignIn = createAsyncThunk(
   },
 )
 
+export const Logout = createAsyncThunk('signin/logout', async () => {
+  try {
+    const response = await logoutRequest()
+    return response.data
+  } catch (err: any) {
+    return err.response
+  }
+})
+
 export const signinSlice = createSlice({
   name: 'tutorials',
   initialState,
@@ -53,6 +62,21 @@ export const signinSlice = createSlice({
         }
       })
       .addCase(SignIn.rejected, (state) => {
+        state.status = 'failed'
+      })
+      .addCase(Logout.pending, (state) => {
+        state.status = 'loading'
+      })
+      .addCase(Logout.fulfilled, (state, action) => {
+        state.status = 'idle'
+        if (action.payload.success)
+          state.value = { id: 0, firstName: '', lastName: '', username: '', email: '' }
+        else {
+          state.error.messgae = action.payload.data.message
+          state.error.statusCode = action.payload.status
+        }
+      })
+      .addCase(Logout.rejected, (state) => {
         state.status = 'failed'
       })
   },
