@@ -18,6 +18,7 @@ export const GetPathsList = createAsyncThunk('pathslist/getPathsList', async () 
   try {
     const response = await getPathsList()
     return response.data
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (err: any) {
     return err.response
   }

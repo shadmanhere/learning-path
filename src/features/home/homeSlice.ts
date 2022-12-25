@@ -1,5 +1,5 @@
-import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit'
-import { RootState, AppThunk } from '../../app/store'
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
+import { RootState } from '../../app/store'
 import { getTutorialsList } from './homeAPI'
 
 export interface tutorialsState {
@@ -18,6 +18,7 @@ export const TutorialsList = createAsyncThunk('tutorials/getTutorialsList', asyn
   try {
     const response = await getTutorialsList()
     return response.data
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (err: any) {
     return err.response
   }

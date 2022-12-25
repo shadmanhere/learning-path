@@ -21,6 +21,7 @@ export const Path = createAsyncThunk('path/getPath', async (learningpath: string
   try {
     const response = await getPath(learningpath)
     return response.data
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (err: any) {
     return err.response
   }

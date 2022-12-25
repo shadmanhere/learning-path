@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit'
-import { RootState, AppThunk } from '../../app/store'
+import { RootState } from '../../app/store'
 import { logoutRequest, signinRequest, signupRequest, getUserProfile } from './authApi'
 
 export interface authState {
@@ -22,6 +22,7 @@ export const SignIn = createAsyncThunk(
     try {
       const response = await signinRequest(data.username, data.password)
       return response.data
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (err: any) {
       return err.response
     }
@@ -48,6 +49,7 @@ export const SignUp = createAsyncThunk(
         data.password,
       )
       return response.data
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (err: any) {
       return err.response
     }
@@ -58,6 +60,7 @@ export const Logout = createAsyncThunk('auth/logout', async () => {
   try {
     const response = await logoutRequest()
     return response.data
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (err: any) {
     return err.response
   }
@@ -67,6 +70,7 @@ export const UserProfile = createAsyncThunk('auth/userprofile', async () => {
   try {
     const response = await getUserProfile()
     return response.data
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (err: any) {
     return err.response
   }

@@ -65,7 +65,7 @@ const LearningPath = () => {
             </h1>
 
             {status === 'idle' ? (
-              path.map((segment, i) => {
+              path.map((segment) => {
                 return segment.Section.map((step, j) => {
                   return (
                     <div key={j} className='my-8'>
