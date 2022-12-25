@@ -27,6 +27,9 @@ export const tutorialsSlice = createSlice({
   name: 'tutorials',
   initialState,
   reducers: {
+    resetValue: (state) => {
+      state.value = []
+    },
     resetError: (state) => {
       state.error = { messgae: '', statusCode: 0 }
     },
@@ -50,7 +53,7 @@ export const tutorialsSlice = createSlice({
   },
 })
 
-export const { resetError } = tutorialsSlice.actions
+export const { resetError, resetValue } = tutorialsSlice.actions
 
 // export const { requestTutorialsList } = tutorialsSlice.actions
 export const selectTutorials = (state: RootState) => state.tutorials.value
