@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { Helmet, HelmetProvider } from 'react-helmet-async'
 import { Link, useNavigate } from 'react-router-dom'
 import { useAppDispatch, useAppSelector } from '../../app/hooks'
-import { selectFromLocation, selectUser, SignUp } from './authSlice'
+import { resetError, selectFromLocation, selectUser, SignUp } from './authSlice'
 
 import { resetError as homeError } from '../home/homeSlice'
 import { resetError as pathListError } from '../pathslist/pathsListSlice'
@@ -31,6 +31,7 @@ const Signup = () => {
     dispatch(pathListError())
     dispatch(learningpathError())
     dispatch(tutorialError())
+    dispatch(resetError())
   }
   return (
     <HelmetProvider>
