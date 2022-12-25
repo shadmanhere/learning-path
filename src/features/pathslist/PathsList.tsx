@@ -1,6 +1,12 @@
 import React, { useEffect } from 'react'
 import { useAppSelector, useAppDispatch } from '../../app/hooks'
-import { GetPathsList, selectPathsList, selectStatus, selectError } from './pathsListSlice'
+import {
+  GetPathsList,
+  selectPathsList,
+  selectStatus,
+  selectError,
+  resetValue,
+} from './pathsListSlice'
 import { useNavigate, useLocation } from 'react-router-dom'
 
 import Paths from './Path'
@@ -18,6 +24,7 @@ const PathsList = () => {
 
   const isAuthenticated = () => {
     if (error.statusCode === 401 || error.messgae === 'JSON Web Token is expired. Try Again!!!') {
+      dispatch(resetValue())
       dispatch(setFromLocation(location.pathname))
       navigate('/signin')
     }

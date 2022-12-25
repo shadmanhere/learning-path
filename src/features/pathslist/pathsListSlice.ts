@@ -27,6 +27,9 @@ export const pathsListSlice = createSlice({
   name: 'pathslist',
   initialState,
   reducers: {
+    resetValue: (state) => {
+      state.value = []
+    },
     resetError: (state) => {
       state.error = { messgae: '', statusCode: 0 }
     },
@@ -50,7 +53,7 @@ export const pathsListSlice = createSlice({
   },
 })
 
-export const { resetError } = pathsListSlice.actions
+export const { resetError, resetValue } = pathsListSlice.actions
 // export const { requestTutorialsList } = tutorialsSlice.actions
 export const selectPathsList = (state: RootState) => state.pathsList.value
 export const selectStatus = (state: RootState) => state.pathsList.status
