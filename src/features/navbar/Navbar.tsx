@@ -12,7 +12,7 @@ const Navbar = () => {
   const authError = useAppSelector(selectError)
 
   useEffect(() => {
-    if (!user.id && authError.messgae === '') dispatch(UserProfile())
+    if (!user?.id && authError.messgae === '') dispatch(UserProfile())
   }, [user])
 
   const logoutHandle = () => {
