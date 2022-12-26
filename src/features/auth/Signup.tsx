@@ -43,96 +43,95 @@ const Signup = () => {
         <div className='block p-6 rounded-lg shadow-lg bg-white w-100 max-w-xl'>
           <form>
             <div className='flex space-x-1'>
-              <div>
-                <div className='form-group mb-6'>
-                  <label htmlFor='firstName' className='form-label inline-block mb-2 text-gray-700'>
-                    First Name
-                  </label>
-                  <input
-                    type='text'
-                    className='form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none'
-                    id='firstName'
-                    name='firstName'
-                    aria-describedby='firstNameHelp'
-                    placeholder='Enter first name'
-                    onChange={(e) => setFirstName(e.target.value)}
-                  />
-                </div>
-
-                <div className='form-group mb-6'>
-                  <label htmlFor='username' className='form-label inline-block mb-2 text-gray-700'>
-                    Username
-                  </label>
-                  <input
-                    type='text'
-                    className='form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none'
-                    id='username'
-                    name='username'
-                    aria-describedby='usernameHelp'
-                    placeholder='Enter username'
-                    onChange={(e) => setUsername(e.target.value)}
-                  />
-                </div>
-                <div className='form-group mb-6'>
-                  <label htmlFor='password' className='form-label inline-block mb-2 text-gray-700'>
-                    Password
-                  </label>
-                  <input
-                    type='password'
-                    className='form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none'
-                    id='password'
-                    name='password'
-                    placeholder='Password'
-                    onChange={(e) => setPassword(e.target.value)}
-                  />
-                </div>
+              <div className='form-group mb-6'>
+                <label htmlFor='firstName' className='form-label inline-block mb-2 text-gray-700'>
+                  First Name
+                </label>
+                <input
+                  type='text'
+                  className='form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none'
+                  id='firstName'
+                  name='firstName'
+                  aria-describedby='firstNameHelp'
+                  placeholder='Enter first name'
+                  onChange={(e) => setFirstName(e.target.value)}
+                />
               </div>
-              <div>
-                <div className='form-group mb-6'>
-                  <label htmlFor='lastName' className='form-label inline-block mb-2 text-gray-700'>
-                    Last Name
-                  </label>
-                  <input
-                    type='text'
-                    className='form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none'
-                    id='lastName'
-                    name='lastName'
-                    aria-describedby='lastNameHelp'
-                    placeholder='Enter last name'
-                    onChange={(e) => setLastName(e.target.value)}
-                  />
-                </div>
-                <div className='form-group mb-6'>
-                  <label htmlFor='email' className='form-label inline-block mb-2 text-gray-700'>
-                    Email
-                  </label>
-                  <input
-                    type='email'
-                    className='form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none'
-                    id='email'
-                    name='email'
-                    aria-describedby='emailHelp'
-                    placeholder='Enter email'
-                    onChange={(e) => setEmail(e.target.value)}
-                  />
-                </div>
+              <div className='form-group mb-6'>
+                <label htmlFor='lastName' className='form-label inline-block mb-2 text-gray-700'>
+                  Last Name
+                </label>
+                <input
+                  type='text'
+                  className='form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none'
+                  id='lastName'
+                  name='lastName'
+                  aria-describedby='lastNameHelp'
+                  placeholder='Enter last name'
+                  onChange={(e) => setLastName(e.target.value)}
+                />
+              </div>
+            </div>
+            <div className='flex space-x-1'>
+              <div className='form-group mb-6'>
+                <label htmlFor='username' className='form-label inline-block mb-2 text-gray-700'>
+                  Username
+                </label>
+                <input
+                  type='text'
+                  className='form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none'
+                  id='username'
+                  name='username'
+                  aria-describedby='usernameHelp'
+                  placeholder='Enter username'
+                  onChange={(e) => setUsername(e.target.value)}
+                />
+              </div>
+              <div className='form-group mb-6'>
+                <label htmlFor='email' className='form-label inline-block mb-2 text-gray-700'>
+                  Email
+                </label>
+                <input
+                  type='email'
+                  className='form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none'
+                  id='email'
+                  name='email'
+                  aria-describedby='emailHelp'
+                  placeholder='Enter email'
+                  onChange={(e) => setEmail(e.target.value)}
+                />
+              </div>
+            </div>
+            <div className='flex space-x-1'>
+              <div className='form-group mb-6'>
+                <label htmlFor='password' className='form-label inline-block mb-2 text-gray-700'>
+                  Password
+                </label>
+                <input
+                  type='password'
+                  className='form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none'
+                  id='password'
+                  name='password'
+                  placeholder='Password'
+                  onChange={(e) => setPassword(e.target.value)}
+                />
+              </div>
 
-                <div className='form-group mb-6'>
-                  <label
-                    htmlFor='confrimPassword'
-                    className='form-label inline-block mb-2 text-gray-700'
-                  >
-                    Confirm Password
-                  </label>
-                  <input
-                    type='password'
-                    className='form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none'
-                    id='confrimPassword'
-                    name='confirmPassword'
-                    placeholder='Confrim Password'
-                    onChange={(e) => setConfrimPassword(e.target.value)}
-                  />
-                </div>
+              <div className='form-group mb-6'>
+                <label
+                  htmlFor='confrimPassword'
+                  className='form-label inline-block mb-2 text-gray-700'
+                >
+                  Confirm Password
+                </label>
+                <input
+                  type='password'
+                  className='form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none'
+                  id='confrimPassword'
+                  name='confirmPassword'
+                  placeholder='Confrim Password'
+                  onChange={(e) => setConfrimPassword(e.target.value)}
+                />
               </div>
             </div>
 
