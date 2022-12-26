@@ -19,6 +19,7 @@ export const GetTutorial = createAsyncThunk('tutorial/getTutorial', async (tutor
   try {
     const response = await getTutorial(tutorialId)
     return response.data
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (err: any) {
     return err.response
   }

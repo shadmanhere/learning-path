@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import { Helmet, HelmetProvider } from 'react-helmet-async'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { styled } from '@linaria/react'
