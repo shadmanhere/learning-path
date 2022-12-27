@@ -8,7 +8,6 @@ import { resetError as homeError } from '../home/homeSlice'
 import { resetError as pathListError } from '../pathslist/pathsListSlice'
 import { resetError as learningpathError } from '../learningpath/learningpathSlice'
 import { resetError as tutorialError } from '../tutorial/tutorialSlice'
-import { validateParams } from '@linaria/tags'
 
 const Signup = () => {
   const [firstName, setFirstName] = useState('')
@@ -18,12 +17,12 @@ const Signup = () => {
   const [password, setPassword] = useState('')
   const [confirmPassword, setConfrimPassword] = useState('')
 
-  const [firstNameValMsg, setfirstNameValMsg] = useState('')
-  const [lastNameValMsg, setlastNameValMsg] = useState('')
-  const [usernameValMsg, setusernameValMsg] = useState('')
-  const [emailValMsg, setemailValMsg] = useState('')
-  const [passwordValMsg, setpasswordValMsg] = useState('')
-  const [confirmPasswordValMsg, setconfirmPasswordValMsg] = useState('')
+  const [firstNameValMsg, setFirstNameValMsg] = useState('')
+  const [lastNameValMsg, setLastNameValMsg] = useState('')
+  const [usernameValMsg, setUsernameValMsg] = useState('')
+  const [emailValMsg, setEmailValMsg] = useState('')
+  const [passwordValMsg, setPasswordValMsg] = useState('')
+  const [confirmPasswordValMsg, setConfirmPasswordValMsg] = useState('')
 
   const user = useAppSelector(selectUser)
   const fromLocation = useAppSelector(selectFromLocation)
@@ -33,17 +32,46 @@ const Signup = () => {
     if (user.email) navigate(fromLocation ? fromLocation : '/')
   }, [user])
 
-  const validateInput = (
+  const validateFirstNameInput = (
     e: React.FocusEvent<HTMLInputElement, Element> | React.ChangeEvent<HTMLInputElement>,
   ) => {
-    if (e.target.id === 'firstName') {
-      if (e.target.value === '') setfirstNameValMsg('enter first name')
-      else setfirstNameValMsg('')
-    }
-    if (e.target.id === 'lastName') {
-      if (e.target.value === '') setlastNameValMsg('enter last name')
-      else setfirstNameValMsg('')
-    }
+    if (e.target.value === '') setFirstNameValMsg('enter first name')
+    else setFirstNameValMsg('')
+  }
+
+  const validateLastNameInput = (
+    e: React.FocusEvent<HTMLInputElement, Element> | React.ChangeEvent<HTMLInputElement>,
+  ) => {
+    if (e.target.value === '') setLastNameValMsg('enter last name')
+    else setLastNameValMsg('')
+  }
+
+  const validateUsernameInput = (
+    e: React.FocusEvent<HTMLInputElement, Element> | React.ChangeEvent<HTMLInputElement>,
+  ) => {
+    if (e.target.value === '') setUsernameValMsg('enter username')
+    else setUsernameValMsg('')
+  }
+
+  const validateEmailInput = (
+    e: React.FocusEvent<HTMLInputElement, Element> | React.ChangeEvent<HTMLInputElement>,
+  ) => {
+    if (e.target.value === '') setEmailValMsg('enter email')
+    else setEmailValMsg('')
+  }
+
+  const validatePasswordInput = (
+    e: React.FocusEvent<HTMLInputElement, Element> | React.ChangeEvent<HTMLInputElement>,
+  ) => {
+    if (e.target.value === '') setPasswordValMsg('enter password')
+    else setPasswordValMsg('')
+  }
+
+  const validateConfirmPasswordInput = (
+    e: React.FocusEvent<HTMLInputElement, Element> | React.ChangeEvent<HTMLInputElement>,
+  ) => {
+    if (e.target.value === '') setConfirmPasswordValMsg('enter confirm password')
+    else setConfirmPasswordValMsg('')
   }
 
   const handleSubmit = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>): void => {
@@ -80,9 +108,9 @@ const Signup = () => {
                   placeholder='Enter first name'
                   onChange={(e) => {
                     setFirstName(e.target.value)
-                    validateInput(e)
+                    validateFirstNameInput(e)
                   }}
-                  onBlur={(e) => validateInput(e)}
+                  onBlur={(e) => validateFirstNameInput(e)}
                 />
                 {firstNameValMsg !== '' ? (
                   <span className='text-rose-600 block text-right'>*{firstNameValMsg}</span>
@@ -103,8 +131,11 @@ const Signup = () => {
                   name='lastName'
                   aria-describedby='lastNameHelp'
                   placeholder='Enter last name'
-                  onChange={(e) => setLastName(e.target.value)}
-                  onBlur={(e) => validateInput(e)}
+                  onChange={(e) => {
+                    setLastName(e.target.value)
+                    validateLastNameInput(e)
+                  }}
+                  onBlur={(e) => validateLastNameInput(e)}
                 />
                 {lastNameValMsg !== '' ? (
                   <span className='text-rose-600 block text-right'>*{lastNameValMsg}</span>
@@ -120,13 +151,24 @@ const Signup = () => {
                 </label>
                 <input
                   type='text'
-                  className='form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none'
+                  className={`form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none ${
+                    usernameValMsg !== '' ? 'border-rose-600' : ''
+                  }`}
                   id='username'
                   name='username'
                   aria-describedby='usernameHelp'
                   placeholder='Enter username'
-                  onChange={(e) => setUsername(e.target.value)}
+                  onChange={(e) => {
+                    setUsername(e.target.value)
+                    validateUsernameInput(e)
+                  }}
+                  onBlur={(e) => validateUsernameInput(e)}
                 />
+                {usernameValMsg !== '' ? (
+                  <span className='text-rose-600 block text-right'>*{usernameValMsg}</span>
+                ) : (
+                  ''
+                )}
               </div>
               <div className='form-group mb-6'>
                 <label htmlFor='email' className='form-label inline-block mb-2 text-gray-700'>
@@ -134,13 +176,24 @@ const Signup = () => {
                 </label>
                 <input
                   type='email'
-                  className='form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none'
+                  className={`form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none ${
+                    emailValMsg !== '' ? 'border-rose-600' : ''
+                  }`}
                   id='email'
                   name='email'
                   aria-describedby='emailHelp'
                   placeholder='Enter email'
-                  onChange={(e) => setEmail(e.target.value)}
+                  onChange={(e) => {
+                    setEmail(e.target.value)
+                    validateEmailInput(e)
+                  }}
+                  onBlur={(e) => validateEmailInput(e)}
                 />
+                {emailValMsg !== '' ? (
+                  <span className='text-rose-600 block text-right'>*{emailValMsg}</span>
+                ) : (
+                  ''
+                )}
               </div>
             </div>
             <div className='flex space-x-1'>
@@ -150,12 +203,23 @@ const Signup = () => {
                 </label>
                 <input
                   type='password'
-                  className='form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none'
+                  className={`form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none ${
+                    passwordValMsg !== '' ? 'border-rose-600' : ''
+                  }`}
                   id='password'
                   name='password'
                   placeholder='Password'
-                  onChange={(e) => setPassword(e.target.value)}
+                  onChange={(e) => {
+                    setPassword(e.target.value)
+                    validatePasswordInput(e)
+                  }}
+                  onBlur={(e) => validatePasswordInput(e)}
                 />
+                {passwordValMsg !== '' ? (
+                  <span className='text-rose-600 block text-right'>*{passwordValMsg}</span>
+                ) : (
+                  ''
+                )}
               </div>
 
               <div className='form-group mb-6'>
@@ -167,12 +231,23 @@ const Signup = () => {
                 </label>
                 <input
                   type='password'
-                  className='form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none'
+                  className={`form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none ${
+                    confirmPasswordValMsg !== '' ? 'border-rose-600' : ''
+                  }`}
                   id='confrimPassword'
                   name='confirmPassword'
                   placeholder='Confrim Password'
-                  onChange={(e) => setConfrimPassword(e.target.value)}
+                  onChange={(e) => {
+                    setConfrimPassword(e.target.value)
+                    validateConfirmPasswordInput(e)
+                  }}
+                  onBlur={(e) => validateConfirmPasswordInput(e)}
                 />
+                {confirmPasswordValMsg !== '' ? (
+                  <span className='text-rose-600 block text-right'>*{confirmPasswordValMsg}</span>
+                ) : (
+                  ''
+                )}
               </div>
             </div>
 
