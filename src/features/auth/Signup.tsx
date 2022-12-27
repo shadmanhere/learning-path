@@ -32,45 +32,42 @@ const Signup = () => {
     if (user.email) navigate(fromLocation ? fromLocation : '/')
   }, [user])
 
-  const validateFirstNameInput = (
-    e: React.FocusEvent<HTMLInputElement, Element> | React.ChangeEvent<HTMLInputElement>,
-  ) => {
-    if (e.target.value === '') setFirstNameValMsg('enter first name')
+  const validateFirstNameInput = () => {
+    if (firstName === '') setFirstNameValMsg('enter first name')
+    else if (/\s/.test(firstName)) setFirstNameValMsg('space not allowed')
+    else if (firstName.length > 10) setFirstNameValMsg('more than 10 characters not allowed')
     else setFirstNameValMsg('')
   }
 
-  const validateLastNameInput = (
-    e: React.FocusEvent<HTMLInputElement, Element> | React.ChangeEvent<HTMLInputElement>,
-  ) => {
-    if (e.target.value === '') setLastNameValMsg('enter last name')
+  const validateLastNameInput = () => {
+    if (lastName === '') setLastNameValMsg('enter last name')
+    else if (/\s/.test(lastName)) setLastNameValMsg('space not allowed')
+    else if (lastName.length > 10) setLastNameValMsg('more than 10 characters not allowed')
     else setLastNameValMsg('')
   }
 
-  const validateUsernameInput = (
-    e: React.FocusEvent<HTMLInputElement, Element> | React.ChangeEvent<HTMLInputElement>,
-  ) => {
-    if (e.target.value === '') setUsernameValMsg('enter username')
+  const validateUsernameInput = () => {
+    if (username === '') setUsernameValMsg('enter username')
+    else if (/\s/.test(username)) setUsernameValMsg('space not allowed')
     else setUsernameValMsg('')
   }
 
-  const validateEmailInput = (
-    e: React.FocusEvent<HTMLInputElement, Element> | React.ChangeEvent<HTMLInputElement>,
-  ) => {
-    if (e.target.value === '') setEmailValMsg('enter email')
+  const validateEmailInput = () => {
+    if (email === '') setEmailValMsg('enter email')
+    else if (/\s/.test(email)) setEmailValMsg('space not allowed')
     else setEmailValMsg('')
   }
 
-  const validatePasswordInput = (
-    e: React.FocusEvent<HTMLInputElement, Element> | React.ChangeEvent<HTMLInputElement>,
-  ) => {
-    if (e.target.value === '') setPasswordValMsg('enter password')
+  const validatePasswordInput = () => {
+    if (password === '') setPasswordValMsg('enter password')
+    else if (/\s/.test(password)) setPasswordValMsg('space not allowed')
     else setPasswordValMsg('')
   }
 
-  const validateConfirmPasswordInput = (
-    e: React.FocusEvent<HTMLInputElement, Element> | React.ChangeEvent<HTMLInputElement>,
-  ) => {
-    if (e.target.value === '') setConfirmPasswordValMsg('enter confirm password')
+  const validateConfirmPasswordInput = () => {
+    if (confirmPassword === '') setConfirmPasswordValMsg('enter confirm password')
+    else if (confirmPassword !== password) setConfirmPasswordValMsg('password do not match')
+    else if (/\s/.test(confirmPassword)) setConfirmPasswordValMsg('space not allowed')
     else setConfirmPasswordValMsg('')
   }
 
@@ -108,12 +105,12 @@ const Signup = () => {
                   placeholder='Enter first name'
                   onChange={(e) => {
                     setFirstName(e.target.value)
-                    validateFirstNameInput(e)
+                    validateFirstNameInput()
                   }}
-                  onBlur={(e) => validateFirstNameInput(e)}
+                  onBlur={(e) => validateFirstNameInput()}
                 />
                 {firstNameValMsg !== '' ? (
-                  <span className='text-rose-600 block text-right'>*{firstNameValMsg}</span>
+                  <span className='text-rose-600 block text-right text-xs'>*{firstNameValMsg}</span>
                 ) : (
                   ''
                 )}
@@ -133,12 +130,12 @@ const Signup = () => {
                   placeholder='Enter last name'
                   onChange={(e) => {
                     setLastName(e.target.value)
-                    validateLastNameInput(e)
+                    validateLastNameInput()
                   }}
-                  onBlur={(e) => validateLastNameInput(e)}
+                  onBlur={() => validateLastNameInput()}
                 />
                 {lastNameValMsg !== '' ? (
-                  <span className='text-rose-600 block text-right'>*{lastNameValMsg}</span>
+                  <span className='text-rose-600 block text-right text-xs'>*{lastNameValMsg}</span>
                 ) : (
                   ''
                 )}
@@ -160,12 +157,12 @@ const Signup = () => {
                   placeholder='Enter username'
                   onChange={(e) => {
                     setUsername(e.target.value)
-                    validateUsernameInput(e)
+                    validateUsernameInput()
                   }}
-                  onBlur={(e) => validateUsernameInput(e)}
+                  onBlur={() => validateUsernameInput()}
                 />
                 {usernameValMsg !== '' ? (
-                  <span className='text-rose-600 block text-right'>*{usernameValMsg}</span>
+                  <span className='text-rose-600 block text-right text-xs'>*{usernameValMsg}</span>
                 ) : (
                   ''
                 )}
@@ -185,12 +182,12 @@ const Signup = () => {
                   placeholder='Enter email'
                   onChange={(e) => {
                     setEmail(e.target.value)
-                    validateEmailInput(e)
+                    validateEmailInput()
                   }}
-                  onBlur={(e) => validateEmailInput(e)}
+                  onBlur={() => validateEmailInput()}
                 />
                 {emailValMsg !== '' ? (
-                  <span className='text-rose-600 block text-right'>*{emailValMsg}</span>
+                  <span className='text-rose-600 block text-right text-xs'>*{emailValMsg}</span>
                 ) : (
                   ''
                 )}
@@ -211,12 +208,12 @@ const Signup = () => {
                   placeholder='Password'
                   onChange={(e) => {
                     setPassword(e.target.value)
-                    validatePasswordInput(e)
+                    validatePasswordInput()
                   }}
-                  onBlur={(e) => validatePasswordInput(e)}
+                  onBlur={() => validatePasswordInput()}
                 />
                 {passwordValMsg !== '' ? (
-                  <span className='text-rose-600 block text-right'>*{passwordValMsg}</span>
+                  <span className='text-rose-600 block text-right text-xs'>*{passwordValMsg}</span>
                 ) : (
                   ''
                 )}
@@ -239,12 +236,14 @@ const Signup = () => {
                   placeholder='Confrim Password'
                   onChange={(e) => {
                     setConfrimPassword(e.target.value)
-                    validateConfirmPasswordInput(e)
+                    validateConfirmPasswordInput()
                   }}
-                  onBlur={(e) => validateConfirmPasswordInput(e)}
+                  onBlur={() => validateConfirmPasswordInput()}
                 />
                 {confirmPasswordValMsg !== '' ? (
-                  <span className='text-rose-600 block text-right'>*{confirmPasswordValMsg}</span>
+                  <span className='text-rose-600 block text-right text-xs'>
+                    *{confirmPasswordValMsg}
+                  </span>
                 ) : (
                   ''
                 )}
@@ -274,7 +273,22 @@ const Signup = () => {
             </div>
             <button
               type='submit'
-              className=' w-full px-6 py-2.5 bg-blue-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out'
+              className={`w-full px-6 py-2.5 bg-blue-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out ${
+                firstNameValMsg === '' &&
+                lastNameValMsg === '' &&
+                usernameValMsg === '' &&
+                emailValMsg === '' &&
+                passwordValMsg === '' &&
+                confirmPasswordValMsg === '' &&
+                firstName !== '' &&
+                lastName !== '' &&
+                username !== '' &&
+                email !== '' &&
+                password !== '' &&
+                confirmPassword !== ''
+                  ? ''
+                  : 'pointer-events-none opacity-75'
+              }`}
               onClick={(e) => handleSubmit(e)}
             >
               Signup
