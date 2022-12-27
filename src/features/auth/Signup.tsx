@@ -8,6 +8,7 @@ import { resetError as homeError } from '../home/homeSlice'
 import { resetError as pathListError } from '../pathslist/pathsListSlice'
 import { resetError as learningpathError } from '../learningpath/learningpathSlice'
 import { resetError as tutorialError } from '../tutorial/tutorialSlice'
+import { validateParams } from '@linaria/tags'
 
 const Signup = () => {
   const [firstName, setFirstName] = useState('')
@@ -16,6 +17,14 @@ const Signup = () => {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [confirmPassword, setConfrimPassword] = useState('')
+
+  const [firstNameValMsg, setfirstNameValMsg] = useState('')
+  const [lastNameValMsg, setlastNameValMsg] = useState('')
+  const [usernameValMsg, setusernameValMsg] = useState('')
+  const [emailValMsg, setemailValMsg] = useState('')
+  const [passwordValMsg, setpasswordValMsg] = useState('')
+  const [confirmPasswordValMsg, setconfirmPasswordValMsg] = useState('')
+
   const user = useAppSelector(selectUser)
   const fromLocation = useAppSelector(selectFromLocation)
   const dispatch = useAppDispatch()
@@ -23,6 +32,19 @@ const Signup = () => {
   useEffect(() => {
     if (user.email) navigate(fromLocation ? fromLocation : '/')
   }, [user])
+
+  const validateInput = (
+    e: React.FocusEvent<HTMLInputElement, Element> | React.ChangeEvent<HTMLInputElement>,
+  ) => {
+    if (e.target.id === 'firstName') {
+      if (e.target.value === '') setfirstNameValMsg('enter first name')
+      else setfirstNameValMsg('')
+    }
+    if (e.target.id === 'lastName') {
+      if (e.target.value === '') setlastNameValMsg('enter last name')
+      else setfirstNameValMsg('')
+    }
+  }
 
   const handleSubmit = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>): void => {
     e.preventDefault()
@@ -49,13 +71,24 @@ const Signup = () => {
                 </label>
                 <input
                   type='text'
-                  className='form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none'
+                  className={`form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none ${
+                    firstNameValMsg !== '' ? 'border-rose-600' : ''
+                  }`}
                   id='firstName'
                   name='firstName'
                   aria-describedby='firstNameHelp'
                   placeholder='Enter first name'
-                  onChange={(e) => setFirstName(e.target.value)}
+                  onChange={(e) => {
+                    setFirstName(e.target.value)
+                    validateInput(e)
+                  }}
+                  onBlur={(e) => validateInput(e)}
                 />
+                {firstNameValMsg !== '' ? (
+                  <span className='text-rose-600 block text-right'>*{firstNameValMsg}</span>
+                ) : (
+                  ''
+                )}
               </div>
               <div className='form-group mb-6'>
                 <label htmlFor='lastName' className='form-label inline-block mb-2 text-gray-700'>
@@ -63,13 +96,21 @@ const Signup = () => {
                 </label>
                 <input
                   type='text'
-                  className='form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none'
+                  className={`form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none ${
+                    lastNameValMsg !== '' ? 'border-rose-600' : ''
+                  }`}
                   id='lastName'
                   name='lastName'
                   aria-describedby='lastNameHelp'
                   placeholder='Enter last name'
                   onChange={(e) => setLastName(e.target.value)}
+                  onBlur={(e) => validateInput(e)}
                 />
+                {lastNameValMsg !== '' ? (
+                  <span className='text-rose-600 block text-right'>*{lastNameValMsg}</span>
+                ) : (
+                  ''
+                )}
               </div>
             </div>
             <div className='flex space-x-1'>
