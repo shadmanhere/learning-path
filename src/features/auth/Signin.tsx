@@ -83,7 +83,7 @@ const Signin = () => {
                 </label>
               </div> */}
               <a
-                href='#!'
+                href='/forgotPassword'
                 className='text-blue-600 hover:text-blue-700 focus:text-blue-700 transition duration-200 ease-in-out'
               >
                 Forgot password?
