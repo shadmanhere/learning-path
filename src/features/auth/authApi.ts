@@ -42,3 +42,10 @@ export const forgotPassword = async (email: string) => {
   params.append('email', email)
   return await API.post('user/forgot', params)
 }
+
+export const resetPassword = async (token: string, password: string, confirmPassword: string) => {
+  const params = new URLSearchParams()
+  params.append('password', password)
+  params.append('confirmPassword', confirmPassword)
+  return await API.put(`user/password/reset/${token}`, params)
+}

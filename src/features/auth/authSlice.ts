@@ -6,11 +6,13 @@ import {
   signupRequest,
   getUserProfile,
   forgotPassword,
+  resetPassword,
 } from './authApi'
 
 export interface authState {
   fromLocation: string
   user: { id: number; firstName: string; lastName: string; username: string; email: string }
+  success: boolean
   message: string
   error: { message: string; statusCode: number; from: string }
   status: 'idle' | 'request' | 'loading' | 'failed'
@@ -19,6 +21,7 @@ export interface authState {
 const initialState: authState = {
   fromLocation: '',
   user: { id: 0, firstName: '', lastName: '', username: '', email: '' },
+  success: false,
   message: '',
   error: { message: '', statusCode: 0, from: '' },
   status: 'idle',
@@ -91,6 +94,23 @@ export const ForgotPassword = createAsyncThunk(
       const response = await forgotPassword(formData.get('email') as string)
       return response.data
 
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    } catch (err: any) {
+      return err.response
+    }
+  },
+)
+
+export const ResetPassword = createAsyncThunk(
+  'auth/resetpassword',
+  async (data: { token: string; formData: FormData }) => {
+    try {
+      const response = await resetPassword(
+        data.token,
+        data.formData.get('password') as string,
+        data.formData.get('confirmPassword') as string,
+      )
+      return response.data
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (err: any) {
       return err.response
@@ -192,6 +212,25 @@ export const authSlice = createSlice({
       .addCase(ForgotPassword.rejected, (state) => {
         state.status = 'failed'
       })
+
+      // ResetPassword
+      .addCase(ResetPassword.pending, (state) => {
+        state.status = 'loading'
+      })
+      .addCase(ResetPassword.fulfilled, (state, action) => {
+        state.status = 'idle'
+        if (action.payload.success) {
+          state.success = action.payload.success
+          state.user = action.payload.user
+        } else {
+          state.error.message = action.payload.data.message
+          state.error.statusCode = action.payload.status
+          state.error.from = 'ResetPassword'
+        }
+      })
+      .addCase(ResetPassword.rejected, (state) => {
+        state.status = 'failed'
+      })
   },
 })
 
@@ -201,6 +240,7 @@ export const { setFromLocation, resetError, resetMessage } = authSlice.actions
 
 export const selectFromLocation = (state: RootState) => state.auth.fromLocation
 export const selectUser = (state: RootState) => state.auth.user
+export const selectSuccess = (state: RootState) => state.auth.success
 export const selectMessage = (state: RootState) => state.auth.message
 export const selectStatus = (state: RootState) => state.auth.status
 export const selectError = (state: RootState) => state.auth.error
