@@ -1,14 +1,24 @@
 import React, { useEffect, useState } from 'react'
 import { Helmet, HelmetProvider } from 'react-helmet-async'
 import { useAppSelector, useAppDispatch } from '../../app/hooks'
-import { ForgotPassword as ForgotPasswordSlice } from './authSlice'
+import {
+  ForgotPassword as ForgotPasswordSlice,
+  selectError,
+  resetError,
+  selectMessage,
+  resetMessage,
+} from './authSlice'
 
 const ForgotPassword = () => {
   const [email, setEmail] = useState('')
   const dispatch = useAppDispatch()
+  const error = useAppSelector(selectError)
+  const message = useAppSelector(selectMessage)
 
   const handleSubmit = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     e.preventDefault()
+    dispatch(resetMessage())
+    dispatch(resetError())
     const formData = new FormData()
     formData.set('email', email)
     dispatch(ForgotPasswordSlice(formData))
@@ -35,6 +45,16 @@ const ForgotPassword = () => {
                 placeholder='Enter email'
                 onChange={(e) => setEmail(e.target.value)}
               />
+              {error.message ? (
+                <span className='text-rose-600 block text-right text-xs'>*{error.message}</span>
+              ) : (
+                ''
+              )}
+              {message ? (
+                <span className='text-green-600 block text-right text-xs'>*{message}</span>
+              ) : (
+                ''
+              )}
             </div>
             <button
               type='submit'
