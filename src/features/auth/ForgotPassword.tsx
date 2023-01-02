@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { Helmet, HelmetProvider } from 'react-helmet-async'
+import { useNavigate } from 'react-router-dom'
 import { useAppSelector, useAppDispatch } from '../../app/hooks'
 import {
   ForgotPassword as ForgotPasswordSlice,
@@ -7,6 +8,8 @@ import {
   resetError,
   selectMessage,
   resetMessage,
+  selectUser,
+  selectFromLocation,
 } from './authSlice'
 
 const ForgotPassword = () => {
@@ -14,6 +17,13 @@ const ForgotPassword = () => {
   const dispatch = useAppDispatch()
   const error = useAppSelector(selectError)
   const message = useAppSelector(selectMessage)
+  const navigate = useNavigate()
+  const user = useAppSelector(selectUser)
+  const fromLocation = useAppSelector(selectFromLocation)
+
+  useEffect(() => {
+    if (user.email) navigate(fromLocation ? fromLocation : '/')
+  }, [user])
 
   const handleSubmit = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     e.preventDefault()
@@ -45,7 +55,7 @@ const ForgotPassword = () => {
                 placeholder='Enter email'
                 onChange={(e) => setEmail(e.target.value)}
               />
-              {error.message ? (
+              {error.message && error.from === 'ForgotPassword' ? (
                 <span className='text-rose-600 block text-right text-xs'>*{error.message}</span>
               ) : (
                 ''

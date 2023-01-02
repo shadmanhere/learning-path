@@ -12,7 +12,7 @@ export interface authState {
   fromLocation: string
   user: { id: number; firstName: string; lastName: string; username: string; email: string }
   message: string
-  error: { message: string; statusCode: number }
+  error: { message: string; statusCode: number; from: string }
   status: 'idle' | 'request' | 'loading' | 'failed'
 }
 
@@ -20,7 +20,7 @@ const initialState: authState = {
   fromLocation: '',
   user: { id: 0, firstName: '', lastName: '', username: '', email: '' },
   message: '',
-  error: { message: '', statusCode: 0 },
+  error: { message: '', statusCode: 0, from: '' },
   status: 'idle',
 }
 
@@ -106,7 +106,7 @@ export const authSlice = createSlice({
       state.fromLocation = action.payload
     },
     resetError: (state) => {
-      state.error = { message: '', statusCode: 0 }
+      state.error = { message: '', statusCode: 0, from: '' }
     },
     resetMessage: (state) => {
       state.message = ''
@@ -186,6 +186,7 @@ export const authSlice = createSlice({
         else {
           state.error.message = action.payload.data.message
           state.error.statusCode = action.payload.status
+          state.error.from = 'ForgotPassword'
         }
       })
       .addCase(ForgotPassword.rejected, (state) => {
