@@ -36,3 +36,9 @@ export const getUserProfile = async () => {
 export const logoutRequest = async () => {
   return await API.get('user/logout')
 }
+
+export const forgotPassword = async (email: string) => {
+  const params = new URLSearchParams()
+  params.append('email', email)
+  return await API.post('user/forgot', params)
+}

@@ -1,6 +1,12 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { RootState } from '../../app/store'
-import { logoutRequest, signinRequest, signupRequest, getUserProfile } from './authApi'
+import {
+  logoutRequest,
+  signinRequest,
+  signupRequest,
+  getUserProfile,
+  forgotPassword,
+} from './authApi'
 
 export interface authState {
   fromLocation: string
@@ -76,6 +82,20 @@ export const UserProfile = createAsyncThunk('auth/userprofile', async () => {
   }
 })
 
+export const ForgotPassword = createAsyncThunk(
+  'auth/forgotpassword',
+  async (formData: FormData) => {
+    try {
+      const response = await forgotPassword(formData.get('email') as string)
+      return response.data
+
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    } catch (err: any) {
+      return err.response
+    }
+  },
+)
+
 export const authSlice = createSlice({
   name: 'auth',
   initialState,
@@ -89,6 +109,7 @@ export const authSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
+      // Signin
       .addCase(SignIn.pending, (state) => {
         state.status = 'loading'
       })
@@ -117,6 +138,8 @@ export const authSlice = createSlice({
       .addCase(SignUp.rejected, (state) => {
         state.status = 'failed'
       })
+
+      // logout
       .addCase(Logout.pending, (state) => {
         state.status = 'loading'
       })
@@ -132,6 +155,7 @@ export const authSlice = createSlice({
       .addCase(Logout.rejected, (state) => {
         state.status = 'failed'
       })
+      // User Profile
       .addCase(UserProfile.pending, (state) => {
         state.status = 'loading'
       })
@@ -144,6 +168,22 @@ export const authSlice = createSlice({
         }
       })
       .addCase(UserProfile.rejected, (state) => {
+        state.status = 'failed'
+      })
+
+      // Forgot Password
+      .addCase(ForgotPassword.pending, (state) => {
+        state.status = 'loading'
+      })
+      .addCase(ForgotPassword.fulfilled, (state, action) => {
+        state.status = 'idle'
+        if (action.payload.success) state.value = action.payload.message
+        else {
+          state.error.messgae = action.payload.data.message
+          state.error.statusCode = action.payload.status
+        }
+      })
+      .addCase(ForgotPassword.rejected, (state) => {
         state.status = 'failed'
       })
   },
