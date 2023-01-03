@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { Helmet, HelmetProvider } from 'react-helmet-async'
 import { useNavigate, useParams } from 'react-router-dom'
 import { useAppSelector, useAppDispatch } from '../../app/hooks'
+import { Oval } from 'react-loading-icons'
 import {
   ResetPassword,
   selectFromLocation,
@@ -11,6 +12,7 @@ import {
   selectError,
   resetError,
   resetMessage,
+  selectStatus,
 } from './authSlice'
 
 const NewPassword = () => {
@@ -28,6 +30,7 @@ const NewPassword = () => {
   const fromLocation = useAppSelector(selectFromLocation)
   const success = useAppSelector(selectSuccess)
   const error = useAppSelector(selectError)
+  const status = useAppSelector(selectStatus)
 
   useEffect(() => {
     if (success) {
@@ -84,6 +87,7 @@ const NewPassword = () => {
                   validatePasswordInput()
                 }}
                 onBlur={() => validatePasswordInput()}
+                readOnly={status === 'loading'}
               />
               {passwordValMsg !== '' ? (
                 <span className='text-rose-600 block text-right text-xs'>*{passwordValMsg}</span>
@@ -112,6 +116,7 @@ const NewPassword = () => {
                   validateConfirmPasswordInput()
                 }}
                 onBlur={() => validateConfirmPasswordInput()}
+                readOnly={status === 'loading'}
               />
               {confirmPasswordValMsg !== '' ? (
                 <span className='text-rose-600 block text-right text-xs'>
@@ -133,10 +138,12 @@ const NewPassword = () => {
             )}
             <button
               type='submit'
-              className=' w-full px-6 py-2.5 bg-blue-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out'
+              className={`w-full px-6 py-2.5 bg-blue-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out ${
+                status === 'loading' ? 'pointer-events-none opacity-75' : ''
+              }`}
               onClick={(e) => handleSubmit(e)}
             >
-              Submit
+              {status === 'loading' ? <Oval height='1.2rem' strokeWidth='3' /> : 'Submit'}
             </button>
           </form>
         </div>
