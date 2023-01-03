@@ -10,6 +10,7 @@ import {
   resetMessage,
   selectUser,
   selectFromLocation,
+  selectStatus,
 } from './authSlice'
 
 const ForgotPassword = () => {
@@ -20,6 +21,7 @@ const ForgotPassword = () => {
   const navigate = useNavigate()
   const user = useAppSelector(selectUser)
   const fromLocation = useAppSelector(selectFromLocation)
+  const status = useAppSelector(selectStatus)
 
   useEffect(() => {
     if (user.email) navigate(fromLocation ? fromLocation : '/')
@@ -54,6 +56,7 @@ const ForgotPassword = () => {
                 aria-describedby='emailHelp'
                 placeholder='Enter email'
                 onChange={(e) => setEmail(e.target.value)}
+                readOnly={status === 'loading'}
               />
               {error.message && error.from === 'ForgotPassword' ? (
                 <span className='text-rose-600 block text-right text-xs'>*{error.message}</span>
@@ -68,7 +71,9 @@ const ForgotPassword = () => {
             </div>
             <button
               type='submit'
-              className=' w-full px-6 py-2.5 bg-blue-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out'
+              className={`w-full px-6 py-2.5 bg-blue-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out ${
+                status === 'loading' ? 'pointer-events-none opacity-75' : ''
+              }`}
               onClick={(e) => handleSubmit(e)}
             >
               Submit
