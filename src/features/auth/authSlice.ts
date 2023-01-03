@@ -4,25 +4,34 @@ import {
   logoutRequest,
   signinRequest,
   signupRequest,
-  getUserProfile,
+  loadUser,
   forgotPassword,
   resetPassword,
 } from './authApi'
 
 export interface authState {
   fromLocation: string
-  user: { id: number; firstName: string; lastName: string; username: string; email: string }
+  user: {
+    id: number
+    firstName: string
+    lastName: string
+    username: string
+    email: string
+    role: string
+  }
   success: boolean
   message: string
+  isAuthenticated: boolean
   error: { message: string; statusCode: number; from: string }
   status: 'idle' | 'request' | 'loading' | 'failed'
 }
 
 const initialState: authState = {
   fromLocation: '',
-  user: { id: 0, firstName: '', lastName: '', username: '', email: '' },
+  user: { id: 0, firstName: '', lastName: '', username: '', email: '', role: 'USER' },
   success: false,
   message: '',
+  isAuthenticated: false,
   error: { message: '', statusCode: 0, from: '' },
   status: 'idle',
 }
@@ -77,9 +86,9 @@ export const Logout = createAsyncThunk('auth/logout', async () => {
   }
 })
 
-export const UserProfile = createAsyncThunk('auth/userprofile', async () => {
+export const LoadUser = createAsyncThunk('auth/loadUser', async () => {
   try {
-    const response = await getUserProfile()
+    const response = await loadUser()
     return response.data
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (err: any) {
@@ -140,8 +149,10 @@ export const authSlice = createSlice({
       })
       .addCase(SignIn.fulfilled, (state, action) => {
         state.status = 'idle'
-        if (action.payload.success) state.user = action.payload.user
-        else {
+        if (action.payload.success) {
+          state.user = action.payload.user
+          state.isAuthenticated = true
+        } else {
           state.error.message = action.payload.data.message
           state.error.statusCode = action.payload.status
           state.error.from = 'SignIn'
@@ -155,8 +166,10 @@ export const authSlice = createSlice({
       })
       .addCase(SignUp.fulfilled, (state, action) => {
         state.status = 'idle'
-        if (action.payload.success) state.user = action.payload.user
-        else {
+        if (action.payload.success) {
+          state.user = action.payload.user
+          state.isAuthenticated = true
+        } else {
           state.error.message = action.payload.data.message
           state.error.statusCode = action.payload.status
           state.error.from = 'SignUp'
@@ -172,9 +185,10 @@ export const authSlice = createSlice({
       })
       .addCase(Logout.fulfilled, (state, action) => {
         state.status = 'idle'
-        if (action.payload.success)
-          state.user = { id: 0, firstName: '', lastName: '', username: '', email: '' }
-        else {
+        if (action.payload.success) {
+          state.user = { id: 0, firstName: '', lastName: '', username: '', email: '', role: 'USER' }
+          state.isAuthenticated = false
+        } else {
           state.error.message = action.payload.data.message
           state.error.statusCode = action.payload.status
         }
@@ -182,20 +196,23 @@ export const authSlice = createSlice({
       .addCase(Logout.rejected, (state) => {
         state.status = 'failed'
       })
-      // User Profile
-      .addCase(UserProfile.pending, (state) => {
+      // Load User
+      .addCase(LoadUser.pending, (state) => {
         state.status = 'loading'
       })
-      .addCase(UserProfile.fulfilled, (state, action) => {
+      .addCase(LoadUser.fulfilled, (state, action) => {
         state.status = 'idle'
-        if (action.payload.success) state.user = action.payload.user
-        else {
+        if (action.payload.success) {
+          state.user = action.payload.user
+          state.isAuthenticated = true
+        } else {
           state.error.message = action.payload.data.message
           state.error.statusCode = action.payload.status
         }
       })
-      .addCase(UserProfile.rejected, (state) => {
+      .addCase(LoadUser.rejected, (state) => {
         state.status = 'failed'
+        state.error.from = 'LoadUser'
       })
 
       // Forgot Password
@@ -242,6 +259,7 @@ export const { setFromLocation, resetError, resetMessage } = authSlice.actions
 
 export const selectFromLocation = (state: RootState) => state.auth.fromLocation
 export const selectUser = (state: RootState) => state.auth.user
+export const selectAuthenticated = (state: RootState) => state.auth.isAuthenticated
 export const selectSuccess = (state: RootState) => state.auth.success
 export const selectMessage = (state: RootState) => state.auth.message
 export const selectStatus = (state: RootState) => state.auth.status

@@ -1,19 +1,14 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import { styled } from '@linaria/react'
 import { Link, useNavigate } from 'react-router-dom'
 import { useAppDispatch, useAppSelector } from '../../app/hooks'
-import { Logout, selectUser, UserProfile, selectError } from '../auth/authSlice'
+import { Logout, selectUser } from '../auth/authSlice'
 import './Navbar.css'
 
 const Navbar = () => {
   const dispatch = useAppDispatch()
   const navigate = useNavigate()
   const user = useAppSelector(selectUser)
-  const authError = useAppSelector(selectError)
-
-  useEffect(() => {
-    if (!user?.id && authError.message === '') dispatch(UserProfile())
-  }, [user])
 
   const logoutHandle = () => {
     dispatch(Logout())

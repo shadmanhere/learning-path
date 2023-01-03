@@ -1,9 +1,8 @@
 import React, { useEffect } from 'react'
 import { Helmet, HelmetProvider } from 'react-helmet-async'
-import { Link, useNavigate, useLocation } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import { useAppSelector, useAppDispatch } from '../../app/hooks'
-import { TutorialsList, selectTutorials, selectStatus, selectError, resetValue } from './homeSlice'
-import { setFromLocation } from '../auth/authSlice'
+import { TutorialsList, selectTutorials, selectStatus } from './homeSlice'
 import PathsList from '../pathslist/PathsList'
 import './Home.css'
 
@@ -12,23 +11,9 @@ const Home = () => {
     useAppSelector(selectTutorials)
   const status = useAppSelector(selectStatus)
   const dispatch = useAppDispatch()
-  const error = useAppSelector(selectError)
-  const navigate = useNavigate()
-  const location = useLocation()
   useEffect(() => {
     dispatch(TutorialsList())
   }, [])
-
-  const isAuthenticated = () => {
-    if (error.statusCode === 401 || error.messgae === 'JSON Web Token is expired. Try Again!!!') {
-      dispatch(resetValue())
-      dispatch(setFromLocation(location.pathname))
-      navigate('/signin')
-    }
-  }
-  useEffect(() => {
-    isAuthenticated()
-  }, [error])
 
   return (
     <HelmetProvider>

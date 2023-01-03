@@ -1,37 +1,15 @@
 import React, { useEffect } from 'react'
 import { useAppSelector, useAppDispatch } from '../../app/hooks'
-import {
-  GetPathsList,
-  selectPathsList,
-  selectStatus,
-  selectError,
-  resetValue,
-} from './pathsListSlice'
-import { useNavigate, useLocation } from 'react-router-dom'
+import { GetPathsList, selectPathsList, selectStatus } from './pathsListSlice'
 
 import Paths from './Path'
-import { setFromLocation } from '../auth/authSlice'
 
 const PathsList = () => {
   const dispatch = useAppDispatch()
   const status = useAppSelector(selectStatus)
-  const error = useAppSelector(selectError)
-  const navigate = useNavigate()
-  const location = useLocation()
   useEffect(() => {
     dispatch(GetPathsList())
   }, [])
-
-  const isAuthenticated = () => {
-    if (error.statusCode === 401 || error.messgae === 'JSON Web Token is expired. Try Again!!!') {
-      dispatch(resetValue())
-      dispatch(setFromLocation(location.pathname))
-      navigate('/signin')
-    }
-  }
-  useEffect(() => {
-    isAuthenticated()
-  }, [error])
 
   const listOfPaths: { name: string }[] = useAppSelector(selectPathsList)
   return (

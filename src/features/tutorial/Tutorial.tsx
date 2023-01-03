@@ -2,27 +2,16 @@ import React, { useEffect } from 'react'
 import { Helmet, HelmetProvider } from 'react-helmet-async'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { styled } from '@linaria/react'
-import { GetTutorial, selectTutorial, selectError } from '../tutorial/tutorialSlice'
+import { GetTutorial, selectTutorial } from '../tutorial/tutorialSlice'
 import { useAppSelector, useAppDispatch } from '../../app/hooks'
-import { setFromLocation } from '../auth/authSlice'
 
 const Tutorial = () => {
   const location = useLocation()
   const pathnameArray = location.pathname.split('/')
   const tutorial = useAppSelector(selectTutorial)
   const tutorialId = pathnameArray[pathnameArray.length - 1]
-  const error = useAppSelector(selectError)
-  const navigate = useNavigate()
+
   const dispatch = useAppDispatch()
-  const isAuthenticated = () => {
-    if (error.statusCode === 401 || error.messgae === 'JSON Web Token is expired. Try Again!!!') {
-      dispatch(setFromLocation(location.pathname))
-      navigate('/signin')
-    }
-  }
-  useEffect(() => {
-    isAuthenticated()
-  }, [error])
   useEffect(() => {
     dispatch(GetTutorial(tutorialId))
   }, [])
