@@ -2,11 +2,12 @@ import React, { useEffect, useState } from 'react'
 import { Helmet, HelmetProvider } from 'react-helmet-async'
 import { Link, useNavigate } from 'react-router-dom'
 import { useAppSelector, useAppDispatch } from '../../app/hooks'
-import { SignIn, selectFromLocation, selectUser, resetError } from './authSlice'
+import { SignIn, selectFromLocation, selectUser, resetError, selectStatus } from './authSlice'
 import { resetError as homeError } from '../home/homeSlice'
 import { resetError as pathListError } from '../pathslist/pathsListSlice'
 import { resetError as learningpathError } from '../learningpath/learningpathSlice'
 import { resetError as tutorialError } from '../tutorial/tutorialSlice'
+import { Oval } from 'react-loading-icons'
 
 const Signin = () => {
   const [username, setUsername] = useState('')
@@ -15,6 +16,8 @@ const Signin = () => {
   const user = useAppSelector(selectUser)
   const dispatch = useAppDispatch()
   const navigate = useNavigate()
+  const status = useAppSelector(selectStatus)
+
   useEffect(() => {
     if (user.email) navigate(fromLocation ? fromLocation : '/')
   }, [user])
@@ -50,6 +53,7 @@ const Signin = () => {
                 aria-describedby='emailHelp'
                 placeholder='Enter username'
                 onChange={(e) => setUsername(e.target.value)}
+                readOnly={status === 'loading'}
               />
             </div>
             <div className='form-group mb-6'>
@@ -66,6 +70,7 @@ const Signin = () => {
                 name='password'
                 placeholder='Password'
                 onChange={(e) => setPassword(e.target.value)}
+                readOnly={status === 'loading'}
               />
             </div>
             <div className='flex justify-between items-center mb-6'>
@@ -91,10 +96,12 @@ const Signin = () => {
             </div>
             <button
               type='submit'
-              className=' w-full px-6 py-2.5 bg-blue-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out'
+              className={`w-full px-6 py-2.5 bg-blue-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out ${
+                status === 'loading' ? 'pointer-events-none opacity-75' : ''
+              }`}
               onClick={(e) => handleSubmit(e)}
             >
-              Sign in
+              {status === 'loading' ? <Oval height='1.2rem' strokeWidth='3' /> : 'Sign in'}
             </button>
             <p className='text-gray-800 mt-6 text-center'>
               Not a member?{' '}
