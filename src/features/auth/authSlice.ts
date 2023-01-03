@@ -144,6 +144,7 @@ export const authSlice = createSlice({
         else {
           state.error.message = action.payload.data.message
           state.error.statusCode = action.payload.status
+          state.error.from = 'SignIn'
         }
       })
       .addCase(SignIn.rejected, (state) => {
@@ -158,6 +159,7 @@ export const authSlice = createSlice({
         else {
           state.error.message = action.payload.data.message
           state.error.statusCode = action.payload.status
+          state.error.from = 'SignUp'
         }
       })
       .addCase(SignUp.rejected, (state) => {
