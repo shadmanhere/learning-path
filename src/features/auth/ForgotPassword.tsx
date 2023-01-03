@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { Helmet, HelmetProvider } from 'react-helmet-async'
 import { useNavigate } from 'react-router-dom'
 import { useAppSelector, useAppDispatch } from '../../app/hooks'
+import { Oval } from 'react-loading-icons'
 import {
   ForgotPassword as ForgotPasswordSlice,
   selectError,
@@ -76,7 +77,7 @@ const ForgotPassword = () => {
               }`}
               onClick={(e) => handleSubmit(e)}
             >
-              Submit
+              {status === 'loading' ? <Oval height='1.2rem' strokeWidth='3' /> : 'Submit'}
             </button>
           </form>
         </div>
