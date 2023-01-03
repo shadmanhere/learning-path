@@ -18,6 +18,7 @@ export interface authState {
     username: string
     email: string
     role: string
+    createdAt: Date | null
   }
   success: boolean
   message: string
@@ -28,7 +29,15 @@ export interface authState {
 
 const initialState: authState = {
   fromLocation: '',
-  user: { id: 0, firstName: '', lastName: '', username: '', email: '', role: 'USER' },
+  user: {
+    id: 0,
+    firstName: '',
+    lastName: '',
+    username: '',
+    email: '',
+    role: 'USER',
+    createdAt: null,
+  },
   success: false,
   message: '',
   isAuthenticated: false,
@@ -186,7 +195,15 @@ export const authSlice = createSlice({
       .addCase(Logout.fulfilled, (state, action) => {
         state.status = 'idle'
         if (action.payload.success) {
-          state.user = { id: 0, firstName: '', lastName: '', username: '', email: '', role: 'USER' }
+          state.user = {
+            id: 0,
+            firstName: '',
+            lastName: '',
+            username: '',
+            email: '',
+            role: 'USER',
+            createdAt: null,
+          }
           state.isAuthenticated = false
         } else {
           state.error.message = action.payload.data.message
