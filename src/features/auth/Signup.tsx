@@ -2,12 +2,20 @@ import React, { useEffect, useState } from 'react'
 import { Helmet, HelmetProvider } from 'react-helmet-async'
 import { Link, useNavigate } from 'react-router-dom'
 import { useAppDispatch, useAppSelector } from '../../app/hooks'
-import { resetError, selectFromLocation, selectUser, SignUp } from './authSlice'
+import {
+  resetError,
+  selectFromLocation,
+  selectUser,
+  SignUp,
+  selectError,
+  selectStatus,
+} from './authSlice'
 
 import { resetError as homeError } from '../home/homeSlice'
 import { resetError as pathListError } from '../pathslist/pathsListSlice'
 import { resetError as learningpathError } from '../learningpath/learningpathSlice'
 import { resetError as tutorialError } from '../tutorial/tutorialSlice'
+import { Oval } from 'react-loading-icons'
 
 const Signup = () => {
   const [firstName, setFirstName] = useState('')
@@ -28,6 +36,9 @@ const Signup = () => {
   const fromLocation = useAppSelector(selectFromLocation)
   const dispatch = useAppDispatch()
   const navigate = useNavigate()
+  const error = useAppSelector(selectError)
+  const status = useAppSelector(selectStatus)
+
   useEffect(() => {
     if (user.email) navigate(fromLocation ? fromLocation : '/')
   }, [user])
@@ -108,6 +119,7 @@ const Signup = () => {
                     validateFirstNameInput()
                   }}
                   onBlur={(e) => validateFirstNameInput()}
+                  readOnly={status === 'loading'}
                 />
                 {firstNameValMsg !== '' ? (
                   <span className='text-rose-600 block text-right text-xs'>*{firstNameValMsg}</span>
@@ -133,6 +145,7 @@ const Signup = () => {
                     validateLastNameInput()
                   }}
                   onBlur={() => validateLastNameInput()}
+                  readOnly={status === 'loading'}
                 />
                 {lastNameValMsg !== '' ? (
                   <span className='text-rose-600 block text-right text-xs'>*{lastNameValMsg}</span>
@@ -160,6 +173,7 @@ const Signup = () => {
                     validateUsernameInput()
                   }}
                   onBlur={() => validateUsernameInput()}
+                  readOnly={status === 'loading'}
                 />
                 {usernameValMsg !== '' ? (
                   <span className='text-rose-600 block text-right text-xs'>*{usernameValMsg}</span>
@@ -185,6 +199,7 @@ const Signup = () => {
                     validateEmailInput()
                   }}
                   onBlur={() => validateEmailInput()}
+                  readOnly={status === 'loading'}
                 />
                 {emailValMsg !== '' ? (
                   <span className='text-rose-600 block text-right text-xs'>*{emailValMsg}</span>
@@ -211,6 +226,7 @@ const Signup = () => {
                     validatePasswordInput()
                   }}
                   onBlur={() => validatePasswordInput()}
+                  readOnly={status === 'loading'}
                 />
                 {passwordValMsg !== '' ? (
                   <span className='text-rose-600 block text-right text-xs'>*{passwordValMsg}</span>
@@ -239,6 +255,7 @@ const Signup = () => {
                     validateConfirmPasswordInput()
                   }}
                   onBlur={() => validateConfirmPasswordInput()}
+                  readOnly={status === 'loading'}
                 />
                 {confirmPasswordValMsg !== '' ? (
                   <span className='text-rose-600 block text-right text-xs'>
@@ -271,27 +288,33 @@ const Signup = () => {
                 Forgot password?
               </a> */}
             </div>
+            {error.message && error.from === 'SignUp' ? (
+              <span className='text-rose-600 block text-right text-xs'>*{error.message}</span>
+            ) : (
+              ''
+            )}
             <button
               type='submit'
               className={`w-full px-6 py-2.5 bg-blue-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out ${
-                firstNameValMsg === '' &&
-                lastNameValMsg === '' &&
-                usernameValMsg === '' &&
-                emailValMsg === '' &&
-                passwordValMsg === '' &&
-                confirmPasswordValMsg === '' &&
-                firstName !== '' &&
-                lastName !== '' &&
-                username !== '' &&
-                email !== '' &&
-                password !== '' &&
-                confirmPassword !== ''
+                (firstNameValMsg === '' &&
+                  lastNameValMsg === '' &&
+                  usernameValMsg === '' &&
+                  emailValMsg === '' &&
+                  passwordValMsg === '' &&
+                  confirmPasswordValMsg === '' &&
+                  firstName !== '' &&
+                  lastName !== '' &&
+                  username !== '' &&
+                  email !== '' &&
+                  password !== '' &&
+                  confirmPassword !== '') ||
+                status === 'loading'
                   ? ''
                   : 'pointer-events-none opacity-75'
               }`}
               onClick={(e) => handleSubmit(e)}
             >
-              Signup
+              {status === 'loading' ? <Oval height='1.2rem' strokeWidth='3' /> : 'Signup'}
             </button>
             <p className='text-gray-800 mt-6 text-center'>
               Already a member ?{' '}
