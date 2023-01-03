@@ -2,7 +2,14 @@ import React, { useEffect, useState } from 'react'
 import { Helmet, HelmetProvider } from 'react-helmet-async'
 import { Link, useNavigate } from 'react-router-dom'
 import { useAppSelector, useAppDispatch } from '../../app/hooks'
-import { SignIn, selectFromLocation, selectUser, resetError, selectStatus } from './authSlice'
+import {
+  SignIn,
+  selectFromLocation,
+  selectUser,
+  resetError,
+  selectStatus,
+  selectError,
+} from './authSlice'
 import { resetError as homeError } from '../home/homeSlice'
 import { resetError as pathListError } from '../pathslist/pathsListSlice'
 import { resetError as learningpathError } from '../learningpath/learningpathSlice'
@@ -17,6 +24,7 @@ const Signin = () => {
   const dispatch = useAppDispatch()
   const navigate = useNavigate()
   const status = useAppSelector(selectStatus)
+  const error = useAppSelector(selectError)
 
   useEffect(() => {
     if (user.email) navigate(fromLocation ? fromLocation : '/')
@@ -94,6 +102,11 @@ const Signin = () => {
                 Forgot password?
               </a>
             </div>
+            {error.message && error.from === 'SignIn' ? (
+              <span className='text-rose-600 block text-right text-xs'>*{error.message}</span>
+            ) : (
+              ''
+            )}
             <button
               type='submit'
               className={`w-full px-6 py-2.5 bg-blue-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out ${
