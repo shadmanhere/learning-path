@@ -14,6 +14,7 @@ import NewPassword from './features/auth/NewPassword'
 import { LoadUser } from './features/auth/authSlice'
 import { useAppDispatch } from './app/hooks'
 import ProtectedRoute from './features/route/ProtectedRoute'
+import UserProfile from './features/auth/UserProfile'
 
 function App() {
   ReactGA.pageview(window.location.pathname + window.location.search)
@@ -59,6 +60,15 @@ function App() {
           element={
             <ProtectedRoute>
               <LearningPath />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path='/me'
+          element={
+            <ProtectedRoute>
+              <UserProfile />
             </ProtectedRoute>
           }
         />
