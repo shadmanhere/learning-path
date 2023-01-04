@@ -9,8 +9,6 @@ import {
   resetError,
   selectMessage,
   resetMessage,
-  selectUser,
-  selectFromLocation,
   selectStatus,
 } from './authSlice'
 
@@ -19,14 +17,8 @@ const ForgotPassword = () => {
   const dispatch = useAppDispatch()
   const error = useAppSelector(selectError)
   const message = useAppSelector(selectMessage)
-  const navigate = useNavigate()
-  const user = useAppSelector(selectUser)
-  const fromLocation = useAppSelector(selectFromLocation)
-  const status = useAppSelector(selectStatus)
 
-  useEffect(() => {
-    if (user.email) navigate(fromLocation ? fromLocation : '/')
-  }, [user])
+  const status = useAppSelector(selectStatus)
 
   const handleSubmit = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     e.preventDefault()

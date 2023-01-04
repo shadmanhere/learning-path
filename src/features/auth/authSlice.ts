@@ -293,7 +293,6 @@ export const authSlice = createSlice({
         state.status = 'idle'
         if (action.payload.success) {
           state.success = action.payload.success
-          state.user = action.payload.user
         } else {
           state.error.message = action.payload.data.message
           state.error.statusCode = action.payload.status

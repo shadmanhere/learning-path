@@ -13,6 +13,7 @@ import {
   resetError,
   resetMessage,
   selectStatus,
+  resetSuccess,
 } from './authSlice'
 
 const NewPassword = () => {
@@ -25,19 +26,19 @@ const NewPassword = () => {
   const dispatch = useAppDispatch()
   const message = useAppSelector(selectMessage)
   const navigate = useNavigate()
-  const user = useAppSelector(selectUser)
+
   const { token } = useParams()
-  const fromLocation = useAppSelector(selectFromLocation)
+
   const success = useAppSelector(selectSuccess)
   const error = useAppSelector(selectError)
   const status = useAppSelector(selectStatus)
 
   useEffect(() => {
     if (success) {
-      navigate('/login')
+      dispatch(resetSuccess())
+      navigate('/')
     }
-    if (user.email) navigate(fromLocation ? fromLocation : '/')
-  }, [success, user])
+  }, [success])
 
   const validatePasswordInput = () => {
     if (password === '') setPasswordValMsg('enter password')
