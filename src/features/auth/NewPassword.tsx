@@ -5,9 +5,7 @@ import { useAppSelector, useAppDispatch } from '../../app/hooks'
 import { Oval } from 'react-loading-icons'
 import {
   ResetPassword,
-  selectFromLocation,
   selectMessage,
-  selectUser,
   selectSuccess,
   selectError,
   resetError,
