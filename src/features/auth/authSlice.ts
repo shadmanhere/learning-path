@@ -86,7 +86,7 @@ export const SignUp = createAsyncThunk(
   },
 )
 
-export const UpdateProfile = createAsyncThunk(
+export const UpdateMyProfile = createAsyncThunk(
   'auth/updateProfile',
   async (data: { firstName: string; lastName: string; username: string; email: string }) => {
     try {
@@ -163,6 +163,9 @@ export const authSlice = createSlice({
     resetMessage: (state) => {
       state.message = ''
     },
+    resetSuccess: (state) => {
+      state.success = false
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -203,21 +206,21 @@ export const authSlice = createSlice({
         state.status = 'failed'
       })
       // UpdateProfile
-      .addCase(UpdateProfile.pending, (state) => {
+      .addCase(UpdateMyProfile.pending, (state) => {
         state.status = 'loading'
       })
-      .addCase(UpdateProfile.fulfilled, (state, action) => {
+      .addCase(UpdateMyProfile.fulfilled, (state, action) => {
         state.status = 'idle'
+        state.success = action.payload.success
         if (action.payload.success) {
           state.user = action.payload.user
-          state.isAuthenticated = true
         } else {
           state.error.message = action.payload.data.message
           state.error.statusCode = action.payload.status
           state.error.from = 'UpdateProfile'
         }
       })
-      .addCase(UpdateProfile.rejected, (state) => {
+      .addCase(UpdateMyProfile.rejected, (state) => {
         state.status = 'failed'
       })
 
@@ -303,7 +306,7 @@ export const authSlice = createSlice({
   },
 })
 
-export const { setFromLocation, resetError, resetMessage } = authSlice.actions
+export const { setFromLocation, resetError, resetMessage, resetSuccess } = authSlice.actions
 
 // export const { requestSignIn } = tutorialsSlice.actions
 

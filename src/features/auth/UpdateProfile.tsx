@@ -1,8 +1,16 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Helmet, HelmetProvider } from 'react-helmet-async'
-import { Link } from 'react-router-dom'
-import { useAppSelector } from '../../app/hooks'
-import { selectUser } from './authSlice'
+import { Link, useNavigate } from 'react-router-dom'
+import { useAppDispatch, useAppSelector } from '../../app/hooks'
+import {
+  resetError,
+  selectError,
+  selectStatus,
+  selectSuccess,
+  selectUser,
+  UpdateMyProfile,
+  resetSuccess,
+} from './authSlice'
 
 const UpdateProfile = () => {
   const [firstName, setFirstName] = useState('')
@@ -14,6 +22,26 @@ const UpdateProfile = () => {
   const [lastNameValMsg, setLastNameValMsg] = useState('')
   const [usernameValMsg, setUsernameValMsg] = useState('')
   const [emailValMsg, setEmailValMsg] = useState('')
+
+  const dispatch = useAppDispatch()
+  const status = useAppSelector(selectStatus)
+  const user = useAppSelector(selectUser)
+  const isUpdated = useAppSelector(selectSuccess)
+  const navigate = useNavigate()
+  const error = useAppSelector(selectError)
+
+  useEffect(() => {
+    if (user) {
+      setFirstName(user.firstName)
+      setLastName(user.lastName)
+      setUsername(user.username)
+      setEmail(user.email)
+    }
+    if (isUpdated) {
+      dispatch(resetSuccess())
+      navigate('/me')
+    }
+  }, [isUpdated])
 
   const validateFirstNameInput = () => {
     if (firstName === '') setFirstNameValMsg('enter first name')
@@ -41,7 +69,11 @@ const UpdateProfile = () => {
     else setEmailValMsg('')
   }
 
-  const user = useAppSelector(selectUser)
+  const handleSubmit = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>): void => {
+    e.preventDefault()
+    dispatch(UpdateMyProfile({ firstName, lastName, username, email }))
+    dispatch(resetError())
+  }
   return (
     <HelmetProvider>
       <Helmet>
@@ -59,11 +91,18 @@ const UpdateProfile = () => {
               First Name
             </label>
             <input
+              type='text'
               id='firstName'
               name='firstName'
               className='form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none'
-              value={user.firstName}
-              onChange={(e) => setFirstName(e.target.value)}
+              value={firstName}
+              placeholder='Enter first name'
+              onChange={(e) => {
+                setFirstName(e.target.value)
+                validateFirstNameInput()
+              }}
+              onBlur={() => validateFirstNameInput()}
+              readOnly={status === 'loading'}
             />
             {firstNameValMsg !== '' ? (
               <span className='text-rose-600 block text-right text-xs'>*{firstNameValMsg}</span>
@@ -79,11 +118,18 @@ const UpdateProfile = () => {
               Last Name
             </label>
             <input
+              type='text'
               id='lastName'
               name='lastName'
               className='form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none'
-              value={user.lastName}
-              onChange={(e) => setLastName(e.target.value)}
+              value={lastName}
+              placeholder='Enter last name'
+              onChange={(e) => {
+                setLastName(e.target.value)
+                validateLastNameInput()
+              }}
+              onBlur={() => validateLastNameInput()}
+              readOnly={status === 'loading'}
             />
             {lastNameValMsg !== '' ? (
               <span className='text-rose-600 block text-right text-xs'>*{lastNameValMsg}</span>
@@ -99,11 +145,18 @@ const UpdateProfile = () => {
               Username
             </label>
             <input
+              type='text'
               id='username'
               name='username'
               className='form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none'
-              value={user.username}
-              onChange={(e) => setUsername(e.target.value)}
+              value={username}
+              placeholder='Enter username'
+              onChange={(e) => {
+                setUsername(e.target.value)
+                validateUsernameInput()
+              }}
+              onBlur={() => validateUsernameInput()}
+              readOnly={status === 'loading'}
             />
             {usernameValMsg !== '' ? (
               <span className='text-rose-600 block text-right text-xs'>*{usernameValMsg}</span>
@@ -119,11 +172,18 @@ const UpdateProfile = () => {
               Email Address
             </label>
             <input
+              type='email'
               id='email'
               name='email'
               className='form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none'
-              value={user.email}
-              onChange={(e) => setEmail(e.target.value)}
+              value={email}
+              placeholder='Enter email'
+              onChange={(e) => {
+                setEmail(e.target.value)
+                validateEmailInput()
+              }}
+              onBlur={() => validateEmailInput()}
+              readOnly={status === 'loading'}
             />
             {emailValMsg !== '' ? (
               <span className='text-rose-600 block text-right text-xs'>*{emailValMsg}</span>
@@ -131,16 +191,20 @@ const UpdateProfile = () => {
               ''
             )}
           </div>
-
-          <Link
-            to='/password/update'
+          {error.message && error.from === 'UpdateProfile' ? (
+            <span className='text-rose-600 block text-right text-xs'>*{error.message}</span>
+          ) : (
+            ''
+          )}
+          <button
             type='submit'
             data-mdb-ripple='true'
             data-mdb-ripple-color='light'
             className='text-center inline-block px-6 py-2.5 bg-blue-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out'
+            onClick={(e) => handleSubmit(e)}
           >
             Submit
-          </Link>
+          </button>
         </form>
       </div>
     </HelmetProvider>

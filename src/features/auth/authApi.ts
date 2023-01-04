@@ -61,5 +61,5 @@ export const updateProfile = async (
   params.append('lastName', lastName)
   params.append('username', username)
   params.append('email', email)
-  return await API.put('me/update', params)
+  return await API.put('user/me/update', params)
 }
