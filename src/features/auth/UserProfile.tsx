@@ -27,6 +27,11 @@ const UserProfile = () => {
               <p className='text-lg ml-3 mb-4'>{`${user.firstName} ${user.lastName}`}</p>
 
               <h4 className='leading-tight mt-0 mb-2 text-2xl text-rose-800 font-semibold'>
+                Username
+              </h4>
+              <p className='text-lg ml-3 mb-4'>{`${user.username}`}</p>
+
+              <h4 className='leading-tight mt-0 mb-2 text-2xl text-rose-800 font-semibold'>
                 Email Address
               </h4>
               <p className='text-lg ml-3 mb-4'>{user.email}</p>
