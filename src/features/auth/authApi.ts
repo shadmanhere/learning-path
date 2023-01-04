@@ -49,3 +49,17 @@ export const resetPassword = async (token: string, password: string, confirmPass
   params.append('confirmPassword', confirmPassword)
   return await API.put(`user/password/reset/${token}`, params)
 }
+
+export const updateProfile = async (
+  firstName: string,
+  lastName: string,
+  username: string,
+  email: string,
+) => {
+  const params = new URLSearchParams()
+  params.append('firstName', firstName)
+  params.append('lastName', lastName)
+  params.append('username', username)
+  params.append('email', email)
+  return await API.put('me/update', params)
+}

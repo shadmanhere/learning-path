@@ -7,6 +7,7 @@ import {
   loadUser,
   forgotPassword,
   resetPassword,
+  updateProfile,
 } from './authApi'
 
 export interface authState {
@@ -77,6 +78,19 @@ export const SignUp = createAsyncThunk(
         data.password,
         data.password,
       )
+      return response.data
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    } catch (err: any) {
+      return err.response
+    }
+  },
+)
+
+export const UpdateProfile = createAsyncThunk(
+  'auth/updateProfile',
+  async (data: { firstName: string; lastName: string; username: string; email: string }) => {
+    try {
+      const response = await updateProfile(data.firstName, data.lastName, data.username, data.email)
       return response.data
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (err: any) {
@@ -170,6 +184,7 @@ export const authSlice = createSlice({
       .addCase(SignIn.rejected, (state) => {
         state.status = 'failed'
       })
+      // signup
       .addCase(SignUp.pending, (state) => {
         state.status = 'loading'
       })
@@ -185,6 +200,24 @@ export const authSlice = createSlice({
         }
       })
       .addCase(SignUp.rejected, (state) => {
+        state.status = 'failed'
+      })
+      // UpdateProfile
+      .addCase(UpdateProfile.pending, (state) => {
+        state.status = 'loading'
+      })
+      .addCase(UpdateProfile.fulfilled, (state, action) => {
+        state.status = 'idle'
+        if (action.payload.success) {
+          state.user = action.payload.user
+          state.isAuthenticated = true
+        } else {
+          state.error.message = action.payload.data.message
+          state.error.statusCode = action.payload.status
+          state.error.from = 'UpdateProfile'
+        }
+      })
+      .addCase(UpdateProfile.rejected, (state) => {
         state.status = 'failed'
       })
 
