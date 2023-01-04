@@ -50,6 +50,13 @@ export const resetPassword = async (token: string, password: string, confirmPass
   return await API.put(`user/password/reset/${token}`, params)
 }
 
+export const updatePassword = async (oldPassword: string, password: string) => {
+  const params = new URLSearchParams()
+  params.append('oldPassword', oldPassword)
+  params.append('password', password)
+  return await API.put('user/password/update', params)
+}
+
 export const updateProfile = async (
   firstName: string,
   lastName: string,

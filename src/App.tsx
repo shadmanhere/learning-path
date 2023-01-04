@@ -16,6 +16,7 @@ import { useAppDispatch } from './app/hooks'
 import ProtectedRoute from './features/route/ProtectedRoute'
 import UserProfile from './features/auth/UserProfile'
 import UpdateProfile from './features/auth/UpdateProfile'
+import UpdatePassword from './features/auth/UpdatePassword'
 
 function App() {
   ReactGA.pageview(window.location.pathname + window.location.search)
@@ -79,6 +80,14 @@ function App() {
           element={
             <ProtectedRoute>
               <UpdateProfile />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path='/password/update'
+          element={
+            <ProtectedRoute>
+              <UpdatePassword />
             </ProtectedRoute>
           }
         />

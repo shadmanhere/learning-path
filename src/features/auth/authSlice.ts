@@ -8,6 +8,7 @@ import {
   forgotPassword,
   resetPassword,
   updateProfile,
+  updatePassword,
 } from './authApi'
 
 export interface authState {
@@ -124,6 +125,23 @@ export const ForgotPassword = createAsyncThunk(
   async (formData: FormData) => {
     try {
       const response = await forgotPassword(formData.get('email') as string)
+      return response.data
+
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    } catch (err: any) {
+      return err.response
+    }
+  },
+)
+
+export const ChangePassword = createAsyncThunk(
+  'auth/changepassword',
+  async (formData: FormData) => {
+    try {
+      const response = await updatePassword(
+        formData.get('oldPassword') as string,
+        formData.get('password') as string,
+      )
       return response.data
 
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -300,6 +318,24 @@ export const authSlice = createSlice({
         }
       })
       .addCase(ResetPassword.rejected, (state) => {
+        state.status = 'failed'
+      })
+
+      // ChangePassword
+      .addCase(ChangePassword.pending, (state) => {
+        state.status = 'loading'
+      })
+      .addCase(ChangePassword.fulfilled, (state, action) => {
+        state.status = 'idle'
+        if (action.payload.success) {
+          state.success = action.payload.success
+        } else {
+          state.error.message = action.payload.data.message
+          state.error.statusCode = action.payload.status
+          state.error.from = 'ChangePassword'
+        }
+      })
+      .addCase(ChangePassword.rejected, (state) => {
         state.status = 'failed'
       })
   },
