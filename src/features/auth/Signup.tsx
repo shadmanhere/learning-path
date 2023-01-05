@@ -43,6 +43,15 @@ const Signup = () => {
     if (user.email) navigate(fromLocation ? fromLocation : '/')
   }, [user])
 
+  useEffect(() => {
+    if (firstName !== '') validateFirstNameInput()
+    if (lastName !== '') validateLastNameInput()
+    if (username !== '') validateUsernameInput()
+    if (email !== '') validateEmailInput()
+    if (password !== '') validatePasswordInput()
+    if (confirmPassword !== '') validateConfirmPasswordInput()
+  }, [firstName, lastName, username, email, password, confirmPassword])
+
   const validateFirstNameInput = () => {
     if (firstName === '') setFirstNameValMsg('enter first name')
     else if (/\s/.test(firstName)) setFirstNameValMsg('space not allowed')
@@ -65,7 +74,8 @@ const Signup = () => {
 
   const validateEmailInput = () => {
     if (email === '') setEmailValMsg('enter email')
-    else if (/\s/.test(email)) setEmailValMsg('space not allowed')
+    else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(email))
+      setEmailValMsg('enter valid email id')
     else setEmailValMsg('')
   }
 
@@ -116,9 +126,8 @@ const Signup = () => {
                   placeholder='Enter first name'
                   onChange={(e) => {
                     setFirstName(e.target.value)
-                    validateFirstNameInput()
                   }}
-                  onBlur={(e) => validateFirstNameInput()}
+                  onBlur={() => validateFirstNameInput()}
                   readOnly={status === 'loading'}
                 />
                 {firstNameValMsg !== '' ? (
@@ -142,7 +151,6 @@ const Signup = () => {
                   placeholder='Enter last name'
                   onChange={(e) => {
                     setLastName(e.target.value)
-                    validateLastNameInput()
                   }}
                   onBlur={() => validateLastNameInput()}
                   readOnly={status === 'loading'}
@@ -170,7 +178,6 @@ const Signup = () => {
                   placeholder='Enter username'
                   onChange={(e) => {
                     setUsername(e.target.value)
-                    validateUsernameInput()
                   }}
                   onBlur={() => validateUsernameInput()}
                   readOnly={status === 'loading'}
@@ -196,7 +203,6 @@ const Signup = () => {
                   placeholder='Enter email'
                   onChange={(e) => {
                     setEmail(e.target.value)
-                    validateEmailInput()
                   }}
                   onBlur={() => validateEmailInput()}
                   readOnly={status === 'loading'}
@@ -223,7 +229,6 @@ const Signup = () => {
                   placeholder='Password'
                   onChange={(e) => {
                     setPassword(e.target.value)
-                    validatePasswordInput()
                   }}
                   onBlur={() => validatePasswordInput()}
                   readOnly={status === 'loading'}
@@ -252,7 +257,6 @@ const Signup = () => {
                   placeholder='Confrim Password'
                   onChange={(e) => {
                     setConfrimPassword(e.target.value)
-                    validateConfirmPasswordInput()
                   }}
                   onBlur={() => validateConfirmPasswordInput()}
                   readOnly={status === 'loading'}
