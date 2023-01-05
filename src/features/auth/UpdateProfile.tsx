@@ -43,6 +43,13 @@ const UpdateProfile = () => {
     }
   }, [isUpdated])
 
+  useEffect(() => {
+    if (firstName !== '') validateFirstNameInput()
+    if (lastName !== '') validateLastNameInput()
+    if (username !== '') validateUsernameInput()
+    if (email !== '') validateEmailInput()
+  }, [firstName, lastName, username, email])
+
   const validateFirstNameInput = () => {
     if (firstName === '') setFirstNameValMsg('enter first name')
     else if (/\s/.test(firstName)) setFirstNameValMsg('space not allowed')
@@ -65,7 +72,8 @@ const UpdateProfile = () => {
 
   const validateEmailInput = () => {
     if (email === '') setEmailValMsg('enter email')
-    else if (/\s/.test(email)) setEmailValMsg('space not allowed')
+    else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(email))
+      setEmailValMsg('enter valid email id')
     else setEmailValMsg('')
   }
 
@@ -99,7 +107,6 @@ const UpdateProfile = () => {
               placeholder='Enter first name'
               onChange={(e) => {
                 setFirstName(e.target.value)
-                validateFirstNameInput()
               }}
               onBlur={() => validateFirstNameInput()}
               readOnly={status === 'loading'}
@@ -126,7 +133,6 @@ const UpdateProfile = () => {
               placeholder='Enter last name'
               onChange={(e) => {
                 setLastName(e.target.value)
-                validateLastNameInput()
               }}
               onBlur={() => validateLastNameInput()}
               readOnly={status === 'loading'}
@@ -153,7 +159,6 @@ const UpdateProfile = () => {
               placeholder='Enter username'
               onChange={(e) => {
                 setUsername(e.target.value)
-                validateUsernameInput()
               }}
               onBlur={() => validateUsernameInput()}
               readOnly={status === 'loading'}
@@ -180,7 +185,6 @@ const UpdateProfile = () => {
               placeholder='Enter email'
               onChange={(e) => {
                 setEmail(e.target.value)
-                validateEmailInput()
               }}
               onBlur={() => validateEmailInput()}
               readOnly={status === 'loading'}
