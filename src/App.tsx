@@ -19,7 +19,7 @@ import UpdateProfile from './features/auth/UpdateProfile'
 import UpdatePassword from './features/auth/UpdatePassword'
 
 function App() {
-  ReactGA.pageview(window.location.pathname + window.location.search)
+  ReactGA.send(window.location.pathname + window.location.search)
   const dispatch = useAppDispatch()
   useEffect(() => {
     dispatch(LoadUser())
