@@ -4,6 +4,10 @@
 ## Backend Repository
 [https://github.com/shadmanhere/learning-path-api](https://github.com/shadmanhere/learning-path-api)
 
+
+## API Documentaion
+[https://documenter.getpostman.com/view/17518418/2s8Z73yB41](https://documenter.getpostman.com/view/17518418/2s8Z73yB41)
+
 ## Author:
 
 👤 **SHADMAN ALI**
