@@ -324,7 +324,11 @@ const Signup = () => {
               }`}
               onClick={(e) => handleSubmit(e)}
             >
-              {status === 'loading' ? <Oval height='1.2rem' strokeWidth='3' /> : 'Signup'}
+              {status === 'loading' ? (
+                <Oval className='mx-auto' height='1.2rem' strokeWidth='3' />
+              ) : (
+                'Signup'
+              )}
             </button>
             <p className='text-gray-800 mt-6 text-center'>
               Already a member ?{' '}
