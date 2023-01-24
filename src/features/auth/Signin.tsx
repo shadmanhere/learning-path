@@ -95,12 +95,12 @@ const Signin = () => {
                   Remember me
                 </label>
               </div> */}
-              <a
-                href='/forgotPassword'
+              <Link
+                to='/forgotPassword'
                 className='text-blue-600 hover:text-blue-700 focus:text-blue-700 transition duration-200 ease-in-out'
               >
                 Forgot password?
-              </a>
+              </Link>
             </div>
             {error.message && error.from === 'SignIn' ? (
               <span className='text-rose-600 block text-right text-xs'>*{error.message}</span>
