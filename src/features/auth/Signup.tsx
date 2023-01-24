@@ -124,6 +124,7 @@ const Signup = () => {
                   name='firstName'
                   aria-describedby='firstNameHelp'
                   placeholder='Enter first name'
+                  autoComplete='first-name'
                   onChange={(e) => {
                     setFirstName(e.target.value)
                   }}
@@ -147,6 +148,7 @@ const Signup = () => {
                   }`}
                   id='lastName'
                   name='lastName'
+                  autoComplete='last-name'
                   aria-describedby='lastNameHelp'
                   placeholder='Enter last name'
                   onChange={(e) => {
@@ -174,6 +176,7 @@ const Signup = () => {
                   }`}
                   id='username'
                   name='username'
+                  autoComplete='username'
                   aria-describedby='usernameHelp'
                   placeholder='Enter username'
                   onChange={(e) => {
@@ -199,6 +202,7 @@ const Signup = () => {
                   }`}
                   id='email'
                   name='email'
+                  autoComplete='email'
                   aria-describedby='emailHelp'
                   placeholder='Enter email'
                   onChange={(e) => {
@@ -227,6 +231,7 @@ const Signup = () => {
                   id='password'
                   name='password'
                   placeholder='Password'
+                  autoComplete='off'
                   onChange={(e) => {
                     setPassword(e.target.value)
                   }}
@@ -254,6 +259,7 @@ const Signup = () => {
                   }`}
                   id='confrimPassword'
                   name='confirmPassword'
+                  autoComplete='off'
                   placeholder='Confrim Password'
                   onChange={(e) => {
                     setConfrimPassword(e.target.value)
