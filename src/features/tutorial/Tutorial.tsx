@@ -23,8 +23,8 @@ const Tutorial = () => {
   }
 
   const opts: YouTubeProps['opts'] = {
-    height: '390',
-    width: '640',
+    height: '100%',
+    width: '100%',
     playerVars: {
       // https://developers.google.com/youtube/player_parameters
       // autoplay: 1,
@@ -43,7 +43,7 @@ const Tutorial = () => {
         </h1>
         <VideoIframe>
           <YouTube
-            className='mx-auto my-10 sm:w-full max-w-2xl sm:h-96'
+            className='mx-4 h-80 sm:mx-auto my-10 sm:w-full max-w-2xl sm:h-96'
             videoId={tutorialId}
             opts={opts}
             onReady={onPlayerReady}
