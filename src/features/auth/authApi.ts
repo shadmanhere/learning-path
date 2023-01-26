@@ -1,9 +1,5 @@
-import axios from 'axios'
+import { API } from '../../app/api'
 
-const API = axios.create({
-  withCredentials: true,
-  baseURL: process.env.REACT_APP_BASE_URL,
-})
 export const signinRequest = async (username: string, password: string) => {
   const params = new URLSearchParams()
   params.append('username', username)
