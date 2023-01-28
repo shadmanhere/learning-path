@@ -28,15 +28,7 @@ function App() {
     <BrowserRouter>
       <Navbar />
       <Routes>
-        <Route
-          path='/'
-          element={
-            <ProtectedRoute>
-              <Home />
-            </ProtectedRoute>
-          }
-        />
-
+        <Route path='/' element={<Home />} />
         <Route path='/signin' element={<Signin />} />
         <Route path='/signup' element={<Signup />} />
         <Route path='/forgotPassword' element={<ForgotPassword />} />
