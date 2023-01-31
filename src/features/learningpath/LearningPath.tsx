@@ -6,14 +6,12 @@ import { Path, selectPath, selectStatus } from './learningpathSlice'
 
 const LearningPath = () => {
   interface tutorialsInterface {
-    title: string
-    url: string
-    image_url: string
+    Tutorial: { title: string; url: string; imageUrl: string }
   }
   const path:
     | {
         name: string
-        Section: { name: string; tutorials: tutorialsInterface[] }[]
+        Section: { name: string; SectionToTutorial: tutorialsInterface[] }[]
       }[]
     | null = useAppSelector(selectPath)
   const status = useAppSelector(selectStatus)
@@ -66,15 +64,15 @@ const LearningPath = () => {
                       </div>
 
                       <div className='flex flex-wrap -m-1 md:-m-2 max-h-80 overflow-y-scroll'>
-                        {step.tutorials?.map((tutorial, index) => {
+                        {step.SectionToTutorial?.map((tutorial, index) => {
                           return (
                             <div key={index} className='flex flex-wrap w-1/3 md:w-1/5'>
                               <div className='w-full p-1 md:p-2'>
-                                <Link to={'tutorial/' + tutorial.url.split('=')[1]}>
+                                <Link to={'tutorial/' + tutorial.Tutorial.url.split('=')[1]}>
                                   <img
                                     alt='gallery'
                                     className='block object-cover object-center w-full h-full rounded-lg'
-                                    src={tutorial.image_url}
+                                    src={tutorial.Tutorial.imageUrl}
                                   />
                                 </Link>
                               </div>

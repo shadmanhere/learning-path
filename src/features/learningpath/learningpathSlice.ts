@@ -5,7 +5,10 @@ import { getPath } from './learningpathAPI'
 export interface pathState {
   value: {
     name: string
-    Section: { name: string; tutorials: { title: string; url: string; image_url: string }[] }[]
+    Section: {
+      name: string
+      SectionToTutorial: { Tutorial: { title: string; url: string; imageUrl: string } }[]
+    }[]
   }[]
   error: { messgae: string; statusCode: number }
   status: 'idle' | 'request' | 'loading' | 'failed'

@@ -3,7 +3,7 @@ import { RootState } from '../../app/store'
 import { getTutorialsList } from './homeAPI'
 
 export interface tutorialsState {
-  value: { title: string; url: string; image_url: string }[]
+  value: { title: string; url: string; imageUrl: string }[]
   error: { messgae: string; statusCode: number }
   status: 'idle' | 'request' | 'loading' | 'failed'
 }
