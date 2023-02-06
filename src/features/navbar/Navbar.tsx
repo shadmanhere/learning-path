@@ -66,7 +66,7 @@ const Navbar = () => {
 
 // Create a styled component
 const Brand = styled.p`
-  font-family: 'Oleo Script Swash Caps', cursive;
+  font-family: 'Mulish', sans-serif;
 `
 
 export default Navbar
