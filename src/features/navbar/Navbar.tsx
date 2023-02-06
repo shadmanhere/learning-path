@@ -20,7 +20,7 @@ const Navbar = () => {
         <div className='container-fluid flex w-screen flex-col sm:flex-row'>
           <Link to='/'>
             <Brand className='text-2xl text-rose-800 font-normal tracking-wide'>
-              Learning Path
+              {process.env.REACT_APP_META_NAME}
             </Brand>
           </Link>
           <div className='ml-auto space-x-0.5'>
