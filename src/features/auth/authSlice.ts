@@ -49,9 +49,9 @@ const initialState: authState = {
 
 export const SignIn = createAsyncThunk(
   'auth/signin',
-  async (data: { username: string; password: string }) => {
+  async (data: { usernameOrEmail: string; password: string }) => {
     try {
-      const response = await signinRequest(data.username, data.password)
+      const response = await signinRequest(data.usernameOrEmail, data.password)
       return response.data
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (err: any) {

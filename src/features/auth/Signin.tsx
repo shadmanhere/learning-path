@@ -17,7 +17,7 @@ import { resetError as tutorialError } from '../tutorial/tutorialSlice'
 import { Oval } from 'react-loading-icons'
 
 const Signin = () => {
-  const [username, setUsername] = useState('')
+  const [usernameOrEmail, setUsernameOrEmail] = useState('')
   const [password, setPassword] = useState('')
   const fromLocation = useAppSelector(selectFromLocation)
   const user = useAppSelector(selectUser)
@@ -32,7 +32,7 @@ const Signin = () => {
 
   function handleSubmit(e: React.MouseEvent<HTMLButtonElement, MouseEvent>): void {
     e.preventDefault()
-    dispatch(SignIn({ username, password }))
+    dispatch(SignIn({ usernameOrEmail, password }))
     dispatch(homeError())
     dispatch(pathListError())
     dispatch(learningpathError())
@@ -51,17 +51,17 @@ const Signin = () => {
           <form>
             <div className='form-group mb-6'>
               <label htmlFor='username' className='form-label inline-block mb-2 text-gray-700'>
-                Username
+                Username / Email
               </label>
               <input
                 type='text'
                 className='form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none'
-                id='username'
-                name='username'
+                id='usernameOrEmail'
+                name='usernameOrEmail'
                 aria-describedby='usernameHelp'
-                autoComplete='username'
-                placeholder='Enter username'
-                onChange={(e) => setUsername(e.target.value)}
+                autoComplete='usernameOrEmail'
+                placeholder='Enter username or email'
+                onChange={(e) => setUsernameOrEmail(e.target.value)}
                 readOnly={status === 'loading'}
               />
             </div>

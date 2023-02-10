@@ -1,8 +1,8 @@
 import { API } from '../../app/api'
 
-export const signinRequest = async (username: string, password: string) => {
+export const signinRequest = async (usernameOrEmail: string, password: string) => {
   const params = new URLSearchParams()
-  params.append('username', username)
+  params.append('usernameOrEmail', usernameOrEmail)
   params.append('password', password)
   return await API.post('user/signin', params)
 }
