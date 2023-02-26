@@ -40,5 +40,6 @@
         [ "error", {
             "endOfLine": "auto"}
         ]
-    }
+    },
+    "ignorePatterns": ["**/*.css", "**/*.scss"]
 }
