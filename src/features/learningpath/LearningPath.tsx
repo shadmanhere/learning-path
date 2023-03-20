@@ -32,7 +32,7 @@ const LearningPath = () => {
   const pathName = learningpath.split('-').join(' ')
   const pathNameCapitalized = pathName
     .split(' ')
-    .map((word) => {
+    .map((word: string) => {
       return capitalize(word)
     })
     .join(' ')

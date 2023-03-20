@@ -9,7 +9,14 @@ export interface tutorialState {
     title: string
     url: string
     image_url: string
-    Chapter: []
+    Chapter: {
+      id: number
+      createdAt: Date
+      title: string
+      url: string
+      imageUrl: string
+      tutorialId: number
+    }[]
   }
   error: { messgae: string; statusCode: number }
   status: 'idle' | 'request' | 'loading' | 'failed'
@@ -17,7 +24,15 @@ export interface tutorialState {
 
 const initialState: tutorialState = {
   // eslint-disable-next-line camelcase
-  value: { id: 0, createdAt: '', title: '', url: 'string', image_url: '', Chapter: [] },
+  value: {
+    id: 0,
+    createdAt: '',
+    title: '',
+    url: '',
+    // eslint-disable-next-line camelcase
+    image_url: '',
+    Chapter: [],
+  },
   error: { messgae: '', statusCode: 0 },
   status: 'idle',
 }
