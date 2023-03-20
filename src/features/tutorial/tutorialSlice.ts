@@ -3,14 +3,21 @@ import { RootState } from '../../app/store'
 import { getTutorial } from './tutorialApi'
 
 export interface tutorialState {
-  value: { id: number; createdAt: string; title: string; url: string; image_url: string }
+  value: {
+    id: number
+    createdAt: string
+    title: string
+    url: string
+    image_url: string
+    Chapter: []
+  }
   error: { messgae: string; statusCode: number }
   status: 'idle' | 'request' | 'loading' | 'failed'
 }
 
 const initialState: tutorialState = {
   // eslint-disable-next-line camelcase
-  value: { id: 0, createdAt: '', title: '', url: 'string', image_url: '' },
+  value: { id: 0, createdAt: '', title: '', url: 'string', image_url: '', Chapter: [] },
   error: { messgae: '', statusCode: 0 },
   status: 'idle',
 }
