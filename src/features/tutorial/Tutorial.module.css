@@ -1,0 +1,16 @@
+
+
+.videoframe {
+  background-color: rgb(203 213 225);
+  animation-name: color;
+  animation-duration: 2s;
+  animation-iteration-count: infinite;
+  animation-direction: alternate-reverse;
+  animation-timing-function: ease;
+}
+
+@keyframes color {
+  to {
+    background-color: rgb(241 245 249);
+  }
+}
