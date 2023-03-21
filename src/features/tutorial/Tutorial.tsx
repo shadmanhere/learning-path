@@ -10,6 +10,7 @@ const Tutorial = () => {
   const [videoUrl, setVideoUrl] = useState('')
   const [playing, setPlaying] = useState(false)
   const [ml, setMl] = useState('md:ml-60')
+  const [activeChapter, setActiveChapter] = useState('')
 
   const location = useLocation()
   const pathnameArray = location.pathname.split('/')
@@ -27,8 +28,9 @@ const Tutorial = () => {
     else setMl('md:ml-60')
   }, [tutorial.Chapter.length])
 
-  const handlePlayer = () => {
-    setVideoUrl('https://www.youtube.com/watch?v=UB1O30fR-EE&t=44s')
+  const handlePlayer = (url: string, event: React.MouseEvent<HTMLLIElement, MouseEvent>) => {
+    setActiveChapter((event.target as HTMLInputElement).id)
+    setVideoUrl(url)
     setPlaying(true)
   }
 
@@ -50,10 +52,13 @@ const Tutorial = () => {
                 return (
                   <li
                     key={i}
-                    className='cursor-pointer mr-4 w-full rounded border-y-2 border-blue-600 px-6 py-2.5 text-xs font-medium uppercase leading-tight text-blue-600 shadow-md transition duration-150 ease-in-out hover:shadow-lg focus:shadow-lg focus:outline-none focus:ring-0 active:shadow-lg'
-                    onClick={() => handlePlayer()}
+                    id={`chapter_${i}`}
+                    className={`cursor-pointer mr-4 w-full rounded border-y-2 border-blue-600 px-6 py-2.5 text-xs font-medium uppercase leading-tight text-blue-600 shadow-md transition duration-150 ease-in-out hover:shadow-lg focus:shadow-lg focus:outline-none focus:ring-0 active:shadow-lg
+                      ${activeChapter === `chapter_${i}` ? 'bg-gray-300' : ''}
+                    `}
+                    onClick={(event) => handlePlayer(chapter.url, event)}
                   >
-                    {chapter.title}
+                    {`${i + 1} - ${chapter.title}`}
                   </li>
                 )
               })}
