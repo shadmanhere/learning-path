@@ -3,7 +3,7 @@ import { styled } from '@linaria/react'
 import { Link, useNavigate } from 'react-router-dom'
 import { useAppDispatch, useAppSelector } from '../../app/hooks'
 import { Logout, selectUser } from '../auth/authSlice'
-import './Navbar.css'
+import styles from './Navbar.module.css'
 
 const Navbar = () => {
   const dispatch = useAppDispatch()
@@ -18,10 +18,11 @@ const Navbar = () => {
     <nav className='relative w-full flex flex-wrap items-center justify-between py-3 bg-gray-100 text-gray-500 hover:text-gray-700 focus:text-gray-700 shadow-lg'>
       <div className='container-fluid w-full flex flex-wrap items-center justify-between px-6'>
         <div className='container-fluid flex w-screen items-center flex-col sm:flex-row'>
-          <Link to='/'>
-            <Brand className='text-2xl text-rose-800 font-normal tracking-wide'>
-              {process.env.REACT_APP_META_NAME}
-            </Brand>
+          <Link
+            to='/'
+            className={`${styles.brand} text-2xl text-rose-800 font-normal tracking-wide`}
+          >
+            {process.env.REACT_APP_META_NAME}
           </Link>
           <div className='mx-auto sm:mx-1 my-2 sm:ml-auto space-x-0.5'>
             <Link
@@ -73,10 +74,5 @@ const Navbar = () => {
     </nav>
   )
 }
-
-// Create a styled component
-const Brand = styled.p`
-  font-family: 'Mulish', sans-serif;
-`
 
 export default Navbar
