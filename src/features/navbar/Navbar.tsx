@@ -6,6 +6,7 @@ import styles from './Navbar.module.css'
 
 const Navbar = () => {
   const [currentUrl, setCurrentUrl] = useState('')
+  const [crumbs, setCrumbs] = useState<any[]>([])
 
   const dispatch = useAppDispatch()
   const navigate = useNavigate()
@@ -15,6 +16,37 @@ const Navbar = () => {
   useEffect(() => {
     setCurrentUrl(location.pathname)
   }, [location.pathname])
+
+  function toTitleCase(str: string) {
+    return str.replace(/\w\S*/g, function (txt: string) {
+      return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase()
+    })
+  }
+
+  useEffect(() => {
+    const locationArray = currentUrl.split('/').filter((crumb) => crumb !== '')
+    const crumbsArray: any[] = []
+    for (let i = 0; i < locationArray.length; i++) {
+      if (locationArray[i] === 'path') {
+        crumbsArray.push({
+          name: 'Home',
+          url: '/',
+        })
+        crumbsArray.push({
+          name: toTitleCase(locationArray[i + 1].split('-').join(' ')),
+          url: `/path/${locationArray[i + 1]}`,
+        })
+      } else if (locationArray[i] === 'tutorial' && locationArray[i - 2] === 'path') {
+        crumbsArray.push({
+          name: 'Tutorial',
+          url: '#',
+        })
+      }
+    }
+    setCrumbs(crumbsArray as string[])
+  }, [currentUrl])
+
+  console.log(crumbs)
 
   const logoutHandle = () => {
     dispatch(Logout())
@@ -76,6 +108,33 @@ const Navbar = () => {
               </>
             )}
           </div>
+        </div>
+        <div className='flex w-full flex-wrap items-center justify-between'>
+          <nav className='bg-grey-light w-full rounded-md tems-center' aria-label='breadcrumb'>
+            <ol className='list-reset flex'>
+              {crumbs.map((crumb, index) => {
+                return (
+                  <>
+                    <li key={index}>
+                      <Link
+                        to={crumb.url}
+                        className='text-neutral-500 hover:text-neutral-600 dark:text-neutral-200'
+                      >
+                        {crumb.name}
+                      </Link>
+                    </li>
+                    {index !== crumbs.length - 1 ? (
+                      <li>
+                        <span className='mx-2 text-neutral-500 dark:text-neutral-200'>/</span>
+                      </li>
+                    ) : (
+                      ''
+                    )}
+                  </>
+                )
+              })}
+            </ol>
+          </nav>
         </div>
       </div>
     </nav>
