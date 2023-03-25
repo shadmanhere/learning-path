@@ -1,14 +1,20 @@
-import React from 'react'
-import { styled } from '@linaria/react'
-import { Link, useNavigate } from 'react-router-dom'
+import React, { useEffect, useState } from 'react'
+import { Link, useNavigate, useLocation } from 'react-router-dom'
 import { useAppDispatch, useAppSelector } from '../../app/hooks'
 import { Logout, selectUser } from '../auth/authSlice'
 import styles from './Navbar.module.css'
 
 const Navbar = () => {
+  const [currentUrl, setCurrentUrl] = useState('')
+
   const dispatch = useAppDispatch()
   const navigate = useNavigate()
+  const location = useLocation()
   const user = useAppSelector(selectUser)
+
+  useEffect(() => {
+    setCurrentUrl(location.pathname)
+  }, [location.pathname])
 
   const logoutHandle = () => {
     dispatch(Logout())
@@ -28,7 +34,8 @@ const Navbar = () => {
             <Link
               to='/'
               type='button'
-              className='px-6 py-2.5 bg-gray-200 text-gray-700 font-medium text-xs leading-tight uppercase rounded-full shadow-md hover:bg-gray-300 hover:shadow-lg focus:bg-gray-300 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-gray-400 active:shadow-lg transition duration-150 ease-in-out'
+              className={`px-6 py-2.5 bg-gray-200 text-gray-700 font-medium text-xs leading-tight uppercase rounded-full shadow-md hover:bg-gray-300 hover:shadow-lg focus:bg-gray-300 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-gray-400 active:shadow-lg transition duration-150 ease-in-out 
+              ${currentUrl === '/' ? 'bg-gray-400 text-white' : ''}`}
             >
               Home
             </Link>
