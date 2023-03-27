@@ -33,7 +33,7 @@ const Tutorial = () => {
 
   useEffect(() => {
     console.log(playbackDuration)
-    if (playbackDuration > 10) console.log('saved')
+    if (Math.floor(playbackDuration) === 10) console.log('saved')
   }, [playbackDuration])
 
   const handlePlayer = (url: string, event: React.MouseEvent<HTMLLIElement, MouseEvent>) => {
