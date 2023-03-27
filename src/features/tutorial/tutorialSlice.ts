@@ -1,7 +1,6 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import { RootState } from '../../app/store'
-import { getTutorial } from './tutorialApi'
-
+import { getTutorial, chapterViewed } from './tutorialApi'
 export interface tutorialState {
   value: {
     id: number
@@ -16,6 +15,7 @@ export interface tutorialState {
       url: string
       imageUrl: string
       tutorialId: number
+      ChapterToUser: { chapterId: number; userId: number }[]
     }[]
   }
   error: { messgae: string; statusCode: number }
@@ -31,7 +31,17 @@ const initialState: tutorialState = {
     url: '',
     // eslint-disable-next-line camelcase
     image_url: '',
-    Chapter: [],
+    Chapter: [
+      {
+        id: 0,
+        createdAt: new Date(),
+        title: '',
+        url: '',
+        imageUrl: '',
+        tutorialId: 0,
+        ChapterToUser: [{ chapterId: -1, userId: -1 }],
+      },
+    ],
   },
   error: { messgae: '', statusCode: 0 },
   status: 'idle',
@@ -46,6 +56,19 @@ export const GetTutorial = createAsyncThunk('tutorial/getTutorial', async (tutor
     return err.response
   }
 })
+
+export const ChapterViewed = createAsyncThunk(
+  'tutorial/chapter/chapterViewed',
+  async (data: { chapterId: number; userId: number }) => {
+    try {
+      const response = await chapterViewed(data.chapterId, data.userId)
+      return response.data
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    } catch (err: any) {
+      return err.response
+    }
+  },
+)
 
 export const tutorialSlice = createSlice({
   name: 'tutorial',
@@ -69,6 +92,28 @@ export const tutorialSlice = createSlice({
         }
       })
       .addCase(GetTutorial.rejected, (state) => {
+        state.status = 'failed'
+      })
+
+      // chapter viewed
+      .addCase(ChapterViewed.pending, (state) => {
+        state.status = 'loading'
+      })
+      .addCase(ChapterViewed.fulfilled, (state, action) => {
+        state.status = 'idle'
+        if (action.payload.success)
+          state.value.Chapter = state.value.Chapter.map((chapter) => {
+            if (chapter.id === action.payload.chapterToUser.chapterId) {
+              chapter.ChapterToUser = [action.payload.chapterToUser]
+            }
+            return chapter
+          })
+        else {
+          state.error.messgae = action.payload.data.message
+          state.error.statusCode = action.payload.status
+        }
+      })
+      .addCase(ChapterViewed.rejected, (state) => {
         state.status = 'failed'
       })
   },
