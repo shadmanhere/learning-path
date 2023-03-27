@@ -15,6 +15,7 @@ export interface tutorialState {
       url: string
       imageUrl: string
       tutorialId: number
+      ChapterToUser: { chapterId: number; userId: number }[]
     }[]
   }
   error: { messgae: string; statusCode: number }
