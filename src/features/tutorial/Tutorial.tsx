@@ -5,12 +5,15 @@ import { GetTutorial, selectTutorial } from '../tutorial/tutorialSlice'
 import { useAppSelector, useAppDispatch } from '../../app/hooks'
 import ReactPlayer from 'react-player'
 import styles from './Tutorial.module.css'
+import { OnProgressProps } from 'react-player/base'
 
 const Tutorial = () => {
   const [videoUrl, setVideoUrl] = useState('')
   const [playing, setPlaying] = useState(false)
   const [ml, setMl] = useState('md:ml-60')
   const [activeChapter, setActiveChapter] = useState('')
+  const [initialPlaybackDuration, setInitialPlaybackDuration] = useState(0)
+  const [playbackDuration, setPlaybackDuration] = useState(0)
 
   const location = useLocation()
   const pathnameArray = location.pathname.split('/')
@@ -28,10 +31,22 @@ const Tutorial = () => {
     else setMl('md:ml-60')
   }, [tutorial.Chapter.length])
 
+  useEffect(() => {
+    console.log(playbackDuration)
+    if (playbackDuration > 10) console.log('saved')
+  }, [playbackDuration])
+
   const handlePlayer = (url: string, event: React.MouseEvent<HTMLLIElement, MouseEvent>) => {
     setActiveChapter((event.target as HTMLInputElement).id)
     setVideoUrl(url)
     setPlaying(true)
+    setInitialPlaybackDuration(0)
+    setPlaybackDuration(0)
+  }
+
+  const handleProgress = (e: OnProgressProps) => {
+    if (initialPlaybackDuration === 0.0) setInitialPlaybackDuration(e.playedSeconds)
+    else setPlaybackDuration(e.playedSeconds - initialPlaybackDuration)
   }
 
   return (
@@ -78,6 +93,7 @@ const Tutorial = () => {
             controls={true}
             playing={playing}
             width={'95%'}
+            onProgress={(e) => handleProgress(e)}
           />
         </div>
       </div>
