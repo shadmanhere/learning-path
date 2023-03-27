@@ -1,7 +1,6 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import { RootState } from '../../app/store'
-import { getTutorial } from './tutorialApi'
-
+import { getTutorial, chapterViewed } from './tutorialApi'
 export interface tutorialState {
   value: {
     id: number
@@ -46,6 +45,19 @@ export const GetTutorial = createAsyncThunk('tutorial/getTutorial', async (tutor
     return err.response
   }
 })
+
+export const ChapterViewed = createAsyncThunk(
+  'tutorial/chapter/chapterViewed',
+  async (data: { chapterId: number; userId: number }) => {
+    try {
+      const response = await chapterViewed(data.chapterId, data.userId)
+      return response.data
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    } catch (err: any) {
+      return err.response
+    }
+  },
+)
 
 export const tutorialSlice = createSlice({
   name: 'tutorial',
