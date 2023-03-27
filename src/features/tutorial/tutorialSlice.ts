@@ -31,7 +31,17 @@ const initialState: tutorialState = {
     url: '',
     // eslint-disable-next-line camelcase
     image_url: '',
-    Chapter: [],
+    Chapter: [
+      {
+        id: 0,
+        createdAt: new Date(),
+        title: '',
+        url: '',
+        imageUrl: '',
+        tutorialId: 0,
+        ChapterToUser: [{ chapterId: -1, userId: -1 }],
+      },
+    ],
   },
   error: { messgae: '', statusCode: 0 },
   status: 'idle',
@@ -82,6 +92,28 @@ export const tutorialSlice = createSlice({
         }
       })
       .addCase(GetTutorial.rejected, (state) => {
+        state.status = 'failed'
+      })
+
+      // chapter viewed
+      .addCase(ChapterViewed.pending, (state) => {
+        state.status = 'loading'
+      })
+      .addCase(ChapterViewed.fulfilled, (state, action) => {
+        state.status = 'idle'
+        if (action.payload.success)
+          state.value.Chapter = state.value.Chapter.map((chapter) => {
+            if (chapter.id === action.payload.chapterToUser.chapterId) {
+              chapter.ChapterToUser = [action.payload.chapterToUser]
+            }
+            return chapter
+          })
+        else {
+          state.error.messgae = action.payload.data.message
+          state.error.statusCode = action.payload.status
+        }
+      })
+      .addCase(ChapterViewed.rejected, (state) => {
         state.status = 'failed'
       })
   },
