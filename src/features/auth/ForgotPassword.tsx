@@ -69,7 +69,11 @@ const ForgotPassword = () => {
               }`}
               onClick={(e) => handleSubmit(e)}
             >
-              {status === 'loading' ? <Oval height='1.2rem' strokeWidth='3' /> : 'Submit'}
+              {status === 'loading' ? (
+                <Oval className='mx-auto' height='1.2rem' strokeWidth='3' />
+              ) : (
+                'Submit'
+              )}
             </button>
           </form>
         </div>
