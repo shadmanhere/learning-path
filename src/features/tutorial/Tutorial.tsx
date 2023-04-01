@@ -75,7 +75,7 @@ const Tutorial = () => {
           <title>{tutorial.title + ' | Learning Path'}</title>
         </Helmet>
         {tutorial.Chapter.length !== 0 ? (
-          <nav className='mx-4 md:mx-0 md:mr-4 md:fixed md:w-60 h-full rounded py-2.5 text-base font-medium uppercase leading-tight text-amber-800 shadow-md transition duration-150 ease-in-out hover:shadow-lg focus:shadow-lg focus:outline-none focus:ring-0 active:shadow-lg overflow-y-auto'>
+          <nav className='mx-4 md:mx-0 md:mr-4 md:fixed md:w-60 h-5/6 rounded py-2.5 text-base font-medium uppercase leading-tight text-amber-800 shadow-md transition duration-150 ease-in-out hover:shadow-lg focus:shadow-lg focus:outline-none focus:ring-0 active:shadow-lg overflow-y-auto'>
             <ul className=''>
               <li className='mr-4 w-full rounded px-6 py-2.5 text-base font-medium uppercase leading-tight text-amber-800 shadow-md transition duration-150 ease-in-out hover:shadow-lg focus:shadow-lg focus:outline-none focus:ring-0 active:shadow-lg'>
                 Chapters
@@ -104,7 +104,7 @@ const Tutorial = () => {
                   </li>
                 )
               })}
-              <li className='md:h-32 mr-4 w-full rounded px-6 py-2.5 text-base font-medium uppercase leading-tight text-amber-800'>
+              <li className='md:h-96 mr-4 w-full rounded px-6 py-2.5 text-base font-medium uppercase leading-tight text-amber-800'>
                 &nbsp;
               </li>
             </ul>
