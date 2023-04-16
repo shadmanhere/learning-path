@@ -5,7 +5,7 @@ import { useAppDispatch, useAppSelector } from '../../app/hooks'
 import {
   resetError,
   selectFromLocation,
-  selectUser,
+  selectAuthenticated,
   SignUp,
   selectError,
   selectStatus,
@@ -32,7 +32,9 @@ const Signup = () => {
   const [passwordValMsg, setPasswordValMsg] = useState('')
   const [confirmPasswordValMsg, setConfirmPasswordValMsg] = useState('')
 
-  const user = useAppSelector(selectUser)
+  const [isSigningUp, setIsSigningUp] = useState(false)
+
+  const isAuthenticated = useAppSelector(selectAuthenticated)
   const fromLocation = useAppSelector(selectFromLocation)
   const dispatch = useAppDispatch()
   const navigate = useNavigate()
@@ -40,8 +42,9 @@ const Signup = () => {
   const status = useAppSelector(selectStatus)
 
   useEffect(() => {
-    if (user.email) navigate(fromLocation ? fromLocation : '/')
-  }, [user])
+    if (isAuthenticated && isSigningUp) navigate(fromLocation ? fromLocation : '/')
+    else if (isAuthenticated) navigate('/')
+  }, [isAuthenticated, isSigningUp])
 
   useEffect(() => {
     if (firstName !== '') validateFirstNameInput()
@@ -95,6 +98,7 @@ const Signup = () => {
   const handleSubmit = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>): void => {
     e.preventDefault()
     dispatch(SignUp({ firstName, lastName, username, email, password, confirmPassword }))
+    setIsSigningUp(true)
     dispatch(homeError())
     dispatch(pathListError())
     dispatch(learningpathError())
