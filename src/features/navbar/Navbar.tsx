@@ -46,8 +46,6 @@ const Navbar = () => {
     setCrumbs(crumbsArray as string[])
   }, [currentUrl])
 
-  console.log(crumbs)
-
   const logoutHandle = () => {
     dispatch(Logout())
     navigate('/signin')

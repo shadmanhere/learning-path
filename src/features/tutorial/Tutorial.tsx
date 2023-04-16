@@ -40,7 +40,6 @@ const Tutorial = () => {
   }, [tutorial.Chapter.length])
 
   useEffect(() => {
-    console.log(playbackDuration)
     if (Math.floor(playbackDuration) === 10 && currentChapter.id)
       dispatch(ChapterViewed({ chapterId: currentChapter.id, userId: user.id }))
   }, [playbackDuration])
