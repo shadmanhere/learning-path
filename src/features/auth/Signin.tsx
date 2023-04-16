@@ -5,7 +5,7 @@ import { useAppSelector, useAppDispatch } from '../../app/hooks'
 import {
   SignIn,
   selectFromLocation,
-  selectUser,
+  selectAuthenticated,
   resetError,
   selectStatus,
   selectError,
@@ -20,15 +20,15 @@ const Signin = () => {
   const [usernameOrEmail, setUsernameOrEmail] = useState('')
   const [password, setPassword] = useState('')
   const fromLocation = useAppSelector(selectFromLocation)
-  const user = useAppSelector(selectUser)
+  const isAuthenticated = useAppSelector(selectAuthenticated)
   const dispatch = useAppDispatch()
   const navigate = useNavigate()
   const status = useAppSelector(selectStatus)
   const error = useAppSelector(selectError)
 
   useEffect(() => {
-    if (user.email) navigate(fromLocation ? fromLocation : '/')
-  }, [user])
+    if (isAuthenticated) navigate(fromLocation ? fromLocation : '/')
+  }, [isAuthenticated])
 
   function handleSubmit(e: React.MouseEvent<HTMLButtonElement, MouseEvent>): void {
     e.preventDefault()
