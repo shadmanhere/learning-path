@@ -19,6 +19,7 @@ import { Oval } from 'react-loading-icons'
 const Signin = () => {
   const [usernameOrEmail, setUsernameOrEmail] = useState('')
   const [password, setPassword] = useState('')
+  const [isLoggingIn, setIsLoggingIn] = useState(false)
   const fromLocation = useAppSelector(selectFromLocation)
   const isAuthenticated = useAppSelector(selectAuthenticated)
   const dispatch = useAppDispatch()
@@ -27,12 +28,14 @@ const Signin = () => {
   const error = useAppSelector(selectError)
 
   useEffect(() => {
-    if (isAuthenticated) navigate(fromLocation ? fromLocation : '/')
-  }, [isAuthenticated])
+    if (isAuthenticated && isLoggingIn) navigate(fromLocation ? fromLocation : '/')
+    else if (isAuthenticated) navigate('/')
+  }, [isAuthenticated, isLoggingIn])
 
   function handleSubmit(e: React.MouseEvent<HTMLButtonElement, MouseEvent>): void {
     e.preventDefault()
     dispatch(SignIn({ usernameOrEmail, password }))
+    setIsLoggingIn(true)
     dispatch(homeError())
     dispatch(pathListError())
     dispatch(learningpathError())
