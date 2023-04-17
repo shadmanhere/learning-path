@@ -273,10 +273,10 @@ export const authSlice = createSlice({
       })
       .addCase(LoadUser.fulfilled, (state, action) => {
         state.status = 'idle'
+        state.success = true
         if (action.payload.success) {
           state.user = action.payload.user
           state.isAuthenticated = true
-          state.success = action.payload.success
         } else {
           state.error.message = action.payload.data.message
           state.error.statusCode = action.payload.status
