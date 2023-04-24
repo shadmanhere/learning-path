@@ -7,7 +7,7 @@ export interface tutorialState {
     createdAt: string
     title: string
     url: string
-    image_url: string
+    imageUrl: string
     Chapter: {
       id: number
       createdAt: Date
@@ -30,7 +30,7 @@ const initialState: tutorialState = {
     title: '',
     url: '',
     // eslint-disable-next-line camelcase
-    image_url: '',
+    imageUrl: '',
     Chapter: [
       {
         id: 0,

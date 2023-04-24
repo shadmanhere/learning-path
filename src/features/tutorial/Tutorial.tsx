@@ -31,7 +31,7 @@ const Tutorial = () => {
   const dispatch = useAppDispatch()
   useEffect(() => {
     dispatch(GetTutorial(tutorialId))
-    setCurrentChapter({ ...currentChapter, url: `https://youtu.be/${tutorialId}` })
+    // setCurrentChapter({ ...currentChapter, url: `https://youtu.be/${tutorialId}` })
   }, [])
 
   useEffect(() => {
@@ -115,14 +115,18 @@ const Tutorial = () => {
           <h1 className='capitalize mt-7 md:mt-0 px-5 py-2 mx-auto lg:pt-12 lg:px-32 text-center text-3xl md:text-4xl mb-5 font-extrabold text-rose-700'>
             {tutorial.title}
           </h1>
-          <ReactPlayer
-            url={currentChapter.url}
-            className={`${styles.videoframe} mx-4 h-80 sm:mx-auto my-10 sm:w-full max-w-2xl sm:h-96`}
-            controls={true}
-            playing={playing}
-            width={'95%'}
-            onProgress={(e) => handleProgress(e)}
-          />
+          {currentChapter.url !== '' ? (
+            <ReactPlayer
+              url={currentChapter.url}
+              className={`${styles.videoframe} mx-4 h-80 sm:mx-auto my-10 sm:w-full max-w-2xl sm:h-96`}
+              controls={true}
+              playing={playing}
+              width={'95%'}
+              onProgress={(e) => handleProgress(e)}
+            />
+          ) : (
+            <img src={tutorial.imageUrl} width='500' height='600' />
+          )}
         </div>
       </div>
     </HelmetProvider>
