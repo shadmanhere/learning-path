@@ -6,8 +6,9 @@ interface PathList {
   pathUrl: string
   pathDescription: string
   pathImage: string
+  pathDuration: string
 }
-const Path = ({ pathName, pathUrl, pathDescription, pathImage }: PathList) => {
+const Path = ({ pathName, pathUrl, pathDescription, pathImage, pathDuration }: PathList) => {
   return (
     <>
       <Link rel='noreferrer' to={pathUrl}>
@@ -22,7 +23,7 @@ const Path = ({ pathName, pathUrl, pathDescription, pathImage }: PathList) => {
               Beginner
             </span>
             <span className='inline-block rounded-full px-3 py-1 text-sm font-semibold text-gray-700'>
-              Duration: 1 week
+              Duration: {pathDuration}
             </span>
           </div>
         </div>

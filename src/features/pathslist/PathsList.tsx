@@ -24,6 +24,7 @@ const PathsList = () => {
                 pathUrl={'path/' + path.name.toLowerCase().split(' ').join('-')}
                 pathDescription={path.description}
                 pathImage={path.imageUrl}
+                pathDuration={path.duration}
               ></Paths>
             )
           })
