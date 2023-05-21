@@ -1,20 +1,9 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import { Helmet, HelmetProvider } from 'react-helmet-async'
-import { Link } from 'react-router-dom'
-import { useAppSelector, useAppDispatch } from '../../app/hooks'
-import { TutorialsList, selectTutorials, selectStatus } from './homeSlice'
 import PathsList from '../pathslist/PathsList'
 import './Home.css'
 
 const Home = () => {
-  const tutorials: { title: string; url: string; imageUrl: string }[] | null =
-    useAppSelector(selectTutorials)
-  const status = useAppSelector(selectStatus)
-  const dispatch = useAppDispatch()
-  useEffect(() => {
-    dispatch(TutorialsList())
-  }, [])
-
   return (
     <HelmetProvider>
       <div className='container mx-auto'>
