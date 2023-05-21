@@ -29,37 +29,6 @@ const Home = () => {
             <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4'>
               <PathsList />
             </div>
-            <hr className='my-4 h-0.5 w-full bg-gradient-to-r from-amber-700 via-stone-300 to-amber-700' />
-            <h2 className='font-bold text-2xl mt-4 mb-2 text-amber-800'>Tutorials</h2>
-            <div className='flex flex-wrap -m-1 md:-m-2'>
-              {status === 'idle'
-                ? tutorials?.map((tutorial, i) => {
-                    return (
-                      <div key={i} className='flex flex-wrap w-1/3 md:w-1/5'>
-                        <div className='w-full p-1 md:p-2'>
-                          <Link to={'/tutorial/' + tutorial.url.split('=')[1]}>
-                            <img
-                              alt='gallery'
-                              className='block object-cover object-center w-full h-full rounded-lg'
-                              src={tutorial.imageUrl}
-                            />
-                          </Link>
-                        </div>
-                      </div>
-                    )
-                  })
-                : [0, 1, 2, 3, 4, 5, 7, 8, 9].map((index) => {
-                    return (
-                      <div key={index} className='flex flex-wrap w-1/3 md:w-1/5 animate-pulse'>
-                        <div className='w-full p-1 md:p-2'>
-                          <a target='_blank' rel='noreferrer' href='#'>
-                            <div className='block object-cover object-center w-full h-20 md:h-40 rounded-lg bg-slate-300	'></div>
-                          </a>
-                        </div>
-                      </div>
-                    )
-                  })}
-            </div>
           </div>
         </section>
       </div>
