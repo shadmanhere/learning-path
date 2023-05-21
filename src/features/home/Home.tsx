@@ -26,7 +26,7 @@ const Home = () => {
         <section className='overflow-hidden text-gray-700 '>
           <div className='container px-5 py-2 mx-auto lg:pt-12 lg:px-32'>
             <h2 className='font-bold text-2xl mb-2 text-amber-800'>Paths</h2>
-            <div className='flex flex-wrap -m-1 md:-m-2'>
+            <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4'>
               <PathsList />
             </div>
             <hr className='my-4 h-0.5 w-full bg-gradient-to-r from-amber-700 via-stone-300 to-amber-700' />

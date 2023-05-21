@@ -3,7 +3,7 @@ import { RootState } from '../../app/store'
 import { getPathsList } from './pathsListApi'
 
 export interface pathsListState {
-  value: { name: string }[]
+  value: { name: string; imageUrl: string; description: string; duration: string }[]
   error: { messgae: string; statusCode: number }
   status: 'idle' | 'request' | 'loading' | 'failed'
 }
