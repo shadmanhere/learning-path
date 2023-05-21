@@ -1,20 +1,9 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import { Helmet, HelmetProvider } from 'react-helmet-async'
-import { Link } from 'react-router-dom'
-import { useAppSelector, useAppDispatch } from '../../app/hooks'
-import { TutorialsList, selectTutorials, selectStatus } from './homeSlice'
 import PathsList from '../pathslist/PathsList'
 import './Home.css'
 
 const Home = () => {
-  const tutorials: { title: string; url: string; imageUrl: string }[] | null =
-    useAppSelector(selectTutorials)
-  const status = useAppSelector(selectStatus)
-  const dispatch = useAppDispatch()
-  useEffect(() => {
-    dispatch(TutorialsList())
-  }, [])
-
   return (
     <HelmetProvider>
       <div className='container mx-auto'>
@@ -26,39 +15,8 @@ const Home = () => {
         <section className='overflow-hidden text-gray-700 '>
           <div className='container px-5 py-2 mx-auto lg:pt-12 lg:px-32'>
             <h2 className='font-bold text-2xl mb-2 text-amber-800'>Paths</h2>
-            <div className='flex flex-wrap -m-1 md:-m-2'>
+            <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4'>
               <PathsList />
-            </div>
-            <hr className='my-4 h-0.5 w-full bg-gradient-to-r from-amber-700 via-stone-300 to-amber-700' />
-            <h2 className='font-bold text-2xl mt-4 mb-2 text-amber-800'>Tutorials</h2>
-            <div className='flex flex-wrap -m-1 md:-m-2'>
-              {status === 'idle'
-                ? tutorials?.map((tutorial, i) => {
-                    return (
-                      <div key={i} className='flex flex-wrap w-1/3 md:w-1/5'>
-                        <div className='w-full p-1 md:p-2'>
-                          <Link to={'/tutorial/' + tutorial.url.split('=')[1]}>
-                            <img
-                              alt='gallery'
-                              className='block object-cover object-center w-full h-full rounded-lg'
-                              src={tutorial.imageUrl}
-                            />
-                          </Link>
-                        </div>
-                      </div>
-                    )
-                  })
-                : [0, 1, 2, 3, 4, 5, 7, 8, 9].map((index) => {
-                    return (
-                      <div key={index} className='flex flex-wrap w-1/3 md:w-1/5 animate-pulse'>
-                        <div className='w-full p-1 md:p-2'>
-                          <a target='_blank' rel='noreferrer' href='#'>
-                            <div className='block object-cover object-center w-full h-20 md:h-40 rounded-lg bg-slate-300	'></div>
-                          </a>
-                        </div>
-                      </div>
-                    )
-                  })}
             </div>
           </div>
         </section>

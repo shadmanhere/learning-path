@@ -11,7 +11,8 @@ const PathsList = () => {
     dispatch(GetPathsList())
   }, [])
 
-  const listOfPaths: { name: string }[] = useAppSelector(selectPathsList)
+  const listOfPaths: { name: string; imageUrl: string; description: string; duration: string }[] =
+    useAppSelector(selectPathsList)
   return (
     <>
       {status === 'idle'
@@ -21,6 +22,9 @@ const PathsList = () => {
                 key={i}
                 pathName={path.name}
                 pathUrl={'path/' + path.name.toLowerCase().split(' ').join('-')}
+                pathDescription={path.description}
+                pathImage={path.imageUrl}
+                pathDuration={path.duration}
               ></Paths>
             )
           })
