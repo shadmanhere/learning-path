@@ -7,7 +7,15 @@ export interface pathState {
     name: string
     Section: {
       name: string
-      SectionToTutorial: { Tutorial: { title: string; url: string; imageUrl: string } }[]
+      SectionToTutorial: {
+        Tutorial: {
+          title: string
+          url: string
+          imageUrl: string
+          duration: number
+          description: string
+        }
+      }[]
     }[]
   }[]
   error: { messgae: string; statusCode: number }
