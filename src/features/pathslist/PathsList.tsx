@@ -28,13 +28,19 @@ const PathsList = () => {
               ></Paths>
             )
           })
-        : [0, 1, 2].map((i) => {
+        : [0, 1, 2, 4].map((i) => {
             return (
-              <div key={i} className='flex flex-wrap w-1/3 animate-pulse'>
-                <div className='w-full p-1 md:p-2'>
-                  <a target='_blank' rel='noreferrer' href='#'>
-                    <div className='block object-cover object-center w-full h-20 md:h-10 rounded-lg bg-slate-300	'></div>
-                  </a>
+              <div key={i} className='animate-pulse'>
+                <div className='max-w-xs sm:max-w-sm bg-slate-200 rounded-lg overflow-hidden shadow-md h-full flex flex-col'>
+                  <div className='w-full h-48 bg-slate-300'></div>
+                  <div className='flex-grow p-4'>
+                    <h2 className='text-xl font-bold mb-2 h-5 bg-slate-300'></h2>
+                    <p className='text-gray-700 text-base h-16 bg-slate-300'></p>
+                  </div>
+                  <div className='flex items-center justify-between px-4 py-2 bg-gray-200'>
+                    <span className='inline-block w-10 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 h-5 bg-slate-300'></span>
+                    <span className='inline-block w-10 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 h-5 bg-slate-300'></span>
+                  </div>
                 </div>
               </div>
             )
