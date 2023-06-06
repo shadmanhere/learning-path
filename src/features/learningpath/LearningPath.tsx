@@ -4,9 +4,17 @@ import { Helmet, HelmetProvider } from 'react-helmet-async'
 import { useAppSelector, useAppDispatch } from '../../app/hooks'
 import { Path, selectPath, selectStatus } from './learningpathSlice'
 
+import './LearningPath.css'
+
 const LearningPath = () => {
   interface tutorialsInterface {
-    Tutorial: { title: string; url: string; imageUrl: string }
+    Tutorial: {
+      title: string
+      url: string
+      imageUrl: string
+      duration: number
+      description: string
+    }
   }
   const path:
     | {
@@ -63,17 +71,35 @@ const LearningPath = () => {
                         <hr className='my-6 mx-4 bg-gradient-to-r from-amber-700 h-0.5 w-full' />
                       </div>
 
-                      <div className='flex flex-wrap -m-1 md:-m-2 max-h-80 overflow-y-scroll'>
+                      <div className='flex flex-wrap -m-1 md:-m-2 overflow-y-scroll section'>
                         {step.SectionToTutorial?.map((tutorial, index) => {
                           return (
-                            <div key={index} className='flex flex-wrap w-1/3 md:w-1/5'>
+                            <div key={index} className='flex flex-wrap w-full md:w-1/5'>
                               <div className='w-full p-1 md:p-2'>
                                 <Link to={'tutorial/' + tutorial.Tutorial.url.split('=')[1]}>
-                                  <img
-                                    alt='gallery'
-                                    className='block object-cover object-center w-full h-full rounded-lg'
-                                    src={tutorial.Tutorial.imageUrl}
-                                  />
+                                  <div className='max-w-xs sm:max-w-sm bg-white rounded-lg overflow-hidden shadow-md h-full flex flex-col'>
+                                    <img
+                                      className='w-full h-48 object-fit'
+                                      src={tutorial.Tutorial.imageUrl}
+                                      alt='Course Image'
+                                    />
+                                    <div className='flex-grow p-4'>
+                                      <h2 className='text-xl font-bold mb-2'>
+                                        {tutorial.Tutorial.title}
+                                      </h2>
+                                      <p className='text-gray-700 text-base'>
+                                        {tutorial.Tutorial.description}
+                                      </p>
+                                    </div>
+                                    <div className='flex items-center justify-between px-4 py-2 bg-gray-200'>
+                                      <span className='inline-block rounded-full px-3 py-1 text-sm font-semibold text-gray-700'>
+                                        Beginner
+                                      </span>
+                                      <span className='inline-block rounded-full px-3 py-1 text-sm font-semibold text-gray-700'>
+                                        Duration: {tutorial.Tutorial.duration}
+                                      </span>
+                                    </div>
+                                  </div>
                                 </Link>
                               </div>
                             </div>
