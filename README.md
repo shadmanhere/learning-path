@@ -5,6 +5,9 @@
 ## Backend Repository
 [https://github.com/shadmanhere/learning-path-api](https://github.com/shadmanhere/learning-path-api)
 
+## Demo
+[https://www.youtube.com/watch?v=378Rc1IYh5E](https://www.youtube.com/watch?v=378Rc1IYh5E)
+
 
 ## API Documentaion
 [https://documenter.getpostman.com/view/17518418/2s8Z73yB41](https://documenter.getpostman.com/view/17518418/2s8Z73yB41)
